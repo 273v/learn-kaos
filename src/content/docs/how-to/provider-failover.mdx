@@ -1,0 +1,31 @@
+---
+title: Fail over across providers
+description: Hedge LLM calls across providers — retry on a backup when the primary fails.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/provider-failover.py?raw';
+
+**Goal:** keep working when a provider has an outage or rate-limits you. `FallbackClient`
+wraps an ordered list of clients and transparently retries the next one on a recoverable
+error — behind the same `client.chat(...)` interface.
+
+This runs offline: the "primary" raises, the "backup" answers. Same shape with real
+providers (just build the list with `create_client("anthropic:...")`,
+`create_client("openai:...")`).
+
+```bash
+uv run examples/provider-failover.py
+```
+
+<Code code={src} lang="python" title="examples/provider-failover.py" />
+
+**Notes**
+
+- `FallbackClient([primary, backup, ...])` tries clients in order; `fallback_on`
+  controls which exception types trigger a fallback (provider, transport, and
+  retry-exhausted errors by default).
+- Compose it with `InstrumentedClient` to log/measure each attempt.
+- For *cost* control rather than *availability*, use a `Budget`
+  (`max_cost_usd` / `max_trials` / `max_tokens`) — see
+  [cost as a contract](/concepts/cost-as-a-contract).

@@ -133,6 +133,18 @@ est_cost_usd = 0.0
 tutorial = "how-to/generate-session-names"
 
 [[example]]
+id = "provider-failover"
+title = "Fail over across providers"
+summary = "Retry on a backup LLM provider when the primary errors — same chat interface."
+packages = ["kaos-llm-client"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/provider-failover"
+
+[[example]]
 id = "grounded-citations"
 title = "Verify a citation"
 summary = "Check that a claim's quote really appears in its source — catch a hallucinated citation."
