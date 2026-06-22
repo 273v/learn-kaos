@@ -83,3 +83,27 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "tutorials/oneliner-to-call-to-program"
+
+[[example]]
+id = "bm25-search"
+title = "Rank text with BM25"
+summary = "Fast, offline lexical retrieval — rank sentences against a query the way agents retrieve context."
+packages = ["kaos-nlp-core"]
+persona = "builder"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/search-text-with-bm25"
+
+[[example]]
+id = "names-seeded"
+title = "Friendly session handles"
+summary = "Generate readable, deterministic identifiers like silky-commissioner-04 for sessions and agents."
+packages = ["kaos-names"]
+persona = "builder"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/generate-session-names"

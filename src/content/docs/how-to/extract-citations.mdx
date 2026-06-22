@@ -1,0 +1,27 @@
+---
+title: Extract legal citations
+description: Pull typed, normalized legal citations out of text with kaos-citations.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/citations-extract.py?raw';
+
+**Goal:** find and normalize the legal citations in a piece of text, with their exact
+positions — so you can link, verify, or index them. Pure-Python, deterministic, offline.
+
+`kaos-citations` recognizes ~60 typed citation kinds across legal, financial,
+accounting, and identifier domains. `extract_citations(text)` returns typed objects.
+
+```bash
+uv run examples/citations-extract.py
+```
+
+<Code code={src} lang="python" title="examples/citations-extract.py" />
+
+**Notes**
+
+- Each result has a `kind`, the `raw` matched text, a `normalized` form, and an
+  absolute `(start, end)` `span` into the input.
+- Pass `kinds=[...]` to restrict extraction to specific citation families.
+- The same engine backs the agent's citation **verification** — checking that a quoted
+  span actually appears in the cited source.

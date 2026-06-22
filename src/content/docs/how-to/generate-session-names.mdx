@@ -1,0 +1,26 @@
+---
+title: Generate friendly session handles
+description: Produce readable, deterministic identifiers for sessions and agents.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/names-seeded.py?raw';
+
+**Goal:** give sessions and agents human-friendly names like `silky-commissioner-04`
+instead of opaque UUIDs — and make them **deterministic** in tests.
+
+Use `kaos-names`. Call `generate_name()` for a random handle, or pass a seeded
+`random.Random` for a reproducible one.
+
+```bash
+uv run examples/names-seeded.py
+```
+
+<Code code={src} lang="python" title="examples/names-seeded.py" />
+
+**Notes**
+
+- Pass `rng=random.Random(seed)` for deterministic output — invaluable for stable test
+  fixtures and reproducible logs.
+- `generate_session_name(...)` is a session-flavored alias; `separator`, `number_min`,
+  `number_max`, and the descriptor/noun word lists are all configurable.

@@ -31,6 +31,8 @@ EXPECTED: dict[str, str] = {
     "build-a-document": "# Lease Agreement",
     "functionclient-chat": "FAKE MODEL SAYS: HELLO, KAOS",
     "typed-call-offline": "parties: ['Acme Corp', 'Globex LLC']",
+    "bm25-search": "Rent is due monthly",
+    "names-seeded": "silky-commissioner-04",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

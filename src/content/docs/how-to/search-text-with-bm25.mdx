@@ -1,0 +1,27 @@
+---
+title: Search text with BM25
+description: Rank sentences against a query with offline, deterministic BM25 retrieval.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/bm25-search.py?raw';
+
+**Goal:** find the most relevant sentences in a block of text for a query — the same
+lexical retrieval agents use to assemble context. No model, no key, deterministic.
+
+Use `kaos-nlp-core`'s `search_sentences(text, query)`, which segments the text and
+ranks the sentences with BM25.
+
+```bash
+uv run examples/bm25-search.py
+```
+
+<Code code={src} lang="python" title="examples/bm25-search.py" />
+
+**Notes**
+
+- `search_sentences` returns `SegmentHit`s with the matched `text`, a BM25 `score`,
+  and the `start`/`end` character span in the source.
+- For multi-document corpora, use `Searcher.from_documents(...)` instead.
+- BM25 is KAOS's **default** retrieval strategy in agents — see the concept page on
+  why plain BM25 beats fancier schemes cross-domain (landing soon).

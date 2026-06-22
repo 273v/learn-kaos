@@ -1,0 +1,24 @@
+---
+title: Build and rank a graph
+description: Construct a directed graph and rank its nodes with PageRank using kaos-graph.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/graph-pagerank.py?raw';
+
+**Goal:** build a graph and find its most central nodes. `kaos-graph` is a Rust
+(petgraph) engine with 40+ algorithms; here we use PageRank. Deterministic, offline.
+
+```bash
+uv run examples/graph-pagerank.py
+```
+
+<Code code={src} lang="python" title="examples/graph-pagerank.py" />
+
+**Notes**
+
+- `pagerank(graph)` returns `NodeRank(node_id, score)` entries, highest first.
+- Other algorithms live alongside it: `degree_centrality`, `betweenness_centrality`,
+  `shortest_paths`, `topological_sort`, connectivity, cycles, and more.
+- KAOS agents build a per-session knowledge graph (PROV-O + citations) you can query
+  with these same algorithms plus SPARQL — covered in the agents track (soon).
