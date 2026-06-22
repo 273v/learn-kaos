@@ -1,0 +1,29 @@
+---
+title: Extract contract definitions
+description: Pull the defined-terms glossary out of a contract document.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/contract-definitions.py?raw';
+
+**Goal:** get the defined terms ("Confidential Information" means ...) out of a contract —
+the first thing a reviewer or a knowledge-management pipeline indexes. `kaos-content`
+tracks definitions in the document model, so `document_definitions()` returns a clean
+`term -> definition` glossary. Deterministic, offline.
+
+```bash
+uv run examples/contract-definitions.py
+```
+
+<Code code={src} lang="python" title="examples/contract-definitions.py" />
+
+**Notes**
+
+- This builds the document by hand to show the model. In practice the document comes from
+  an extractor — `kaos-pdf`, `kaos-office`, or `kaos-web` — which produces the same AST,
+  so `document_definitions()` works regardless of the original format.
+- Related extractors over the same AST: `document_outline` (headings + block refs),
+  `find_tables`, `find_links`, `document_tables_summary`.
+- This is the building block for the contract-knowledge-management workflow: extract
+  definitions across a whole corpus, find the most common terms, and flag deviations in
+  new contracts.

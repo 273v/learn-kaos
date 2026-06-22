@@ -130,4 +130,40 @@ level = "intro"
 offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
+
+[[example]]
+id = "grounded-citations"
+title = "Verify a citation"
+summary = "Check that a claim's quote really appears in its source — catch a hallucinated citation."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/grounded-citations"
+
+[[example]]
+id = "sql-analytics"
+title = "SQL over billing data"
+summary = "Register a CSV and run DuckDB SQL — roll up legal invoices by timekeeper, fully offline."
+packages = ["kaos-tabular"]
+persona = "builder"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/run-sql-analytics"
+
+[[example]]
+id = "contract-definitions"
+title = "Extract contract definitions"
+summary = "Pull the defined-terms glossary out of a contract document — the backbone of contract review."
+packages = ["kaos-content"]
+persona = "builder"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/extract-contract-definitions"
 tutorial = "how-to/generate-session-names"

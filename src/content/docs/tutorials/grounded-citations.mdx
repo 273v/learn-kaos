@@ -1,0 +1,68 @@
+---
+title: Grounded citations
+description: Make answers prove themselves — verify a claim's quote against its source, and reject hallucinations.
+sidebar:
+  order: 7
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/grounded-citations.py?raw';
+
+An agent that answers questions over your documents is only useful if you can **trust**
+the answers. KAOS's stance: an answer isn't just text — it's a claim **with a span**
+pointing at the exact source quote, and that span is **verified** against the source. A
+quote that isn't really there fails verification, so a fabricated citation is *caught*
+instead of trusted.
+
+This is the foundation of KAOS's grounded findings — and it's pure and deterministic
+(`Span.verify`), so it runs offline with no key.
+
+## Run it
+
+```bash
+uv run examples/grounded-citations.py
+```
+
+```text
+  GROUNDED  ✓  — claim: 'rent is paid monthly'
+  REJECTED  ✗ (quote not in source)  — claim: 'the lease runs ten years'
+```
+
+The real quote verifies; the plausible-but-fabricated one is rejected.
+
+## The code
+
+<Code code={src} lang="python" title="examples/grounded-citations.py" />
+
+## What to notice
+
+- **A `Span` is a verifiable citation.** It carries the `quote` the model claims to have
+  found and the `char_span` where it claims to be. `span.verify(source_text)` checks the
+  quote *actually appears* — returning `True` or `False`, deterministically.
+- **Hallucinations fail closed.** The second claim sounds reasonable, but its quote isn't
+  in the source, so it's rejected. This is how grounded agents avoid confidently citing
+  things that were never said.
+- **This scales up.** `Cited[T]` wraps a typed value with its supporting spans, and
+  `validate_cited_output(output, corpus)` verifies a whole structured answer against a
+  corpus at once. The research agent uses exactly this to refuse when evidence is weak
+  rather than guess.
+
+## How this fits the agent
+
+In a full research agent, the LLM **generates** the answer and its spans (one
+[typed call](/tutorials/oneliner-to-call-to-program) away), and this verification step
+**checks** them against the retrieved corpus — generation and verification are separate,
+so a wrong citation can't slip through. The generation half is faked offline with a
+[FunctionClient](/tutorials/offline-llm-with-functionclient); the verification half, shown
+here, is real either way.
+
+## Next
+
+You've seen the trust mechanism. The [capstone](/tutorials/build-an-app) assembles the
+whole stack into a running application.
+
+:::note
+A full end-to-end `ResearchAgent` over a multi-document corpus (retrieve → answer →
+verify → refuse) is the next example on the roadmap; the verification contract it relies
+on is exactly what you ran above.
+:::

@@ -1,0 +1,29 @@
+---
+title: Run SQL over your data
+description: Register a CSV / Parquet / JSON file and query it with DuckDB SQL — offline.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/sql-analytics.py?raw';
+
+**Goal:** run real SQL over a data file — billing invoices, deal data, a CSV export —
+without standing up a database. `kaos-tabular` wraps DuckDB: register a file as a table,
+then query it. Fully offline and deterministic.
+
+This example rolls up legal billing data by timekeeper — the shape of post-bill invoice
+analytics over LEDES data.
+
+```bash
+uv run examples/sql-analytics.py
+```
+
+<Code code={src} lang="python" title="examples/sql-analytics.py" />
+
+**Notes**
+
+- `register_file(path, table_name=...)` accepts CSV, Parquet, JSON, XLSX, and SQLite.
+  `register_document(...)` registers an in-memory KAOS document/table.
+- `execute(sql)` returns a `Table` with `.rows`, `.column_names`, and `.row_count`. There
+  are also typed helpers: `aggregate`, `pivot`, `join`, `filter`, `describe_table`,
+  `find_duplicates`, `correlation`.
+- Results are bounded (`max_rows`) so a huge query can't blow up memory.

@@ -29,7 +29,8 @@ each tutorial builds on the last, all runnable offline:
 4. [Your first model call](/tutorials/first-model-call)
 5. [From a one-liner to a typed program](/tutorials/oneliner-to-call-to-program)
 6. [Your first agent](/tutorials/first-agent)
-7. Research agent with citations _(soon)_ → Build an app _(soon)_
+7. [Grounded citations](/tutorials/grounded-citations)
+8. [Build an app](/tutorials/build-an-app) (capstone)
 
 ## "I have a specific task"
 
