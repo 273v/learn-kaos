@@ -42,6 +42,10 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'how-to' } }],
         },
         {
+          label: 'Concepts',
+          items: [{ autogenerate: { directory: 'concepts' } }],
+        },
+        {
           label: 'Examples gallery',
           items: [{ label: 'Gallery', slug: 'gallery' }],
         },

@@ -25,6 +25,9 @@ DOCS = ROOT / "src" / "content" / "docs"
 
 # import <name> from '<spec>?raw';
 IMPORT_RE = re.compile(r"""from\s+['"]([^'"]+?)\?raw['"]""")
+# Fenced code blocks contain *documentation* of import syntax, not real
+# imports — strip them before scanning so examples in prose don't trip the check.
+FENCE_RE = re.compile(r"^```.*?^```", re.DOTALL | re.MULTILINE)
 
 ALIASES = {"#examples": ROOT / "examples", "#snippets": ROOT / "snippets"}
 
@@ -44,7 +47,7 @@ def main() -> int:
     problems: list[str] = []
     checked = 0
     for page in sorted(DOCS.rglob("*.mdx")):
-        text = page.read_text(encoding="utf-8")
+        text = FENCE_RE.sub("", page.read_text(encoding="utf-8"))
         for spec in IMPORT_RE.findall(text):
             checked += 1
             target = resolve(spec, page)

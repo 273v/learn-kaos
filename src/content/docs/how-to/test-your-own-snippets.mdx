@@ -1,0 +1,72 @@
+---
+title: Write a tested example
+description: How to add a new one-command example that runs offline and is checked in CI.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/functionclient-chat.py?raw';
+
+**Goal:** add a new example to Learn KAOS that runs with one command, stays offline,
+and is verified in CI — the contract every example here follows.
+
+## 1. Write a self-contained PEP 723 script
+
+Put it in `examples/<id>.py`. Declare its dependencies inline so `uv run` resolves them
+with no virtualenv. End with `assert`s so the file is **its own test**.
+
+If it calls an LLM, use `FunctionClient` for the offline path and gate the live path on
+`KAOS_LEARN_LIVE` — exactly like the canonical seam example:
+
+<Code code={src} lang="python" title="examples/functionclient-chat.py" />
+
+## 2. Register it in the manifest
+
+Add one entry to `examples/index.toml`. This drives the gallery card, the
+`kaos-learn` launcher, and CI:
+
+```toml
+[[example]]
+id = "my-example"
+title = "My example"
+summary = "One line describing what it shows."
+packages = ["kaos-core"]
+persona = "builder"
+level = "intro"
+offline_ok = true   # true => runs in offline CI (no key)
+needs_key = false
+est_cost_usd = 0.0
+```
+
+## 3. Add an acceptance marker
+
+In `tests/test_examples.py`, add the expected stdout substring so CI asserts the
+example *produces the right output*, not just a zero exit:
+
+```python
+EXPECTED = {
+    # ...
+    "my-example": "the text it should print",
+}
+```
+
+## 4. Reference it from a page (optional)
+
+To show the code on a docs page, import the file with `?raw` and render it — so what's
+shown is exactly what's tested:
+
+```mdx
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/my-example.py?raw';
+
+<Code code={src} lang="python" title="examples/my-example.py" />
+```
+
+## What CI enforces
+
+- **examples-smoke** runs `uv run` on every `examples/*.py`.
+- **snippets-test** runs the pytest harness (exit code + your acceptance marker).
+- **embed-check** fails if a page `?raw`-imports a file that doesn't exist.
+- **site-build** builds the site (and validates internal links).
+
+All offline — no API keys in CI. If your example needs a key, set `needs_key = true`
+and it's skipped in offline CI and only run on the opt-in live path.
