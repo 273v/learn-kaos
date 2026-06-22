@@ -371,3 +371,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/pause-and-resume"
+
+[[example]]
+id = "export-otel"
+title = "Trace with OpenTelemetry"
+summary = "OTelHook emits standard OTel spans for an agent turn — captured offline with an in-memory exporter."
+packages = ["kaos-agents"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/export-otel"

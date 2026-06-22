@@ -1,0 +1,33 @@
+---
+title: Trace an agent with OpenTelemetry
+description: Emit standard OTel spans for agent turns, tool calls, and steps.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/export-otel.py?raw';
+
+**Goal:** see what your agent did in the same tracing tools you already use for services.
+A KAOS agent turn is an [event stream](/concepts/events-and-spans); `OTelHook` maps those
+events onto standard **OpenTelemetry spans** — turns, tool calls, steps — so there's no
+bespoke observability layer to build.
+
+This example captures the spans with an in-memory exporter to prove they're emitted; in
+production you'd point an OTLP exporter at your collector. Runs offline via the
+[FunctionClient substitution](/tutorials/first-agent).
+
+```bash
+uv run examples/export-otel.py
+```
+
+<Code code={src} lang="python" title="examples/export-otel.py" />
+
+**Notes**
+
+- Add `OTelHook()` to the `Runner`'s `hooks` tuple — that's the whole integration. It
+  consumes the same [event stream](/concepts/events-and-spans) every other hook does.
+- The spans map directly onto KAOS's `Span(subject, phase)` model: `agent.turn`,
+  `agent.intent_classification`, tool calls, sub-agent lifecycle. Nesting and durations come
+  along.
+- Needs the `[otel]` extra (`kaos-agents[otel]`) plus an OpenTelemetry SDK + exporter.
+- This is the live-tracing counterpart to the durable [audit trail](/concepts/the-audit-trail):
+  OTel for operational observability, the audit trail for a durable, redacted record.
