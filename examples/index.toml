@@ -383,3 +383,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/export-otel"
+
+[[example]]
+id = "cap-cost"
+title = "Cap LLM cost"
+summary = "A Budget bounds a run by cost/tokens/trials/time and stops at the ceiling — offline."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/cap-llm-cost"

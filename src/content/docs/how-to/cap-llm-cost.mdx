@@ -1,0 +1,32 @@
+---
+title: Cap LLM cost
+description: Bound a run's spend with a Budget — refuse further work at the ceiling.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/cap-cost.py?raw';
+
+**Goal:** make sure a multi-step program or agent can't surprise you with a big bill. A
+`Budget` bounds a run by **cost**, **tokens**, **trials**, or **wall-clock time**, and
+enforces it *before* spend happens — the run stops at the ceiling instead of blowing past
+it.
+
+This example drives a `BudgetTracker` directly to show enforcement; in a program or agent
+you pass the `Budget` and the framework consumes it for you. Offline and deterministic.
+
+```bash
+uv run examples/cap-cost.py
+```
+
+<Code code={src} lang="python" title="examples/cap-cost.py" />
+
+**Notes**
+
+- `Budget(max_cost_usd=..., max_tokens=..., max_trials=..., max_wall_seconds=...)` — set any
+  combination of limits. `make_tracker().exhausted()` returns a `StopReason` (e.g.
+  `budget_cost`) once a limit is crossed, or `None` while there's room.
+- Pass a `Budget` to an [agent](/tutorials/first-agent) (`max_cost_usd=...`), an
+  [optimizer](/how-to/optimize-a-program), or a plan — the run refuses to continue at the
+  ceiling. See [cost as a contract](/concepts/cost-as-a-contract).
+- Cascade and Pareto strategies spend the cheap model first and escalate only when needed,
+  so you stay under budget *and* get the quality you pay for.
