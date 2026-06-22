@@ -203,3 +203,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/research-over-a-corpus"
+
+[[example]]
+id = "pdf-extract"
+title = "Extract a PDF"
+summary = "Turn a PDF into the document AST with kaos-pdf — self-contained (generates its own PDF), offline."
+packages = ["kaos-pdf", "kaos-content"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/ingest-a-pdf"

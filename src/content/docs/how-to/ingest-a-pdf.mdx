@@ -1,0 +1,31 @@
+---
+title: Extract a PDF
+description: Turn a PDF into the KAOS document AST with kaos-pdf.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/pdf-extract.py?raw';
+
+**Goal:** turn a PDF into the [document AST](/concepts/one-document-model) — with
+page/position provenance — so search, LLM programs, agents, and citations can work on it.
+
+`kaos-pdf` does this via `parse_pdf(path)`. To stay self-contained and offline, the
+example *generates* a small PDF (pure-Python `fpdf2`), then extracts it — no committed
+binary, no network. With a real document, point `parse_pdf` at its path.
+
+```bash
+uv run examples/pdf-extract.py
+```
+
+<Code code={src} lang="python" title="examples/pdf-extract.py" />
+
+**Notes**
+
+- `parse_pdf` returns a `ContentDocument` — the same shape `kaos-office`, `kaos-web`, and
+  `kaos-tabular` produce.
+- It has rich options: `detect_headings`, `extract_tables`, `pages=[...]` for a subset,
+  and `ocr=` modes for scanned documents (with `[nlp]`/OCR engines).
+- Other `kaos-pdf` surfaces: `search`, `outline`, `render` (page → PNG), `info`/metadata,
+  and page classification (text vs. scanned).
+- PDFium runs under a global lock for thread-safety; extraction is offloaded to a thread
+  pool for async callers.
