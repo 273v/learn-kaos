@@ -27,6 +27,8 @@ export default defineConfig({
           label: 'Start here',
           items: [
             { label: 'What is KAOS?', slug: 'what-is-kaos' },
+            { label: 'How KAOS fits together', slug: 'architecture' },
+            { label: 'Pick your path', slug: 'learning-paths' },
             { label: 'Install', slug: 'get-started/install' },
             { label: 'Your first example', slug: 'get-started/first-example' },
           ],
