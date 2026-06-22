@@ -1,0 +1,80 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  examples-smoke:
+    # Run every PEP 723 example. Offline examples must pass with no secrets
+    # (CI has none); each example self-checks via asserts.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - name: Run all examples (offline)
+        run: |
+          set -euo pipefail
+          for f in examples/*.py; do
+            echo "::group::uv run $f"
+            uv run "$f"
+            echo "::endgroup::"
+          done
+
+  snippets-test:
+    # Pytest over examples + (later) doc snippets — the "tested snippets" gate.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: uv run --with pytest pytest tests/ -q
+
+  embed-check:
+    # Every `?raw` import in the docs must point at a real file.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python3 scripts/embed_check.py
+
+  reference-gen:
+    # Regenerate generated Reference pages; fail if the committed copy is stale.
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python3 scripts/gen_reference.py
+      - name: No uncommitted reference drift
+        run: git diff --exit-code
+
+  site-build:
+    # Build the Astro Starlight site (also validates internal links).
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm build

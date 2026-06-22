@@ -1,0 +1,37 @@
+# Examples gallery manifest — single source of truth for the gallery page,
+# the `kaos-learn` launcher, and CI. One [[example]] per runnable script.
+#
+# Fields:
+#   id           stable slug (also the filename stem)
+#   title        human title for the gallery card
+#   summary      one-line description
+#   packages     kaos-* packages the example exercises
+#   persona      primary audience (evaluator | builder | tutorial | reference | ...)
+#   level        intro | core | advanced
+#   offline_ok   true = runs in CI with no key/network/model
+#   needs_key    true = requires an LLM provider API key (live only)
+#   est_cost_usd estimate per run on the live path (0 for offline)
+#   tutorial     optional slug of the tutorial that walks through it
+
+[[example]]
+id = "citations-extract"
+title = "Extract legal citations"
+summary = "Pull typed, normalized legal citations out of plain text — pure-Python, deterministic."
+packages = ["kaos-citations"]
+persona = "evaluator"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "get-started/first-example"
+
+[[example]]
+id = "graph-pagerank"
+title = "Rank a graph with PageRank"
+summary = "Build a tiny directed graph and rank its nodes — Rust-backed, byte-for-byte stable."
+packages = ["kaos-graph"]
+persona = "evaluator"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0

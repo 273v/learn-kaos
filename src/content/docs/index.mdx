@@ -1,0 +1,50 @@
+---
+title: Learn KAOS
+description: Tested, multi-learner docs and one-command runnable examples for the open-source KAOS (Kelvin Agentic OS) ecosystem.
+template: splash
+hero:
+  tagline: Open agentic infrastructure for legal and financial work — learn it by running it. Every example on this site is a single command, and every snippet is tested.
+  actions:
+    - text: Run your first example
+      link: /get-started/first-example
+      icon: right-arrow
+    - text: What is KAOS?
+      link: /what-is-kaos
+      icon: open-book
+      variant: minimal
+---
+
+import { Card, CardGrid } from '@astrojs/starlight/components';
+
+## Pick your path
+
+<CardGrid>
+	<Card title="Just show me it works" icon="rocket">
+		Run a deterministic sample in ~10 seconds — no API key, no setup.
+		Start with [your first example](/get-started/first-example), then browse
+		the [gallery](/gallery).
+	</Card>
+	<Card title="Teach me, step by step" icon="open-book">
+		Follow the guided tutorial spine from [What is KAOS?](/what-is-kaos)
+		onward — each tutorial builds on the last, all runnable offline.
+	</Card>
+	<Card title="I have a task to do" icon="wrench">
+		Jump to a how-to recipe (ingest a PDF, cap LLM cost, extract citations).
+		_Cookbook lands in M1._
+	</Card>
+	<Card title="I want the facts" icon="list-format">
+		Generated reference for every package — API, CLI, MCP tools, settings.
+		_Reference lands in M1._
+	</Card>
+</CardGrid>
+
+## Why this site is different
+
+- **One command per example.** Every sample is a self-contained
+  [PEP 723](https://peps.python.org/pep-0723/) script — `uv run examples/<name>.py`,
+  no clone, no virtualenv juggling.
+- **Tested, not aspirational.** The code you see is imported byte-for-byte from a
+  file that runs in CI. If a snippet would break, the build fails.
+- **Offline by default.** LLM examples use a deterministic in-process fake model,
+  so they run for free with no API keys — and switch to a real provider with one
+  environment variable.

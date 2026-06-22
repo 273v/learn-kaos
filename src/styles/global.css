@@ -1,0 +1,10 @@
+/* Tailwind v4 + Starlight glue.
+ * Layer order matters: Starlight's own styles must win over Tailwind's
+ * base reset, so `base` is declared before `starlight`. The
+ * @astrojs/starlight-tailwind bridge maps Tailwind's color tokens onto
+ * Starlight's CSS variables. Verify this incantation against the current
+ * @astrojs/starlight-tailwind README when bumping major versions. */
+@layer base, starlight, theme, components, utilities;
+
+@import '@astrojs/starlight-tailwind';
+@import 'tailwindcss';
