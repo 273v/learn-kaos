@@ -1,0 +1,51 @@
+---
+title: Serve tools over MCP
+description: Expose a KAOS runtime's tools to any MCP client with kaos-mcp.
+sidebar:
+  order: 9
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/serve-over-mcp.py?raw';
+
+KAOS is MCP-native, so any runtime you build can be **served to an AI client** — Claude
+Code, Codex, or your own — with no extra wiring. `kaos-mcp` is the
+[bridge](/concepts/the-mcp-bridge): it exposes whatever tools you mount on it.
+
+This example registers tools on a runtime and builds the bridge, showing exactly which
+tools it would serve. (It doesn't start the long-running server, so it stays offline; in
+practice you'd call `server.run_stdio()` or serve over `--http`.)
+
+## Run it
+
+```bash
+uv run examples/serve-over-mcp.py
+```
+
+```text
+runtime has 2 tool(s): ['kaos-demo-echo', 'kaos-demo-wordcount']
+bridge built; to serve them, call server.run_stdio() (or --http).
+would expose over MCP: ['kaos-demo-echo', 'kaos-demo-wordcount']
+```
+
+## The code
+
+<Code code={src} lang="python" title="examples/serve-over-mcp.py" />
+
+## What to notice
+
+- **The bridge holds no tools of its own.** `KaosMCPServer(runtime)` exposes *your*
+  runtime's tools — load `kaos-pdf` + `kaos-source`, the full agent stack, or your own
+  tools, and that's exactly what the client sees.
+- **Two transports.** `run_stdio()` for desktop AI clients that spawn a subprocess;
+  `run_streamable_http()` (`--http`) for network serving — which
+  [requires an auth token](/concepts/session-enforcement).
+- **Tool annotations carry over.** A `readOnlyHint` tool an agent would auto-allow is
+  exposed with that metadata intact, so the consuming client can reason about safety.
+
+## In practice
+
+Each package also ships its own server (`kaos-pdf-serve`, `kaos-agents-serve`, …) — those
+are `kaos-mcp` mounting that package's runtime for you. Point a serve command at an MCP
+client to make KAOS tools available inside it. See the
+[MCP tools reference](/reference/mcp-tools) for what each package exposes.

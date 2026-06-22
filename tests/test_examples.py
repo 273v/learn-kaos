@@ -49,6 +49,7 @@ EXPECTED: dict[str, str] = {
     "typed-settings": "overriding default 10",
     "email-forensics": "Re: Merger Agreement",
     "knowledge-graph": "parties to Case1: ['Acme', 'Globex']",
+    "serve-over-mcp": "would expose over MCP",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

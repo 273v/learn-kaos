@@ -299,3 +299,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/query-the-session-graph"
+
+[[example]]
+id = "serve-over-mcp"
+title = "Serve tools over MCP"
+summary = "Mount a runtime's tools on the kaos-mcp bridge to expose them to any MCP client — offline."
+packages = ["kaos-mcp", "kaos-core"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/serve-over-mcp"
