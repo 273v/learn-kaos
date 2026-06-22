@@ -1,0 +1,37 @@
+---
+title: Pause for approval and resume
+description: Let an agent pause on a sensitive action, wait for a human, and resume — even across a restart.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/pause-resume.py?raw';
+
+**Goal:** don't let an agent run a destructive action unsupervised. When a tool is gated by
+the [permission policy](/how-to/configure-permissions) as **ASK**, the turn pauses, emits
+`ToolCallApprovalRequired`, and hands you a durable `RunState`. A human approves or denies,
+and `Runner.resume(state, approved=...)` continues — even if the wait spans a process
+restart.
+
+This example builds and round-trips that pause state (the offline-testable core).
+
+```bash
+uv run examples/pause-resume.py
+```
+
+<Code code={src} lang="python" title="examples/pause-resume.py" />
+
+**The full flow**
+
+1. The agent decides to call a tool the policy marks **ASK** (e.g. a destructive delete).
+2. The turn emits `ToolCallApprovalRequired` and stops, producing a `RunState` with the
+   `PendingToolCall`.
+3. The host **persists** the `RunState` (`to_json`) to a queue or DB and surfaces the
+   approval to a human. Because it's serializable, the run can wait indefinitely — across
+   restarts, in a different process.
+4. On a decision, the host restores it (`from_json`) and calls
+   `Runner.resume(state, approved=True)` to run the tool, or `approved=False` to skip it and
+   continue.
+
+This is the durable counterpart to the in-turn [permission decision](/how-to/configure-permissions):
+ALLOW/DENY happen inline; **ASK** becomes a persistent, resumable interrupt — essential for
+unattended agents doing consequential work.

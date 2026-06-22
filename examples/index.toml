@@ -359,3 +359,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/optimize-a-program"
+
+[[example]]
+id = "pause-resume"
+title = "Pause for approval"
+summary = "Durable RunState lets an agent pause on a sensitive tool, wait for a human, and resume — offline."
+packages = ["kaos-agents"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/pause-and-resume"

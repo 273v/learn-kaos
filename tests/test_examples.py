@@ -54,6 +54,7 @@ EXPECTED: dict[str, str] = {
     "research-agent": "[Verified: 1 claim(s), 1 citation(s)]",
     "agent-delegation": "DRAFT: Memo to counsel",
     "optimize-program": "validation metric before",
+    "pause-resume": "awaiting approval",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
