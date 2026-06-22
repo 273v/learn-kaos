@@ -1,0 +1,40 @@
+---
+title: Research over a corpus
+description: Compose retrieval + grounding into the retrieve → answer → verify → refuse contract.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/research-over-corpus.py?raw';
+
+**Goal:** answer a question over a set of documents *with a verifiable citation* — and
+**refuse** when the corpus doesn't support an answer. This is the skeleton of what a KAOS
+research agent does, built from primitives you've already seen:
+[BM25 retrieval](/how-to/search-text-with-bm25) and
+[grounded verification](/tutorials/grounded-citations).
+
+It runs fully offline and deterministic — a production agent swaps the deterministic
+"answer" step for an LLM (offline via [FunctionClient](/tutorials/offline-llm-with-functionclient)),
+but the retrieve → ground → refuse contract is identical.
+
+```bash
+uv run examples/research-over-corpus.py
+```
+
+```text
+  GROUNDED: 'Rent is due monthly' (from doc 0)
+  REFUSED: the supporting quote does not appear in the retrieved source.
+```
+
+<Code code={src} lang="python" title="examples/research-over-corpus.py" />
+
+**What to notice**
+
+- **Retrieve, then ground.** The agent finds the most relevant source with BM25, then
+  *verifies* the answer's quote against that source. Both steps are separate, so a wrong
+  citation can't slip through.
+- **Refuse, don't guess.** When nothing supports the answer — no relevant source, or a
+  quote that doesn't verify — the result is a typed refusal, not a fabricated answer. See
+  [the refusal contract](/concepts/the-refusal-contract).
+- **This is the agent, minus the LLM.** The full `ResearchAgent` adds memory, an LLM
+  answer step, and multi-turn planning on top of exactly this contract — which is why the
+  contract, not the model, is what makes the answers trustworthy.

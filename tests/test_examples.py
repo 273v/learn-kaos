@@ -40,6 +40,7 @@ EXPECTED: dict[str, str] = {
     "contract-definitions": "Confidential Information",
     "provider-failover": "answered by the backup provider",
     "office-roundtrip": "Net 30 from invoice.",
+    "research-over-corpus": "GROUNDED:",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

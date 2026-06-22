@@ -191,3 +191,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/ingest-office-docs"
+
+[[example]]
+id = "research-over-corpus"
+title = "Mini research pipeline"
+summary = "Retrieve, answer with a verified citation, or refuse — the research-agent contract, offline."
+packages = ["kaos-nlp-core", "kaos-llm-core"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/research-over-a-corpus"
