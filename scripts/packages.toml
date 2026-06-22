@@ -1,0 +1,115 @@
+# Canonical KAOS package list — the SINGLE SOURCE for the generated
+# package reference. Edit THIS file, then run `python3 scripts/gen_reference.py`
+# and commit the regenerated reference/packages.mdx. CI fails if they drift.
+#
+# layer ordering (top of the stack first): apps, agents, llm, ingestion,
+# substrate, foundation. `pypi = false` marks a repo that is not a published
+# library (e.g. a dashboard app).
+
+[[package]]
+name = "kaos-ui"
+layer = "apps"
+cli = "kaos-ui"
+summary = "Scaffold user-facing KAOS apps — web API, SPA, dashboard, TUI, module, workflow."
+
+[[package]]
+name = "kaos-mcp"
+layer = "apps"
+cli = "kaos-mcp"
+summary = "FastMCP server bridge — expose any KAOS runtime over the Model Context Protocol."
+
+[[package]]
+name = "kaos-agents"
+layer = "agents"
+cli = "kaos-agent"
+summary = "Stateful agent runtime — memory, patterns, permissions, cost accounting, grounded findings."
+
+[[package]]
+name = "kaos-llm-core"
+layer = "llm"
+cli = "kaos-llm-core"
+summary = "Typed LLM programming — signatures, programs, codecs, optimizers, traces."
+
+[[package]]
+name = "kaos-llm-client"
+layer = "llm"
+cli = "kaos-llm-client"
+summary = "Thin provider-native LLM client — one interface over providers, plus the FunctionClient test double."
+
+[[package]]
+name = "kaos-pdf"
+layer = "ingestion"
+cli = "kaos-pdf"
+summary = "PDF extraction to the content AST, with page/box provenance."
+
+[[package]]
+name = "kaos-office"
+layer = "ingestion"
+cli = "kaos-office"
+summary = "DOCX / PPTX / XLSX extraction to the content AST."
+
+[[package]]
+name = "kaos-tabular"
+layer = "ingestion"
+cli = "kaos-tabular"
+summary = "DuckDB-powered SQL over CSV / Parquet / JSON / XLSX / SQLite."
+
+[[package]]
+name = "kaos-source"
+layer = "ingestion"
+cli = "kaos-source"
+summary = "Source discovery & materialization — filesystem, archives, HTTP, and gov data connectors."
+
+[[package]]
+name = "kaos-web"
+layer = "ingestion"
+cli = "kaos-web"
+summary = "Web extraction, browser automation, search, and domain intelligence."
+
+[[package]]
+name = "kaos-core"
+layer = "foundation"
+cli = "kaos-core"
+summary = "The dependency-light runtime — MCP-native types, tools, VFS, artifacts, settings."
+
+[[package]]
+name = "kaos-content"
+layer = "foundation"
+cli = ""
+summary = "The Block/Inline document AST with provenance — the one shape every extractor produces."
+
+[[package]]
+name = "kaos-nlp-core"
+layer = "substrate"
+cli = "kaos-nlp"
+summary = "Rust-backed NLP — tokenization, multi-pattern matching, BM25 search, fuzzy hashing."
+
+[[package]]
+name = "kaos-nlp-transformers"
+layer = "substrate"
+cli = "kaos-nlp-transformers"
+summary = "ONNX embeddings, reranking, NLI, NER, and PII inference."
+
+[[package]]
+name = "kaos-ml-core"
+layer = "substrate"
+cli = "kaos-ml"
+summary = "Classical ML over the content AST — corpus, clustering, labeling, logistic regression."
+
+[[package]]
+name = "kaos-graph"
+layer = "substrate"
+cli = "kaos-graph"
+summary = "Rust (petgraph) graph engine — 40+ algorithms, RDF/SPARQL, knowledge graphs."
+
+[[package]]
+name = "kaos-citations"
+layer = "substrate"
+cli = "kaos-citations-serve"
+summary = "Typed legal/financial/accounting citation extraction — ~60 kinds, deterministic."
+
+[[package]]
+name = "kaos-names"
+layer = "substrate"
+cli = "kaos-names"
+summary = "Friendly, legal-flavored handle generator for sessions and agents."
