@@ -1,0 +1,30 @@
+---
+title: Find near-duplicate text
+description: Detect near-identical documents with MinHash — contract versions, boilerplate, dedup.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/near-duplicates.py?raw';
+
+**Goal:** decide whether two texts are *nearly* the same — two versions of a clause, a
+boilerplate paragraph reused across contracts, or duplicates to drop from a corpus. Exact
+hashing can't; **MinHash** estimates how much their content overlaps.
+
+`kaos-nlp-core` shingles the text into overlapping token n-grams and compares compact
+signatures. Deterministic and offline.
+
+```bash
+uv run examples/near-duplicates.py
+```
+
+<Code code={src} lang="python" title="examples/near-duplicates.py" />
+
+**Notes**
+
+- The one-word-different clauses score ~0.81; the unrelated clause scores 0 — exactly the
+  signal you want for "is this a revision of that?".
+- `hash_char_shingles` works at the character level (robust to tokenization differences);
+  `MinHashIndex` scales this to *finding* duplicates across a whole corpus instead of
+  comparing pairs.
+- For *semantic* near-duplicates (same meaning, different words), use
+  [embeddings](/how-to/semantic-embeddings) instead — MinHash is lexical.
