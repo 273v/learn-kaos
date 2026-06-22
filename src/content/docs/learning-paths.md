@@ -28,7 +28,8 @@ each tutorial builds on the last, all runnable offline:
 3. [Offline LLM with FunctionClient](/tutorials/offline-llm-with-functionclient)
 4. [Your first model call](/tutorials/first-model-call)
 5. [From a one-liner to a typed program](/tutorials/oneliner-to-call-to-program)
-6. Your first agent _(soon)_ → Research agent with citations _(soon)_ → Build an app _(soon)_
+6. [Your first agent](/tutorials/first-agent)
+7. Research agent with citations _(soon)_ → Build an app _(soon)_
 
 ## "I have a specific task"
 

@@ -1,0 +1,68 @@
+---
+title: Your first agent
+description: Build a stateful chat agent that remembers across turns — run offline, no API key.
+sidebar:
+  order: 6
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/first-agent.py?raw';
+
+This is what KAOS is *for*. `kaos-agents` gives you a stateful agent with memory,
+patterns, permissions, and cost accounting. Here you build a chat agent and run **two
+turns** — and watch it remember the first when answering the second.
+
+It runs **offline**, with no API key, using the
+[FunctionClient seam](/tutorials/offline-llm-with-functionclient) you already know.
+
+## Run it
+
+```bash
+uv run examples/first-agent.py
+```
+
+```text
+turn 1: Offline reply — I can see 1 user message(s) of history.
+turn 2: Offline reply — I can see 2 user message(s) of history.
+cost (offline): $0.0000
+```
+
+Turn 2 sees **two** messages of history — the agent remembered turn 1.
+
+## The code
+
+<Code code={src} lang="python" title="examples/first-agent.py" />
+
+## What to notice
+
+- **Agent vs Runner.** An `Agent` is frozen *config* (instructions, model, pattern,
+  tools). A `Runner` is the *engine*. The agent holds no state — splitting them is what
+  makes agents reconstructable and safe to share.
+- **Memory lives in the session, not the agent.** Both turns use the same session id,
+  so the second turn sees the first. State is hydrated from a virtual filesystem each
+  turn — which is why the same agent can serve many sessions.
+- **`KaosRuntime.test_mode()` is mandatory offline.** It gives an in-memory, isolated
+  VFS. With the default *disk* VFS, session memory would leak across runs and your tests
+  would falsely pass — a real footgun the docs call out.
+- **Cost is first-class.** `response.cost_usd` and `response.total_tokens` are on every
+  result. Offline they're `$0.0000`; live they're the real spend.
+
+## About the offline substitution
+
+A real agent calls an LLM. To run this for free, the example swaps the model factory for
+a `FunctionClient` inside `offline_model()` — the same technique the kaos-agents test
+suite uses. Set `KAOS_LEARN_LIVE=1` and an `ANTHROPIC_API_KEY` to drop the swap and use
+a real model; the agent code is identical.
+
+:::note[Why a substitution and not an injected client?]
+`kaos-agents` builds its LLM calls internally and resolves the client from the model
+string, so there's no public "pass me a client" seam yet. A small upstream addition
+(`Runner(..., model_client=...)`) would let agents take a `FunctionClient` directly, like
+the rest of the spine — tracked in the project plan.
+:::
+
+## Next
+
+You have an agent that remembers. Next on the path: a **research agent** that answers
+over a corpus with **verified citations**, and the **app capstone** — both landing in
+the next milestone.

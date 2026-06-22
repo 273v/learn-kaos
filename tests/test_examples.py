@@ -33,6 +33,7 @@ EXPECTED: dict[str, str] = {
     "typed-call-offline": "parties: ['Acme Corp', 'Globex LLC']",
     "bm25-search": "Rent is due monthly",
     "names-seeded": "silky-commissioner-04",
+    "first-agent": "2 user message(s) of history",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
