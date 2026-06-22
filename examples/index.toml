@@ -407,3 +407,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/add-a-template-kind"
+
+[[example]]
+id = "findings-review"
+title = "Review a contract"
+summary = "Recall-first FindingsAgent: enumerate, filter, synthesize findings under a cost cap — the NDA review, offline."
+packages = ["kaos-agents", "kaos-content", "kaos-nlp-core"]
+persona = "tutorial"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/review-a-contract"

@@ -1,0 +1,36 @@
+---
+title: Review a contract for issues
+description: Recall-first contract review with a FindingsAgent — enumerate, filter, synthesize, under a cost cap.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/findings-review.py?raw';
+
+**Goal:** review a document for issues a careful reviewer would flag — unusual clauses,
+deviations, risks — *without missing anything*. The `FindingsAgent` is **recall-first**: it
+enumerates every candidate sentence, filters them for relevance, and synthesizes the
+survivors into an answer, all under a cost cap.
+
+This is the NDA-review workflow KAOS was built for. It runs offline via the
+[FunctionClient substitution](/tutorials/first-agent) — the fake model scores the real
+candidates out of its own prompt, so the pipeline genuinely flows end to end.
+
+```bash
+uv run examples/findings-review.py
+```
+
+<Code code={src} lang="python" title="examples/findings-review.py" />
+
+**What to notice**
+
+- **Recall-first by design.** The `every_sentence_selector` makes *every* sentence a
+  candidate, so the filter — not the enumeration — decides what's relevant. You tune the
+  recall ↔ cost tradeoff by choosing the selector and `relevance_threshold`.
+- **Extract → filter → synthesize.** Candidates are scored in parallel chunks
+  (`num_parallel`), survivors above the threshold are synthesized into the `answer`, and
+  the per-stage costs are tracked separately.
+- **Cost is a contract.** `max_cost_usd=0.50` caps the per-document review; the agent
+  refuses to continue past it (see [cap LLM cost](/how-to/cap-llm-cost)).
+- **Provenance survives.** Each finding keeps its source candidate, so you can trace every
+  flagged clause back to the document — the basis for the
+  [grounded-citation](/tutorials/grounded-citations) contract on extracted findings.
