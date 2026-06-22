@@ -1,0 +1,31 @@
+---
+title: Add your own app template
+description: Extend kaos-ui's scaffolder with a custom template kind.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/add-template-kind.py?raw';
+
+**Goal:** make `kaos-ui new <your-kind> <name>` scaffold *your* project shape — a LaTeX
+report generator, a specific service layout, whatever your team standardizes on. The
+scaffolder is an extension point: register a `TemplateManifest` and your kind is available
+to the CLI *and* the MCP tools automatically.
+
+Offline and deterministic.
+
+```bash
+uv run examples/add-template-kind.py
+```
+
+<Code code={src} lang="python" title="examples/add-template-kind.py" />
+
+**Notes**
+
+- The registry is the single source of truth (`get_manifest`, `kinds`, `list_templates`),
+  so registering once exposes the kind everywhere — `kaos-ui list`, `kaos-ui new`, and the
+  scaffold MCP tools all pick it up.
+- A real template points `template_dir` at a directory of template files (with a
+  `Makefile`, `.env.example`, etc., following the [conventions](/reference/templates) the
+  built-in kinds use); `post_install` and `next_steps` drive the post-scaffold experience.
+- This is how an organization ships its own golden-path project layouts on top of KAOS
+  without forking the scaffolder.

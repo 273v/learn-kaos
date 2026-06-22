@@ -395,3 +395,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/cap-llm-cost"
+
+[[example]]
+id = "add-template-kind"
+title = "Add an app template"
+summary = "Register a custom kaos-ui template kind so kaos-ui new <kind> scaffolds your shape — offline."
+packages = ["kaos-ui"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/add-a-template-kind"

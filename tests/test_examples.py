@@ -57,6 +57,7 @@ EXPECTED: dict[str, str] = {
     "pause-resume": "awaiting approval",
     "export-otel": "agent.turn",
     "cap-cost": "budget_cost",
+    "add-template-kind": "report:latex",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
