@@ -1,0 +1,67 @@
+---
+title: A research agent with citations
+description: Answer questions over a document corpus with verified citations — and refuse when the evidence isn't there.
+sidebar:
+  order: 8
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/research-agent.py?raw';
+
+This is the marquee KAOS workflow — and the payoff of the whole spine. A `ResearchAgent`
+**retrieves** relevant passages from a document corpus, **answers** the question, and
+**verifies** every cited quote against its source. If the corpus doesn't support an answer,
+it returns a typed **refusal** instead of guessing.
+
+It combines everything you've learned: [retrieval](/how-to/search-text-with-bm25),
+[grounded citations](/tutorials/grounded-citations), the [refusal contract](/concepts/the-refusal-contract),
+and the [agent loop](/concepts/the-8-step-turn-loop) — running **offline** via the
+[FunctionClient seam](/tutorials/offline-llm-with-functionclient).
+
+## Run it
+
+```bash
+uv run examples/research-agent.py
+```
+
+```text
+Q: When is rent due?
+   Rent is due monthly on the first business day of each month.
+
+   [Verified: 1 claim(s), 1 citation(s)]
+
+Q: What are the patent infringement damages?
+   I don't have sufficient evidence to answer this question.
+
+   Reason: The corpus does not address that question.
+```
+
+The first answer carries a **verified** citation; the second is **refused** because nothing
+in the corpus supports it.
+
+## The code
+
+<Code code={src} lang="python" title="examples/research-agent.py" />
+
+## What to notice
+
+- **Retrieve → answer → verify.** The agent finds the relevant passage, produces an answer
+  with a span, and the span is checked against the source. The `[Verified: 1 citation(s)]`
+  is the proof — a quote that didn't appear in the source would be rejected.
+- **Refuse, don't fabricate.** The patent question has no support in the corpus, so the
+  agent returns a typed insufficient-evidence result — not a plausible-sounding guess. This
+  is the single most important property for legal/financial work.
+- **The fake model is honest about grounding.** Offline, the `FunctionClient` parses the
+  *real* source URI and a *verbatim* quote out of the corpus it's given — so the citation
+  genuinely verifies. The grounding is real even though the model is fake; only the *answer
+  text* is scripted. With `KAOS_LEARN_LIVE=1` a real model does the answering and the same
+  verification runs.
+- **`test_mode()` is mandatory.** The in-memory VFS keeps the session isolated — see
+  [why DI over globals](/concepts/why-di-over-globals).
+
+## You've reached the destination
+
+This is what KAOS is *for*: grounded, cited, refuse-when-unsure answers over your documents.
+From here, the [capstone](/tutorials/build-an-app) wraps the stack in a running app, the
+[how-to cookbook](/how-to/run-sql-analytics) has task recipes, and the
+[concepts](/concepts/grounding-and-verification) explain the *why*.

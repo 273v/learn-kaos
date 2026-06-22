@@ -30,23 +30,23 @@ each tutorial builds on the last, all runnable offline:
 5. [From a one-liner to a typed program](/tutorials/oneliner-to-call-to-program)
 6. [Your first agent](/tutorials/first-agent)
 7. [Grounded citations](/tutorials/grounded-citations)
-8. [Build an app](/tutorials/build-an-app) (capstone)
+8. [A research agent with citations](/tutorials/research-agent-citations)
+9. [Build an app](/tutorials/build-an-app) (capstone)
 
 ## "I have a specific task"
 
-You're competent and want a recipe, not a lesson. The how-to cookbook _(growing)_
-covers tasks like:
+You're competent and want a recipe, not a lesson. The how-to cookbook covers tasks like:
 
-- [Run your first example](/get-started/first-example) (extract citations) — live today
-- Ingest a PDF / Office doc / spreadsheet _(soon)_
-- Cap LLM cost, switch providers _(soon)_
-- Build a BM25 index, find near-duplicates, rank a graph _(soon)_
+- [Ingest a PDF](/how-to/ingest-a-pdf), [Office doc](/how-to/ingest-office-docs), or [web page](/how-to/web-page-to-ast)
+- [Run SQL over data](/how-to/run-sql-analytics), [extract citations](/how-to/extract-citations), [parse email](/how-to/parse-email)
+- [Find near-duplicates](/how-to/find-near-duplicates), [cluster a corpus](/how-to/cluster-a-corpus), [query a knowledge graph](/how-to/query-the-session-graph)
+- [Fail over across providers](/how-to/provider-failover), [control agent permissions](/how-to/configure-permissions)
 
 ## "I want the facts"
 
-You want exact API, CLI, tool, and setting details. Generated reference _(soon)_:
-per-package API, the full MCP tool inventory, CLI flags, and environment variables —
-all generated from source so they can't drift.
+You want exact API, CLI, tool, and setting details. The [reference](/reference/packages)
+has the package map, [CLI](/reference/cli), [MCP tools](/reference/mcp-tools),
+[environment variables](/reference/env-vars), [glossary](/reference/glossary), and more.
 
 ## "I want to understand the design"
 

@@ -323,3 +323,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/cluster-a-corpus"
+
+[[example]]
+id = "research-agent"
+title = "Research agent with citations"
+summary = "Full ResearchAgent: retrieve, answer with a verified citation, or refuse — offline via FunctionClient."
+packages = ["kaos-agents", "kaos-llm-client", "kaos-llm-core"]
+persona = "tutorial"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/research-agent-citations"

@@ -51,6 +51,7 @@ EXPECTED: dict[str, str] = {
     "knowledge-graph": "parties to Case1: ['Acme', 'Globex']",
     "serve-over-mcp": "would expose over MCP",
     "cluster-documents": "document -> cluster:",
+    "research-agent": "[Verified: 1 claim(s), 1 citation(s)]",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
