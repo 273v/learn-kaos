@@ -43,7 +43,7 @@ jobs:
       - run: uv run --with pytest pytest tests/ -q
 
   embed-check:
-    # Every `?raw` import in the docs must point at a real file.
+    # Every `?raw` import resolves; every internal doc link resolves.
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -51,6 +51,7 @@ jobs:
         with:
           python-version: '3.13'
       - run: python3 scripts/embed_check.py
+      - run: python3 scripts/link_check.py
 
   reference-gen:
     # Regenerate generated Reference pages; fail if the committed copy is stale.
