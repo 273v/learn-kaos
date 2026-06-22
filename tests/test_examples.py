@@ -45,6 +45,7 @@ EXPECTED: dict[str, str] = {
     "web-extract": "arbitration clause",
     "embeddings": "256-dim vectors",
     "near-duplicates": "0.812",
+    "agent-permissions": "deny",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

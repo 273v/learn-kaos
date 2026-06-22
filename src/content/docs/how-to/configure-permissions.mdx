@@ -1,0 +1,33 @@
+---
+title: Control what an agent may do
+description: Allow, ask, or deny tool calls with a PermissionPolicy.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/agent-permissions.py?raw';
+
+**Goal:** make sure an agent can't run a dangerous tool without permission. A
+`PermissionPolicy` decides, for each tool call, whether to **allow**, **ask** for
+approval, or **deny** it — before the tool runs.
+
+Evaluating a policy needs no LLM, so this is fully offline and deterministic.
+
+```bash
+uv run examples/agent-permissions.py
+```
+
+<Code code={src} lang="python" title="examples/agent-permissions.py" />
+
+**Notes**
+
+- **`default_safe()`** reads tool [annotations](/tutorials/first-tool): `readOnlyHint`
+  tools are auto-allowed, `destructiveHint` tools are auto-asked. Good defaults out of the
+  box.
+- **Glob rules** (`PermissionRule(pattern, decision, reason)`) override per tool — deny a
+  family (`*-delete*`), allow another (`kaos-web-*`). First match wins.
+- An **ASK** decision pairs with the [pause-and-resume](/concepts/the-8-step-turn-loop)
+  flow: the turn emits `ToolCallApprovalRequired`, and the run can be resumed after a human
+  approves. This is the boundary the [refusal](/concepts/the-refusal-contract) and
+  [session-enforcement](/concepts/session-enforcement) contracts build on.
+- The policy is enforced by the [Runner](/concepts/agent-vs-runner), so every tool a
+  runtime exposes is gated the same way — you can't forget to protect a new tool.

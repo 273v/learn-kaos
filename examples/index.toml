@@ -251,3 +251,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/find-near-duplicates"
+
+[[example]]
+id = "agent-permissions"
+title = "Agent permissions"
+summary = "Allow / ask / deny tool calls with a PermissionPolicy — the agent safety boundary, offline."
+packages = ["kaos-agents"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/configure-permissions"
