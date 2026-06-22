@@ -335,3 +335,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "tutorials/research-agent-citations"
+
+[[example]]
+id = "agent-delegation"
+title = "Delegate to a sub-agent"
+summary = "A coordinator delegates a task to a specialist sub-agent via agent_as_tool — offline."
+packages = ["kaos-agents"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/delegate-and-handoff"

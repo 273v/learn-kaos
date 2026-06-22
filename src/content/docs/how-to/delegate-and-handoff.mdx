@@ -1,0 +1,34 @@
+---
+title: Delegate to a sub-agent
+description: Compose a coordinator with specialist agents using agent_as_tool and Runner.delegate.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/agent-delegation.py?raw';
+
+**Goal:** build a team of agents instead of one monolith — a coordinator that hands sub-tasks
+to specialists (a drafter, a researcher, a reviewer). `agent_as_tool` wraps an `Agent` as a
+callable sub-agent; `Runner.delegate` runs it and emits the result.
+
+Runs offline via the [FunctionClient substitution](/tutorials/first-agent).
+
+```bash
+uv run examples/agent-delegation.py
+```
+
+<Code code={src} lang="python" title="examples/agent-delegation.py" />
+
+**Notes**
+
+- `agent_as_tool(agent, name=..., description=...)` returns a `DelegatedAgent`; a coordinator
+  can call it like any tool. `max_depth` (and a ContextVar depth counter) prevents infinite
+  delegation recursion.
+- `Runner.delegate(delegated, task, session)` yields the sub-agent's
+  [event stream](/concepts/events-and-spans) — the result lands in the
+  `Span(subagent, complete)` event's `result_summary`.
+- **Handoff** is the lateral cousin: `Runner.handoff(target, message, session)` transfers the
+  conversation to another agent (emitting a `Span(handoff, ...)`), rather than calling it as a
+  sub-task. Use delegation for "do this for me," handoff for "you take it from here."
+- Each sub-agent runs under the same [memory](/concepts/memory-as-context-assembly),
+  [permissions](/how-to/configure-permissions), and [cost](/concepts/cost-as-a-contract)
+  machinery — composition doesn't bypass the guardrails.
