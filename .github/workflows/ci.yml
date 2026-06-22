@@ -79,3 +79,12 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm build
+      - name: No unbased internal links in build output
+        # Content links must carry the /learn-kaos base or they 404 on the
+        # project Pages site. Fail if any rendered internal href lacks it.
+        run: |
+          bad=$(grep -rhoE 'href="/[a-z][^"]*"' dist --include=*.html | grep -vE 'href="/learn-kaos' | sort -u || true)
+          if [ -n "$bad" ]; then
+            echo "::error::unbased internal links found (will 404):"; echo "$bad"; exit 1
+          fi
+          echo "OK — all internal links carry the base path."

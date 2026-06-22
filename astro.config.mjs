@@ -3,6 +3,33 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import { visit } from 'unist-util-visit';
+
+const BASE = '/learn-kaos';
+
+// Starlight base-prefixes sidebar/nav links but NOT links written in page
+// *content* (`[text](/path)` in md/mdx). This rehype plugin prepends the base
+// to root-relative internal links so content links don't 404 on the project
+// Pages site. (Hero `actions` are frontmatter, not content — they hardcode the
+// base on the home page.)
+function rehypeBaseLinks() {
+  return (tree) => {
+    visit(tree, 'element', (node) => {
+      if (node.tagName !== 'a') return;
+      const href = node.properties?.href;
+      if (typeof href !== 'string') return;
+      // root-relative, not external, not already based, not an anchor
+      if (
+        href.startsWith('/') &&
+        !href.startsWith('//') &&
+        href !== BASE &&
+        !href.startsWith(BASE + '/')
+      ) {
+        node.properties.href = BASE + href;
+      }
+    });
+  };
+}
 
 // Learn KAOS — Astro Starlight. Conventions match 273ventures.com:
 // pnpm, Node 22, Tailwind v4 via @tailwindcss/vite, ~/@ -> src aliases.
@@ -10,8 +37,12 @@ import tailwindcss from '@tailwindcss/vite';
 // https://astro.build/config
 export default defineConfig({
   site: 'https://273v.github.io',
-  base: '/learn-kaos',
+  base: BASE,
   trailingSlash: 'never',
+
+  markdown: {
+    rehypePlugins: [rehypeBaseLinks],
+  },
 
   integrations: [
     starlight({

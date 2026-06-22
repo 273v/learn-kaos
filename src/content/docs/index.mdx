@@ -5,11 +5,13 @@ template: splash
 hero:
   tagline: Open agentic infrastructure for legal and financial work — learn it by running it. Every example on this site is a single command, and every snippet is tested.
   actions:
+    # Hero actions are frontmatter (not page content), so the base path is not
+    # auto-prepended — include it explicitly here.
     - text: Run your first example
-      link: /get-started/first-example
+      link: /learn-kaos/get-started/first-example
       icon: right-arrow
     - text: What is KAOS?
-      link: /what-is-kaos
+      link: /learn-kaos/what-is-kaos
       icon: open-book
       variant: minimal
 ---
