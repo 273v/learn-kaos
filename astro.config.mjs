@@ -32,6 +32,10 @@ export default defineConfig({
           ],
         },
         {
+          label: 'Tutorials',
+          items: [{ autogenerate: { directory: 'tutorials' } }],
+        },
+        {
           label: 'Examples gallery',
           items: [{ label: 'Gallery', slug: 'gallery' }],
         },

@@ -1,0 +1,56 @@
+---
+title: Offline LLM with FunctionClient
+description: The deterministic fake-model seam that lets every LLM example on this site run for free, with no API key.
+sidebar:
+  order: 3
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/functionclient-chat.py?raw';
+
+Before you call a real model, learn the seam that makes every LLM example here
+**runnable offline, for free, with no API key** — and tested in CI.
+
+`kaos-llm-client` ships a `FunctionClient`: a provider client that runs a **Python
+callable** instead of making an HTTP request, while satisfying the *exact same
+interface* as the real Anthropic / OpenAI / Google clients. Your code calls
+`client.chat(...)` either way — only the model is faked. That means you exercise the
+real code path with a deterministic, free, instant "model".
+
+:::tip[This is the hard prerequisite]
+Every later LLM and agent tutorial relies on this pattern. Understand it once here
+and the rest of the spine runs offline.
+:::
+
+## Run it
+
+```bash
+uv run examples/functionclient-chat.py
+```
+
+```text
+model said: 'FAKE MODEL SAYS: HELLO, KAOS'
+calls recorded: 1
+```
+
+## The code
+
+<Code code={src} lang="python" title="examples/functionclient-chat.py" />
+
+## What to notice
+
+- **`fake_model(messages, profile)`** is the whole "model" — it receives the chat
+  messages and returns a `ProviderResponse`. Return whatever you want; assertions
+  become deterministic.
+- **`FunctionClient(function=fake_model)`** is a drop-in for a real client. The same
+  `client.chat([...])` call works against both.
+- **`make_client()`** is the swap point: offline by default, real provider when
+  `KAOS_LEARN_LIVE=1` is set. Every example on this site uses this pattern — that's
+  how the docs stay tested without burning tokens.
+- **`client.call_history`** records exactly what was sent, which is invaluable for
+  asserting your prompts.
+
+## Next
+
+Now make a "real" model call — same code, with the live path explained —
+in [your first model call](/tutorials/first-model-call).

@@ -27,6 +27,10 @@ MANIFEST = ROOT / "examples" / "index.toml"
 EXPECTED: dict[str, str] = {
     "citations-extract": "347 U.S. 483 (1954)",
     "graph-pagerank": "PageRank (highest first):",
+    "first-tool": "word count: 5",
+    "build-a-document": "# Lease Agreement",
+    "functionclient-chat": "FAKE MODEL SAYS: HELLO, KAOS",
+    "typed-call-offline": "parties: ['Acme Corp', 'Globex LLC']",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

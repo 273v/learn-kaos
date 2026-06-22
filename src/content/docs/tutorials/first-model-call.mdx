@@ -1,0 +1,53 @@
+---
+title: Your first model call
+description: Call an LLM through kaos-llm-client — offline in CI, live with one environment variable.
+sidebar:
+  order: 4
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/functionclient-chat.py?raw';
+
+`kaos-llm-client` is the thin, provider-native client layer. You talk to every
+provider through one interface: `create_client("anthropic:claude-haiku-4-5")` (or
+`openai:…`, `google:…`) gives you a client, and `client.chat(messages).text` returns
+the completion. Cost and token accounting come along for free.
+
+The example below — the same file from the
+[previous tutorial](/tutorials/offline-llm-with-functionclient) — shows both paths
+in one program: a deterministic `FunctionClient` for offline runs, and a real
+`create_client(...)` when you opt in.
+
+## Run it offline (default)
+
+```bash
+uv run examples/functionclient-chat.py
+```
+
+## Run it live
+
+```bash
+KAOS_LEARN_LIVE=1 ANTHROPIC_API_KEY=sk-... uv run examples/functionclient-chat.py
+```
+
+The only thing that changes is which client `make_client()` returns. The
+`client.chat(...)` call — and everything downstream — is identical.
+
+## The code
+
+<Code code={src} lang="python" title="examples/functionclient-chat.py" />
+
+## What to notice
+
+- **One interface, many providers.** `create_client("<provider>:<model>")` is the
+  single entry point; `ModelProfile` carries capability metadata so you write
+  `profile`-aware code, not `if provider == "openai"` branches.
+- **Anthropic Haiku is the documented default** for live examples on this site —
+  cheap and well-behaved for the patterns we teach.
+- **Offline-first is a discipline, not a limitation.** Because the fake and real
+  clients share an interface, "tested offline" and "works live" are the same code.
+
+## Next
+
+Strings in, strings out is just the start. Program the model with **types** in
+[from a one-liner to a typed program](/tutorials/oneliner-to-call-to-program).

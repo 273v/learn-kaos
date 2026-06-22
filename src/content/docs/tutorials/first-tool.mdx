@@ -1,0 +1,48 @@
+---
+title: Your first tool
+description: Author, register, and execute a typed KAOS tool on a runtime — the foundational unit of work.
+sidebar:
+  order: 1
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/first-tool.py?raw';
+
+Everything in KAOS is built on `kaos-core` — a dependency-light runtime and an
+**MCP-native tool model**. A *tool* is a typed unit of work: you write an async
+function, decorate it, register it on a `KaosRuntime`, and execute it. The runtime
+derives the tool's input schema from your type hints, so the same tool is callable
+from Python *and* from any MCP client.
+
+This runs fully **offline** — no API key, no network.
+
+## Run it
+
+```bash
+uv run examples/first-tool.py
+```
+
+```text
+word count: 5
+```
+
+## The code
+
+<Code code={src} lang="python" title="examples/first-tool.py" />
+
+## What to notice
+
+- **`@kaos_tool`** turns a plain async function into a registered tool. `category`
+  and `capability` classify it; `annotations` describe its safety (a `readOnlyHint`
+  tool is safe for an agent to call without asking).
+- **The schema is derived from type hints.** `word_count(text: str) -> int` means
+  the tool accepts `{"text": str}` — you never hand-write JSON schema.
+- **`KaosRuntime`** is the container you register tools on and execute them through.
+  It's the same runtime agents and MCP servers use.
+- **`ToolResult`** wraps every result. `.text` is the rendered output; structured
+  results and resource links are also available.
+
+## Next
+
+You have a runtime and a tool. Next, build the data structure KAOS tools mostly
+operate on: a [document](/tutorials/build-a-document).

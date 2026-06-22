@@ -1,0 +1,56 @@
+---
+title: Build a document
+description: Build a Block/Inline ContentDocument, serialize it to Markdown, and address a block with a stable reference.
+sidebar:
+  order: 2
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/build-a-document.py?raw';
+
+`kaos-content` is KAOS's **document model**: one Block/Inline AST with provenance.
+Every extractor — PDF, DOCX, web, spreadsheets — produces this same shape, so the
+rest of the stack (search, LLM programs, agents, citations) works against one
+structure instead of a dozen formats. Here you build one by hand to see the model.
+
+Fully **offline** and deterministic.
+
+## Run it
+
+```bash
+uv run examples/build-a-document.py
+```
+
+```text
+--- Markdown ---
+# Lease Agreement
+
+This lease is between **the parties**.
+
+## Rent
+
+Tenant shall pay rent [monthly](https://example.com/terms).
+
+--- Outline (depth | text | block ref) ---
+  h1  'Lease Agreement'       #/body/0
+  h2  'Rent'                  #/body/2
+```
+
+## The code
+
+<Code code={src} lang="python" title="examples/build-a-document.py" />
+
+## What to notice
+
+- **`DocumentBuilder`** assembles blocks (`heading`, `paragraph`) and inlines
+  (`bold`, `link`). `.build()` returns an immutable `ContentDocument`.
+- **`serialize_markdown`** renders the AST. There are serializers for HTML, text,
+  JSON, CSV, and more — the AST is the single source, the format is a choice.
+- **Block references** (`#/body/0`) are stable addresses into the document. This is
+  how a citation points at *exactly* where a fact came from — the foundation of the
+  grounded-citation work you'll see in the agent tutorials.
+
+## Next
+
+You can make tools and documents. Now bring in an LLM — without needing an API key —
+via the [FunctionClient offline seam](/tutorials/offline-llm-with-functionclient).

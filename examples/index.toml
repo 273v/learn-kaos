@@ -35,3 +35,51 @@ level = "intro"
 offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
+
+[[example]]
+id = "first-tool"
+title = "Author your first tool"
+summary = "Write, register, and execute a typed @kaos_tool on a KaosRuntime."
+packages = ["kaos-core"]
+persona = "tutorial"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/first-tool"
+
+[[example]]
+id = "build-a-document"
+title = "Build a document"
+summary = "Build a Block/Inline ContentDocument, serialize to Markdown, read its block refs."
+packages = ["kaos-content"]
+persona = "tutorial"
+level = "intro"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/build-a-document"
+
+[[example]]
+id = "functionclient-chat"
+title = "Offline LLM with FunctionClient"
+summary = "A deterministic fake model that satisfies the real client interface — free, keyless."
+packages = ["kaos-llm-client"]
+persona = "tutorial"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/offline-llm-with-functionclient"
+
+[[example]]
+id = "typed-call-offline"
+title = "A typed LLM call"
+summary = "Declare a Signature, run a typed Call, get a validated object back — offline."
+packages = ["kaos-llm-core", "kaos-llm-client"]
+persona = "tutorial"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/oneliner-to-call-to-program"

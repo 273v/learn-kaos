@@ -1,0 +1,59 @@
+---
+title: From a one-liner to a typed program
+description: Program LLMs with types — declare a Signature, run a typed Call, get a validated object back.
+sidebar:
+  order: 5
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/typed-call-offline.py?raw';
+
+A raw `client.chat(...)` returns a string you have to parse and hope is shaped right.
+`kaos-llm-core` lets you **program the model with types** instead. You declare a
+`Signature` — typed inputs and outputs — and a `Call` turns it into a function that
+returns a **validated, typed object**. Structured output, schema, and validation are
+handled for you.
+
+Runs **offline** with a `FunctionClient` that returns canned JSON, so there's no key
+or cost. Swap in a real client and the same `Call` works.
+
+## Run it
+
+```bash
+uv run examples/typed-call-offline.py
+```
+
+```text
+parties: ['Acme Corp', 'Globex LLC']
+```
+
+## The code
+
+<Code code={src} lang="python" title="examples/typed-call-offline.py" />
+
+## What to notice
+
+- **A `Signature` is a typed contract.** `InputField`/`OutputField` declare what goes
+  in and what must come out. `parties: list[str]` means the result is a real list,
+  validated — not a blob of text.
+- **`Call(Signature, client=...)`** compiles the signature into an async callable.
+  `result = await call(text=...)` returns a typed object; `result.parties` is a
+  `list[str]`.
+- **The offline authoring rule:** the high-level starter helpers don't take a
+  `client=`, so to run offline you drop down to `Call(..., client=FunctionClient(...))`.
+  That's the one fact to remember when writing tested LLM docs.
+- **Programs compose.** A `Program` chains several `Call`s (extract → classify →
+  summarize), each typed. This typed-call is the atom; programs are the molecule.
+
+## Next
+
+You can call models with types. Next on the golden path: wrap this in a stateful
+**agent** with memory and tools. _(The agent tutorial lands in the next increment —
+see the note below.)_
+
+:::note[Build status]
+This is the end of the currently-published spine (M1). The first-agent tutorial
+requires an offline model-injection seam that needs a small design decision in
+`kaos-agents` (its current offline-test path patches an internal, not a public
+client) — tracked in the plan and landing next.
+:::
