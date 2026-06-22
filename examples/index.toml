@@ -347,3 +347,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/delegate-and-handoff"
+
+[[example]]
+id = "optimize-program"
+title = "Optimize a program"
+summary = "BootstrapOptimizer improves an LLM program against a metric — keeps a change only if it helps. Offline."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/optimize-a-program"

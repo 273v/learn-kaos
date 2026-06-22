@@ -1,0 +1,32 @@
+---
+title: Optimize an LLM program
+description: Improve a program automatically against a metric — and only keep changes that help.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/optimize-program.py?raw';
+
+**Goal:** stop hand-tuning prompts. Because a KAOS [program is typed](/concepts/typed-llm-programming),
+an optimizer can improve it *automatically* — and, crucially, only keep a change if it
+**improves a metric** on held-out data.
+
+`BootstrapOptimizer` selects few-shot examples to add, re-evaluates on a validation set, and
+accepts the change only if the metric goes up. Runs offline with a `FunctionClient`.
+
+```bash
+uv run examples/optimize-program.py
+```
+
+<Code code={src} lang="python" title="examples/optimize-program.py" />
+
+**What to notice**
+
+- **It's metric-gated, not blind.** Here the baseline is already perfect, so the optimizer
+  *rejects* the change rather than adding examples that don't help. That's the whole point —
+  optimization is accountable to evidence (the same stance as
+  [why plain BM25](/concepts/why-plain-bm25) and [optimizers & budget](/concepts/optimizers-and-budget)).
+- **You bring a metric and data.** A `metric(prediction, expected) -> float`, a `train_set`,
+  and a `val_set` of `Example`s. The optimizer does the rest.
+- **Other optimizers** in the family: `InstructionOptimizer` (tunes the instruction),
+  `MiproLite`/`MiproV2`, `CoOptimizer`. All share a `Budget` so optimization itself stays
+  [bounded](/concepts/cost-as-a-contract).
