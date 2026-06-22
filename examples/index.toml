@@ -130,6 +130,7 @@ level = "intro"
 offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
+tutorial = "how-to/generate-session-names"
 
 [[example]]
 id = "grounded-citations"
@@ -166,4 +167,3 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/extract-contract-definitions"
-tutorial = "how-to/generate-session-names"
