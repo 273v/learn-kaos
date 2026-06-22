@@ -50,6 +50,7 @@ EXPECTED: dict[str, str] = {
     "email-forensics": "Re: Merger Agreement",
     "knowledge-graph": "parties to Case1: ['Acme', 'Globex']",
     "serve-over-mcp": "would expose over MCP",
+    "cluster-documents": "document -> cluster:",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

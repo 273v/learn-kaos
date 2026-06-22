@@ -1,0 +1,37 @@
+---
+title: Cluster a document corpus
+description: Group documents by topic with embeddings + k-means — no labels required.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/cluster-documents.py?raw';
+
+**Goal:** organize a pile of documents into topics *without* labels — separate lease
+clauses from NDA clauses, group similar contracts, triage a corpus before review.
+
+`kaos-ml-core` provides classical ML over your content. Embed the documents (with the
+vendored static model, no download), then cluster the vectors with mini-batch k-means.
+Deterministic via a fixed seed, fully offline.
+
+```bash
+uv run examples/cluster-documents.py
+```
+
+<Code code={src} lang="python" title="examples/cluster-documents.py" />
+
+**What to notice**
+
+- It composes two packages: [embeddings](/how-to/semantic-embeddings)
+  (`kaos-nlp-transformers`) produce the feature matrix; `kaos-ml-core` clusters it. That's
+  the KAOS pattern — small packages that snap together.
+- The grouping is stable across runs (`random_state=0`); the cluster *ids* may swap, the
+  *grouping* doesn't.
+- `kaos-ml-core` also does feature extraction over the [content AST](/concepts/one-document-model),
+  LLM-assisted labeling, and logistic-regression classification — the supervised path once
+  you have labels.
+
+:::caution[Early stage]
+`kaos-ml-core` is at v0: its **Python API and MCP tools** are the supported surface (used
+above); its CLI/serve entry points are stubs. See
+[changes & deprecations](/reference/changes-and-deprecations).
+:::

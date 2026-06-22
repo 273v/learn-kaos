@@ -311,3 +311,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "tutorials/serve-over-mcp"
+
+[[example]]
+id = "cluster-documents"
+title = "Cluster a corpus"
+summary = "Embed + k-means to group documents by topic with no labels — composes two packages, offline."
+packages = ["kaos-ml-core", "kaos-nlp-transformers"]
+persona = "builder"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/cluster-a-corpus"
