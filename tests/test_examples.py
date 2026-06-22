@@ -47,6 +47,7 @@ EXPECTED: dict[str, str] = {
     "near-duplicates": "0.812",
     "agent-permissions": "deny",
     "typed-settings": "overriding default 10",
+    "email-forensics": "Re: Merger Agreement",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

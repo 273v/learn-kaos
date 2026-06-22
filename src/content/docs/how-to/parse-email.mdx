@@ -1,0 +1,31 @@
+---
+title: Parse an email for e-discovery
+description: Turn a raw .eml into structured sender / recipients / subject / body / forensics.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/email-forensics.py?raw';
+
+**Goal:** turn raw email into the structured fields an e-discovery or investigation
+pipeline indexes — who sent it, to whom, when, what it said, and header forensics.
+
+`kaos-source` parses `.eml`, `.mbox`, vCard, PACER, and more into typed records. Operating
+on raw bytes here, so it's fully offline.
+
+```bash
+uv run examples/email-forensics.py
+```
+
+<Code code={src} lang="python" title="examples/email-forensics.py" />
+
+**Notes**
+
+- `EmlParser().parse(bytes)` returns a `ParsedEmail` with typed `EmailAddress` lists,
+  subject, dates, `body_text`/`body_html`, attachments, and `forensics` (header analysis).
+- `kaos-source` is the on-ramp for real data: filesystem and archive discovery,
+  `materialize` to the artifact store, plus REST connectors for **EDGAR**, **Federal
+  Register**, **eCFR**, **GovInfo**, and **GLEIF** (those hit live APIs; the filesystem,
+  archive, and parser surfaces run offline).
+- Pair it with [SQL analytics](/how-to/run-sql-analytics) to build a searchable database
+  from a mailbox, or feed bodies into [near-duplicate](/how-to/find-near-duplicates)
+  detection to cluster threads.
