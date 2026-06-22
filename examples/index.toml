@@ -179,3 +179,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/extract-contract-definitions"
+
+[[example]]
+id = "office-roundtrip"
+title = "Read & write Office docs"
+summary = "Write a real DOCX then extract it back to the document AST — the one-model idea, end to end."
+packages = ["kaos-office", "kaos-content"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/ingest-office-docs"

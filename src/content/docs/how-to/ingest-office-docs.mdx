@@ -1,0 +1,32 @@
+---
+title: Read and write Office documents
+description: Extract a DOCX to the document AST (and write one back) with kaos-office.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/office-roundtrip.py?raw';
+
+**Goal:** turn a Word/PowerPoint/Excel file into the KAOS [document AST](/concepts/one-document-model)
+so the rest of the stack (search, LLM programs, agents, citations) can work on it — and,
+when you need to, write one back out.
+
+`kaos-office` both reads and writes Office formats. This example builds a document, writes
+a real `.docx`, then extracts it back — showing the AST survives the round trip. It's
+self-contained (it generates its own file), so it runs offline with no fixture.
+
+```bash
+uv run examples/office-roundtrip.py
+```
+
+<Code code={src} lang="python" title="examples/office-roundtrip.py" />
+
+**Notes**
+
+- `parse_docx(path)` returns a `ContentDocument` — the same shape `kaos-pdf`, `kaos-web`,
+  and `kaos-tabular` produce. That's the whole point of the
+  [one document model](/concepts/one-document-model): downstream code doesn't care that
+  the source was Word.
+- Also available: `parse_pptx`, `parse_xlsx` (typed columns), `write_pptx`, `write_xlsx`,
+  `compare_docx`/`write_redline` for redlining, plus search and metadata.
+- For a real client file, swap the generated path for the document's path — everything
+  downstream is identical.
