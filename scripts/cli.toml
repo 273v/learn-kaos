@@ -1,0 +1,99 @@
+# Source for the generated CLI reference. Subcommands captured from each
+# `kaos-* --help`. Edit here + run gen_reference.py; CI checks for drift.
+# Run `kaos-<x> <command> --help` for full per-command usage.
+
+[[cli]]
+name = "kaos-core"
+package = "kaos-core"
+commands = ["tools", "artifacts", "config", "vfs", "creds", "auth"]
+note = "Inspect the runtime: tools, artifacts, settings, VFS, credentials, auth."
+
+[[cli]]
+name = "kaos-mcp"
+package = "kaos-mcp"
+commands = ["serve", "list-tools", "list-resources"]
+note = "Serve a runtime over MCP; list its tools and resources."
+
+[[cli]]
+name = "kaos-llm-client"
+package = "kaos-llm-client"
+commands = ["check", "chat", "profiles", "config"]
+note = "Check connectivity, chat, inspect model profiles and config."
+
+[[cli]]
+name = "kaos-llm-core"
+package = "kaos-llm-core"
+commands = ["check", "examples", "summarize", "classify", "analyze"]
+note = "Run LLM programs: summarize, classify, analyze."
+
+[[cli]]
+name = "kaos-agent"
+package = "kaos-agents"
+commands = ["chat"]
+note = "Interactive or one-shot agent chat (also: kaos-extract, kaos-agents-serve)."
+
+[[cli]]
+name = "kaos-pdf"
+package = "kaos-pdf"
+commands = ["extract", "search", "info", "outline", "page", "render", "classify", "serve"]
+note = "Extract, search, render, and classify PDFs."
+
+[[cli]]
+name = "kaos-office"
+package = "kaos-office"
+commands = ["extract", "search", "metadata", "xlsx-extract", "write-docx", "redline"]
+note = "DOCX / PPTX / XLSX extraction, authoring, and redlining."
+
+[[cli]]
+name = "kaos-tabular"
+package = "kaos-tabular"
+commands = ["query", "describe", "sample", "export", "read"]
+note = "Run SQL over CSV / Parquet / JSON / XLSX / SQLite."
+
+[[cli]]
+name = "kaos-source"
+package = "kaos-source"
+commands = ["discover", "preview", "info", "materialize", "inspect-archive"]
+note = "Discover and materialize sources; inspect archives."
+
+[[cli]]
+name = "kaos-web"
+package = "kaos-web"
+commands = ["extract", "metadata", "fetch", "search", "browser-doctor", "serve"]
+note = "Web extraction, fetch, search, and browser diagnostics."
+
+[[cli]]
+name = "kaos-nlp"
+package = "kaos-nlp-core"
+commands = ["tokenize", "segment", "compare", "find", "search", "index", "hash", "duplicates", "encode", "vocab", "analyze"]
+note = "Tokenize, segment, BM25 search/index, fuzzy hashing, dedup."
+
+[[cli]]
+name = "kaos-ml"
+package = "kaos-ml-core"
+commands = ["info"]
+note = "Classical ML over the content AST (Python API is the primary surface)."
+
+[[cli]]
+name = "kaos-nlp-transformers"
+package = "kaos-nlp-transformers"
+commands = ["info", "prefetch"]
+note = "Diagnostics and model cache-warming (prefetch) for embeddings/rerank/NLI."
+
+[[cli]]
+name = "kaos-graph"
+package = "kaos-graph"
+commands = ["serve", "version"]
+note = "Serve the graph engine over MCP; print version."
+
+[[cli]]
+name = "kaos-names"
+package = "kaos-names"
+commands = ["generate", "vocabulary"]
+note = "Generate friendly handles; inspect the word lists."
+
+[[cli]]
+name = "kaos-ui"
+package = "kaos-ui"
+commands = ["list", "info", "new", "doctor"]
+note = "Scaffold apps: list/inspect templates, create a project, health-check."
