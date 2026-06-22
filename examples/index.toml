@@ -287,3 +287,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/parse-email"
+
+[[example]]
+id = "knowledge-graph"
+title = "Query a knowledge graph"
+summary = "Load RDF and run SPARQL over a legal entity/citation graph — kaos-graph, offline."
+packages = ["kaos-graph"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/query-the-session-graph"

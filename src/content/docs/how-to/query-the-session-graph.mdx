@@ -1,0 +1,30 @@
+---
+title: Query a knowledge graph with SPARQL
+description: Load RDF and run SPARQL over a legal knowledge graph with kaos-graph.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/knowledge-graph.py?raw';
+
+**Goal:** model entities and relationships (parties, cases, citations, counsel) as a graph
+and query it with SPARQL. This is exactly what a KAOS agent's **per-session knowledge
+graph** is — facts the agent learned, stored as RDF you can query.
+
+`kaos-graph` loads RDF and answers SPARQL behind the `[rdf]` extra. Deterministic, offline.
+
+```bash
+uv run examples/knowledge-graph.py
+```
+
+<Code code={src} lang="python" title="examples/knowledge-graph.py" />
+
+**Notes**
+
+- `load_rdf(data, "turtle")` parses RDF (also N-Triples, etc.) into a graph; `query_sparql`
+  runs `SELECT`, and `query_sparql_ask` runs `ASK`. Add `ORDER BY` for deterministic rows.
+- In an agent, this graph is built automatically: as a turn runs, tool calls, steps, and
+  citations are emitted as PROV-O + CiTO triples into the session's `GRAPH`
+  [memory section](/reference/memory-sections) — then queried with the same SPARQL, or
+  walked with the [graph algorithms](/reference/graph-algorithms).
+- Combine with [citation extraction](/how-to/extract-citations) to turn a document corpus
+  into a queryable citation network.
