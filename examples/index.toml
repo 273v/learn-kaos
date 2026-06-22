@@ -215,3 +215,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/ingest-a-pdf"
+
+[[example]]
+id = "web-extract"
+title = "Extract a web page"
+summary = "Readability extraction of HTML into the document AST — boilerplate stripped, offline."
+packages = ["kaos-web", "kaos-content"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/web-page-to-ast"

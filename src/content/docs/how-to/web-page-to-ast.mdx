@@ -1,0 +1,30 @@
+---
+title: Extract a web page
+description: Turn HTML into clean content in the document AST with kaos-web.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/web-extract.py?raw';
+
+**Goal:** turn a web page into the [document AST](/concepts/one-document-model), applying
+readability-style extraction so you keep the *content* and drop nav, ads, and boilerplate.
+
+`kaos-web`'s `html_to_document(html)` does the extraction. This example runs on an inline
+HTML string so it's fully offline; with a live page you'd fetch it first.
+
+```bash
+uv run examples/web-extract.py
+```
+
+<Code code={src} lang="python" title="examples/web-extract.py" />
+
+**Notes**
+
+- The nav and footer are dropped; the article content becomes a `ContentDocument` — the
+  same AST every extractor produces.
+- For live pages: `kaos-web fetch <url>` (or the fetch tools) gets the HTML; `kaos-web`
+  also offers Playwright browser automation (needs `uv run playwright install chromium`),
+  DNS/WHOIS/TLS intelligence, and search (optional SERPAPI/EXA/BRAVE keys, falling back to
+  free DuckDuckGo).
+- `content_scope` tunes how aggressively boilerplate is stripped; `strip_xbrl` helps with
+  financial filings.
