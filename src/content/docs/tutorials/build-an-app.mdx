@@ -1,0 +1,80 @@
+---
+title: Build an app (capstone)
+description: Scaffold a full FastAPI + React application wired to kaos-agents.
+sidebar:
+  order: 8
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/scaffold-app.py?raw';
+
+The capstone. You've built tools, documents, typed programs, and an agent. Now
+`kaos-ui` assembles them into a **complete application**: a FastAPI backend on
+`kaos-agents` (SSE streaming, bearer auth, a virtual filesystem per session) and a
+Vite + React frontend — with Makefile, Docker, Caddy, and pre-commit included.
+
+The scaffold step runs **offline** here via dry-run, so you can see exactly what you'd
+get without writing anything.
+
+## Run it
+
+```bash
+uv run examples/scaffold-app.py
+```
+
+```text
+Template 'web:spa' would create 77 files, including:
+
+  .env.example
+  .gitignore
+  AGENTS.md
+  ...
+
+Available templates: dashboard:streamlit, module, tui:textual, web:api, web:spa, workflow
+```
+
+## The code
+
+<Code code={src} lang="python" title="examples/scaffold-app.py" />
+
+## Actually create and run it
+
+Drop `dry_run=True`, or use the CLI:
+
+```bash
+kaos-ui new web:spa my-legal-app
+cd my-legal-app
+make install      # uv (backend) + pnpm (frontend), with supply-chain hardening
+make dev          # FastAPI + Vite dev servers
+```
+
+:::caution[Running needs a key (and a note on availability)]
+The scaffold step is offline and deterministic. **Running** the generated app calls a
+real LLM, so it needs a provider API key — and, because the app depends on the full
+agent stack, you may need the packages installed from source until everything is on
+PyPI. The generated `README.md` and `Makefile` spell out the exact steps.
+:::
+
+## The six templates
+
+`kaos-ui` scaffolds more than web apps — see them all in the
+[package reference](/reference/packages) and the
+[how-to on adding your own template kind](/how-to/test-your-own-snippets):
+
+| Kind | What you get |
+|---|---|
+| `web:spa` | FastAPI + Vite/React full-stack app (this capstone) |
+| `web:api` | FastAPI backend only |
+| `dashboard:streamlit` | A Streamlit data dashboard |
+| `tui:textual` | A terminal UI app |
+| `module` | A new KAOS module package |
+| `workflow` | A single-file script |
+
+## Where to go next
+
+You've walked the spine end to end. From here:
+
+- The **research agent with verified citations** (the grounded-findings payoff) lands
+  next on the golden path.
+- Dive into the [how-to cookbook](/how-to/search-text-with-bm25) for task recipes.
+- Read the [concepts](/concepts/the-offline-seam) for the *why* behind the design.

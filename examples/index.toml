@@ -97,6 +97,18 @@ est_cost_usd = 0.0
 tutorial = "tutorials/first-agent"
 
 [[example]]
+id = "scaffold-app"
+title = "Scaffold a full app"
+summary = "Generate a FastAPI + React app wired to kaos-agents — shown via offline dry-run."
+packages = ["kaos-ui"]
+persona = "tutorial"
+level = "advanced"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "tutorials/build-an-app"
+
+[[example]]
 id = "bm25-search"
 title = "Rank text with BM25"
 summary = "Fast, offline lexical retrieval — rank sentences against a query the way agents retrieve context."

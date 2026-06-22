@@ -34,6 +34,7 @@ EXPECTED: dict[str, str] = {
     "bm25-search": "Rent is due monthly",
     "names-seeded": "silky-commissioner-04",
     "first-agent": "2 user message(s) of history",
+    "scaffold-app": "Template 'web:spa' would create",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
