@@ -1,0 +1,29 @@
+---
+title: Add typed settings to a module
+description: Configure a module with ModuleSettings — env-var resolution and secret redaction for free.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/typed-settings.py?raw';
+
+**Goal:** give your module configuration that resolves predictably (overrides → env vars →
+`.env` → defaults) and keeps secrets out of logs — without writing any of that plumbing.
+
+Subclass `ModuleSettings`, declare typed fields, and set an `env_prefix`. KAOS handles the
+[resolution order](/concepts/settings-resolution) and redacts `SecretStr` fields.
+
+```bash
+uv run examples/typed-settings.py
+```
+
+<Code code={src} lang="python" title="examples/typed-settings.py" />
+
+**Notes**
+
+- Fields read from `KAOS_<PREFIX>_<FIELD>` env vars; here `KAOS_MYMOD_MAX_ITEMS=42`
+  overrides the default `10`.
+- `SecretStr` fields render as `**********` in logs, `repr`, CLI/JSON output, and
+  serialized settings — you must call `.get_secret_value()` to read the real value. That's
+  how API keys never leak by accident.
+- This is the foundation every package builds on (it's why
+  [provider keys](/reference/env-vars) and module knobs all behave the same way).

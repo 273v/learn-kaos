@@ -46,6 +46,7 @@ EXPECTED: dict[str, str] = {
     "embeddings": "256-dim vectors",
     "near-duplicates": "0.812",
     "agent-permissions": "deny",
+    "typed-settings": "overriding default 10",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

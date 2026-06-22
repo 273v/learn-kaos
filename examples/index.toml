@@ -263,3 +263,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/configure-permissions"
+
+[[example]]
+id = "typed-settings"
+title = "Typed module settings"
+summary = "ModuleSettings with env-var resolution and SecretStr redaction — the config foundation, offline."
+packages = ["kaos-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/add-typed-settings"
