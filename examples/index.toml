@@ -227,3 +227,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/web-page-to-ast"
+
+[[example]]
+id = "embeddings"
+title = "Semantic embeddings"
+summary = "Dense embeddings + similarity with a vendored static model — semantic, offline, no download."
+packages = ["kaos-nlp-transformers"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/semantic-embeddings"

@@ -1,0 +1,32 @@
+---
+title: Embed text for semantic search
+description: Produce dense embeddings and measure similarity — offline, with a vendored model.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/embeddings.py?raw';
+
+**Goal:** turn text into dense vectors so you can measure *semantic* similarity (meaning,
+not just word overlap) — the basis of semantic search and clustering.
+
+`kaos-nlp-transformers` produces embeddings. Most models download on first use, but the
+vendored static model `minishlab/potion-base-8M` (the `[model2vec]` extra) loads with **no
+download**, so this example runs offline and deterministically.
+
+```bash
+uv run examples/embeddings.py
+```
+
+<Code code={src} lang="python" title="examples/embeddings.py" />
+
+**Notes**
+
+- The related sentences score high (~0.74); the unrelated one scores near zero — that's
+  the semantic signal lexical [BM25](/how-to/search-text-with-bm25) can miss.
+- For larger / more accurate models (`BAAI/bge-small-en-v1.5`, `potion-base-32M`),
+  pre-warm the cache once with `kaos-nlp-transformers prefetch`, then set
+  `KAOS_NLP_TRANSFORMERS_OFFLINE=1`.
+- `kaos-nlp-transformers` also ships cross-encoder **reranking**, **NLI**, zero-shot
+  **NER**, and **PII** detection — all over the same offline-capable ONNX runtime.
+- Models are license-vetted and SHA-pinned in a registry; bypass it only with
+  `KAOS_NLP_TRANSFORMERS_ALLOW_UNREGISTERED=true` (and your own license review).

@@ -43,6 +43,7 @@ EXPECTED: dict[str, str] = {
     "research-over-corpus": "GROUNDED:",
     "pdf-extract": "retainer is twenty thousand",
     "web-extract": "arbitration clause",
+    "embeddings": "256-dim vectors",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
