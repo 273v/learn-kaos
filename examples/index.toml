@@ -675,8 +675,8 @@ tutorial = "how-to/analyze-billing"
 [[example]]
 id = "contract-to-template"
 title = "Contract → reusable template"
-summary = "Find a contract's parties/amounts/dates with on-device NER, swap them for {{template}} fields, and redline the changes — no LLM, no key."
-packages = ["kaos-office", "kaos-content", "kaos-nlp-transformers"]
+summary = "Read a contract PDF, find its parties/amounts/dates with on-device NER, swap them for {{template}} fields, and redline the changes — no LLM, no key."
+packages = ["kaos-pdf", "kaos-office", "kaos-nlp-transformers"]
 persona = "builder"
 level = "core"
 offline_ok = true

@@ -6,12 +6,13 @@ description: Find a contract's parties, amounts, and dates with on-device NER an
 import { Code } from '@astrojs/starlight/components';
 import src from '#examples/contract-to-template.py?raw';
 
-**Goal:** take a *signed* agreement and turn it into a **reusable template** — automatically
-replacing the parties, dollar amounts, and dates with `{{placeholders}}` you can fill for the
-next deal. It's one of the most practical document-automation tasks in legal, and it needs no
-LLM and no API key — just a small on-device NER model.
+**Goal:** take a *signed* agreement PDF and turn it into a **reusable template** —
+automatically replacing the parties, dollar amounts, and dates with `{{placeholders}}` you
+can fill for the next deal. It's one of the most practical document-automation tasks in
+legal, and it needs no LLM and no API key — just a small on-device NER model.
 
-It composes three packages into a pipeline:
+It composes four packages into a pipeline — read the PDF, find fields with NER, then rewrite
+and redline as a template:
 
 ```bash
 uv run examples/contract-to-template.py
@@ -34,11 +35,13 @@ Fill it for a new deal:
 
 **What to notice**
 
-- **Three packages, one pipeline.** [`kaos-office`](/how-to/ingest-office-docs) parses the
-  DOCX, [`kaos-nlp-transformers`](/how-to/extract-entities) finds the fields with a local
-  GLiNER model, and `kaos-office` again writes the template and the
-  [redline](/how-to/redline-a-contract). That's the KAOS thesis — small packages that snap
-  together.
+- **Four packages, one pipeline.** [`kaos-pdf`](/how-to/ingest-a-pdf) reads the contract,
+  [`kaos-nlp-transformers`](/how-to/extract-entities) finds the fields with a local GLiNER
+  model, and [`kaos-office`](/how-to/redline-a-contract) writes the template and the redline.
+  That's the KAOS thesis — small packages that snap together.
+- **Real PDFs need a cleanup pass.** Line wrapping splits phrases ("Acme\nCorporation"), so
+  the example collapses whitespace before running NER. A realistic, one-line step you'll
+  reach for on any extracted PDF.
 - **The redline is your audit trail.** Comparing the original to the template produces
   tracked changes, so a human can review *exactly* which spans were parameterized before
   trusting the template. Nothing is replaced silently.
