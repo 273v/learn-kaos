@@ -57,6 +57,24 @@ export default defineConfig({
       description:
         'Tested, multi-learner docs and one-command runnable examples for the open-source KAOS (Kelvin Agentic OS) ecosystem.',
       customCss: ['./src/styles/global.css'],
+      // Polished, copy-friendly code blocks (Expressive Code ships the copy
+      // button + frames; this adds a matched theme pair, soft frames, and a
+      // word-wrap toggle so long one-liners never need horizontal scrolling).
+      expressiveCode: {
+        themes: ['github-dark-default', 'github-light-default'],
+        styleOverrides: {
+          borderRadius: '0.5rem',
+          frames: {
+            shadowColor: 'rgba(15, 23, 42, 0.10)',
+          },
+        },
+        defaultProps: {
+          wrap: true,
+          overridesByLang: {
+            'bash,sh,zsh': { frame: 'terminal' },
+          },
+        },
+      },
       social: [
         { icon: 'github', label: 'GitHub', href: 'https://github.com/273v/learn-kaos' },
       ],
