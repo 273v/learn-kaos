@@ -61,6 +61,7 @@ export default defineConfig({
       // Quality-of-life features standard on well-built docs (e.g. the Astro
       // docs themselves): a per-page "edit on GitHub" link, last-updated dates
       // from git history, and prev/next pagination.
+      routeMiddleware: './src/routeData.ts',
       editLink: {
         baseUrl: 'https://github.com/273v/learn-kaos/edit/main/',
       },
