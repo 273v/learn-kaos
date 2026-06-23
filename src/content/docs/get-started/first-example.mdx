@@ -1,56 +1,69 @@
 ---
 title: Your first example
-description: Run a deterministic KAOS sample in one command — extract typed legal citations from text, no API key required.
+description: Redline two contract versions in one command — see the tracked changes, then accept or reject them. Deterministic, offline, no API key.
 ---
 
 import { Code, CardGrid, LinkCard } from '@astrojs/starlight/components';
-import citationsSrc from '#examples/citations-extract.py?raw';
+import redlineSrc from '#examples/redline-contract.py?raw';
 
-Let's run KAOS. This example pulls **typed, normalized legal citations** out of
-plain text using [`kaos-citations`](https://github.com/273v/kaos-citations) — a
-pure-Python package with a Rust-backed matcher. It's fully **deterministic** and
-**offline**: no API key, no network model, same output every time.
+Let's run KAOS on a task every lawyer knows: **redlining a contract**. This example compares
+two versions of an agreement, produces a Word-style **redline** (tracked changes), and then
+**accepts or rejects** them in code — using [`kaos-office`](https://github.com/273v/kaos-office)
+and [`kaos-content`](https://github.com/273v/kaos-content). It's fully **deterministic** and
+**offline**: no API key, no model download, same output every time.
 
 ## Run it
 
-One command — no clone, no virtualenv:
+One command — no clone, no virtualenv, no key:
 
 ```bash
-uv run https://raw.githubusercontent.com/273v/learn-kaos/main/examples/citations-extract.py
+uv run https://raw.githubusercontent.com/273v/learn-kaos/main/examples/redline-contract.py
 ```
 
 Or from a local clone of this repo:
 
 ```bash
-uv run examples/citations-extract.py
+uv run examples/redline-contract.py
 ```
 
 You'll see:
 
 ```text
-Found 1 citation(s):
+4 tracked change(s):
 
-  kind=case     normalized='347 U.S. 483 (1954)'  span=(61, 73)
+   deleted: 'five'  (by Reviewer)
+  inserted: 'seven'  (by Reviewer)
+   deleted: 'three'  (by Reviewer)
+  inserted: 'five'  (by Reviewer)
+
+  accept all -> The interest rate is seven percent and the term is five years.
+  reject all -> The interest rate is five percent and the term is three years.
 ```
+
+Counsel changed the rate (five → seven percent) and the term (three → five years); KAOS
+surfaces each edit as a **typed tracked change**, and resolves them two ways.
 
 ## The code
 
-This is the exact file that runs above — and the exact file this site's CI runs on
-every change. What you read here cannot drift from what's tested, because the page
-imports the file byte-for-byte:
+This is the exact file that runs above — and the exact file this site's CI runs on every
+change. What you read here cannot drift from what's tested, because the page imports the file
+byte-for-byte:
 
-<Code code={citationsSrc} lang="python" title="examples/citations-extract.py" />
+<Code code={redlineSrc} lang="python" title="examples/redline-contract.py" mark={['ko.write_redline(original, revised, redline)', 'Revisions.from_document(doc)']} />
 
 ## What just happened
 
-- The `# /// script` block at the top is [PEP 723](https://peps.python.org/pep-0723/)
-  inline metadata. `uv` reads it, resolves `kaos-citations` into a cached isolated
-  environment, and runs the file — that's why one command is enough.
-- `extract_citations(text)` returns a list of typed `Citation` objects. Each one
-  carries a `kind` (here `case`), the `raw` matched text, a `normalized` form, and
-  an absolute `(start, end)` `span` into the input.
-- The `assert`s at the bottom make the file **its own test**. This site runs it in
-  CI, so this page is guaranteed to be correct.
+- The `# /// script` block at the top is [PEP 723](https://peps.python.org/pep-0723/) inline
+  metadata. `uv` reads it, resolves the packages into a cached isolated environment, and runs
+  the file — that's why one command is enough.
+- **`write_redline(v1, v2, out)`** compares two DOCX versions into a real Word redline. Open
+  it in Word and it looks hand-marked.
+- **`parse_docx(path, track_changes=True)`** then **`Revisions.from_document(doc)`** surfaces
+  each edit as a *typed* `Revision` — its `change_type` (insertion/deletion), `text`, and
+  `author` — so you can review changes in code, not by eyeballing.
+- **`accept_all`** / **`reject_all`** resolve the markup: accepting yields the revised
+  version, rejecting restores the original. The `assert`s at the bottom make the file **its
+  own test**, so this page is guaranteed correct.
 
 ## Next
 
@@ -61,6 +74,11 @@ imports the file byte-for-byte:
     description="Author a tool, build a document, call a model, build an agent — each step runnable offline."
   />
   <LinkCard
+    title="Turn a contract into a template"
+    href="/learn-kaos/how-to/contract-to-template"
+    description="Find a contract's parties, amounts & dates with on-device NER and swap them for reusable fields."
+  />
+  <LinkCard
     title="Browse the gallery"
     href="/learn-kaos/gallery"
     description="Every one-command example, most fully offline, no API key."
@@ -69,10 +87,5 @@ imports the file byte-for-byte:
     title="The bigger picture"
     href="/learn-kaos/what-is-kaos"
     description="How the kaos-* packages fit together into one composable stack."
-  />
-  <LinkCard
-    title="Legal & financial use cases"
-    href="/learn-kaos/use-cases"
-    description="Contract review, billing analytics, entity extraction, conflict checks, and more."
   />
 </CardGrid>

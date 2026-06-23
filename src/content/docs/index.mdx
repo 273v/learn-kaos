@@ -42,21 +42,26 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 
 ## See it run
 
-No clone, no key — one command turns plain text into a typed, normalized legal citation
-with an exact source span:
+Here's the kind of task KAOS is built for: turn a *signed contract* into a **reusable
+template**. One command reads the PDF, finds the parties, amounts, and dates with an
+on-device model (no API key), swaps them for template fields, and redlines the changes:
 
 ```bash
-uv run https://raw.githubusercontent.com/273v/learn-kaos/main/examples/citations-extract.py
+uv run examples/contract-to-template.py
 ```
 
 ```text
-Found 1 citation(s):
+Found 4 field(s) with on-device NER (no LLM, no key):
+  {{date_1}}   <- 'March 1, 2026'
+  {{party_1}}  <- 'Acme Corporation'
+  {{party_2}}  <- 'Globex Industries'
+  {{amount_1}} <- '$50,000'
 
-  kind=case     normalized='347 U.S. 483 (1954)'  span=(61, 73)
+Redline (contract → template): 4 fields parameterized, 8 tracked change(s).
 ```
 
-That's the whole pattern: **55 tested examples**, each one `uv run` away, most fully
-offline. [Browse them all →](/gallery)
+That's the pattern: **56 tested examples**, each one `uv run` away, most fully offline.
+[See how it works →](/how-to/contract-to-template) · [browse them all →](/gallery)
 
 ## Why this site is different
 
