@@ -7,9 +7,6 @@ KAOS docs are organized the [Diátaxis](https://diataxis.fr/) way — tutorials 
 how-to guides (do a task), reference (look up facts), and explanation (understand).
 Different readers need different doors. Find yours.
 
-> Pages marked _(soon)_ are planned and land in upcoming milestones. The links that
-> work today take you to live, tested pages.
-
 ## "Just show me it works"
 
 You want proof, fast — no setup, no key.
@@ -22,6 +19,35 @@ You want proof, fast — no setup, no key.
 
 You want to learn KAOS properly, building as you go. Follow the **golden path** —
 each tutorial builds on the last, all runnable offline:
+
+```mermaid
+flowchart LR
+    subgraph F["① Foundations"]
+        direction TB
+        t1["Your first tool"] --> t2["Build a document"]
+    end
+    subgraph L["② LLM programming"]
+        direction TB
+        t3["Offline FunctionClient"] --> t4["Your first model call"] --> t5["One-liner → program"]
+    end
+    subgraph A["③ Agents"]
+        direction TB
+        t6["Your first agent"] --> t7["Grounded citations"] --> t8["Research agent"]
+    end
+    subgraph C["④ Capstone"]
+        t9["Build an app"]
+    end
+    F --> L --> A --> C
+
+    classDef f fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef l fill:#f0f9ff,stroke:#0ea5e9,color:#0c4a6e;
+    classDef a fill:#fef9c3,stroke:#ca8a04,color:#713f12;
+    classDef c fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class t1,t2 f;
+    class t3,t4,t5 l;
+    class t6,t7,t8 a;
+    class t9 c;
+```
 
 1. [Your first tool](/tutorials/first-tool)
 2. [Build a document](/tutorials/build-a-document)
@@ -50,9 +76,13 @@ has the package map, [CLI](/reference/cli), [MCP tools](/reference/mcp-tools),
 
 ## "I want to understand the design"
 
-You want the *why*. Start with [how KAOS fits together](/architecture); the concepts
-section _(growing)_ explains the agent loop, memory, retrieval choices, the
-cost-as-a-contract model, and grounded citations.
+You want the *why*. Start with [how KAOS fits together](/architecture); the
+[concepts](/concepts/the-8-step-turn-loop) section explains the
+[agent loop](/concepts/the-8-step-turn-loop), [memory](/concepts/memory-as-context-assembly),
+[retrieval choices](/concepts/why-plain-bm25), the
+[cost-as-a-contract](/concepts/cost-as-a-contract) model, and
+[grounded citations](/concepts/grounding-and-verification). The
+[glossary](/reference/glossary) cross-links every term.
 
 ## "I want to extend KAOS"
 
