@@ -419,3 +419,123 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/review-a-contract"
+
+[[example]]
+id = "uc-litigation-triage"
+title = "Litigation triage"
+summary = "Classify court documents by type to route them — the litigation-automation use case."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-billing-utbms"
+title = "UTBMS billing codes"
+summary = "Assign UTBMS task codes to billing narratives — pre-bill compliance."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-matter-tagging"
+title = "Matter tagging"
+summary = "Tag matters with practice area for reporting — matter data tagging."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-complaint-extract"
+title = "Complaint database"
+summary = "Extract parties/violation/penalty from a complaint — complaint & settlement databases."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-contract-abstract"
+title = "Contract abstraction"
+summary = "Extract dates/term/renewal/law from an executed contract — post-execution tracking."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-credit-covenants"
+title = "Credit covenants"
+summary = "Extract financial covenants from a credit agreement — lending analysis."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-s1-deal-terms"
+title = "IPO deal terms"
+summary = "Extract offering terms from an S-1 — SEC EDGAR deal databases."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-expertise-extract"
+title = "Expertise database"
+summary = "Extract practice areas/industries/languages from an attorney profile."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-regulatory-monitoring"
+title = "Regulatory monitoring"
+summary = "Filter & summarize Federal Register notices by relevance."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"
+
+[[example]]
+id = "uc-matter-pricing"
+title = "Matter pricing"
+summary = "Estimate cost & staffing for a new matter from its scope — RFP pricing."
+packages = ["kaos-llm-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "use-cases"

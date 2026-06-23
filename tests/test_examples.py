@@ -59,6 +59,16 @@ EXPECTED: dict[str, str] = {
     "cap-cost": "budget_cost",
     "add-template-kind": "report:latex",
     "findings-review": "survived filtering",
+    "uc-litigation-triage": "complaint",
+    "uc-billing-utbms": "L120",
+    "uc-matter-tagging": "M&A",
+    "uc-complaint-extract": "Globex Financial",
+    "uc-contract-abstract": "Delaware",
+    "uc-credit-covenants": "leverage ratio",
+    "uc-s1-deal-terms": "ACME",
+    "uc-expertise-extract": "Private Equity",
+    "uc-regulatory-monitoring": "RELEVANT",
+    "uc-matter-pricing": "complexity:",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

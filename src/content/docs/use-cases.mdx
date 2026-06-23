@@ -1,0 +1,61 @@
+---
+title: Legal & financial use cases
+description: One runnable KAOS example for each real-world legal and financial workflow.
+---
+
+These are the workflows KAOS was built for — the same use cases the legacy Kelvin
+documentation covered, rebuilt fresh on the new packages. **Every one has a runnable,
+tested example** you can run in one command. They use small inline samples so they run
+offline; the *Real data* note on each points at the production data source — including the
+public **[kl3m datasets on Hugging Face](/how-to/use-kl3m-data)**.
+
+Most reduce to three KAOS patterns: **classify** (typed `Call` → a label), **extract**
+(typed `Call` → a structured record), and **review/answer** (an agent over a corpus). That's
+the point — a handful of composable primitives cover the whole domain.
+
+## Contracts
+
+| Use case | What it does | Run |
+|---|---|---|
+| **Contract knowledge management** | Extract sections & definitions for a clause library | `uv run examples/contract-definitions.py` |
+| **Pre-execution review** | Flag unusual clauses & risks before signing ([FindingsAgent](/how-to/review-a-contract)) | `uv run examples/findings-review.py` |
+| **Post-execution abstraction** | Extract dates, term, renewal, governing law to track obligations | `uv run examples/uc-contract-abstract.py` |
+
+## Litigation & matters
+
+| Use case | What it does | Run |
+|---|---|---|
+| **Litigation triage** | Classify court documents by type to route them | `uv run examples/uc-litigation-triage.py` |
+| **Matter data tagging** | Tag matters with practice area for reporting | `uv run examples/uc-matter-tagging.py` |
+| **Complaint & settlement database** | Extract parties / violation / penalty into a database | `uv run examples/uc-complaint-extract.py` |
+| **Matter / RFP pricing** | Estimate cost & staffing from a matter's scope | `uv run examples/uc-matter-pricing.py` |
+| **Due diligence** | Answer questions over a document corpus with citations ([research](/tutorials/research-agent-citations)) | `uv run examples/research-agent.py` |
+
+## Finance & deals
+
+| Use case | What it does | Run |
+|---|---|---|
+| **SEC EDGAR / IPO analysis** | Extract offering terms from an S-1 into a deal database | `uv run examples/uc-s1-deal-terms.py` |
+| **Commercial lending analysis** | Extract financial covenants from a credit agreement | `uv run examples/uc-credit-covenants.py` |
+
+## Billing & compliance
+
+| Use case | What it does | Run |
+|---|---|---|
+| **Post-bill invoice analytics** | SQL analytics over LEDES billing data | `uv run examples/sql-analytics.py` |
+| **Pre-bill UTBMS coding** | Assign UTBMS task codes to billing narratives | `uv run examples/uc-billing-utbms.py` |
+
+## Knowledge & monitoring
+
+| Use case | What it does | Run |
+|---|---|---|
+| **Expertise management** | Extract practice areas / industries / languages from profiles | `uv run examples/uc-expertise-extract.py` |
+| **Regulatory monitoring** | Filter & summarize Federal Register notices by relevance | `uv run examples/uc-regulatory-monitoring.py` |
+
+:::tip[From sample to production]
+Each example uses a deterministic offline model ([FunctionClient](/concepts/the-offline-seam))
+so it runs free, in CI, with no key — proving the *shape* of the workflow. Swap in a real
+model (`KAOS_LEARN_LIVE=1` where supported) and real documents from
+[kl3m](/how-to/use-kl3m-data), [EDGAR](/how-to/pull-a-sec-filing), or your own corpus, and the
+same typed contract holds.
+:::

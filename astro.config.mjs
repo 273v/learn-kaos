@@ -81,6 +81,10 @@ export default defineConfig({
           items: [{ autogenerate: { directory: 'reference' } }],
         },
         {
+          label: 'Use cases',
+          items: [{ label: 'Legal & financial use cases', slug: 'use-cases' }],
+        },
+        {
           label: 'Examples gallery',
           items: [{ label: 'Gallery', slug: 'gallery' }],
         },
