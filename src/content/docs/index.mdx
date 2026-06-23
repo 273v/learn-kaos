@@ -40,6 +40,24 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
 	</Card>
 </CardGrid>
 
+## See it run
+
+No clone, no key — one command turns plain text into a typed, normalized legal citation
+with an exact source span:
+
+```bash
+uv run https://raw.githubusercontent.com/273v/learn-kaos/main/examples/citations-extract.py
+```
+
+```text
+Found 1 citation(s):
+
+  kind=case     normalized='347 U.S. 483 (1954)'  span=(61, 73)
+```
+
+That's the whole pattern: **55 tested examples**, each one `uv run` away, most fully
+offline. [Browse them all →](/gallery)
+
 ## Why this site is different
 
 - **One command per example.** Every sample is a self-contained
