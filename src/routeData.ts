@@ -12,6 +12,7 @@ export const onRequest = defineRouteMiddleware((context) => {
   const ogImageUrl = new URL(`${BASE}/og/${id}.png`, context.site);
 
   const { head } = route;
+  head.push({ tag: 'meta', attrs: { property: 'og:site_name', content: 'Learn KAOS' } });
   head.push({ tag: 'meta', attrs: { property: 'og:image', content: ogImageUrl.href } });
   head.push({ tag: 'meta', attrs: { property: 'og:image:width', content: '1200' } });
   head.push({ tag: 'meta', attrs: { property: 'og:image:height', content: '630' } });
