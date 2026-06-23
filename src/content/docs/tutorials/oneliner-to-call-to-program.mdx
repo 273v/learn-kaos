@@ -5,7 +5,7 @@ sidebar:
   order: 5
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/typed-call-offline.py?raw';
 
 A raw `client.chat(...)` returns a string you have to parse and hope is shaped right.
@@ -47,5 +47,10 @@ parties: ['Acme Corp', 'Globex LLC']
 
 ## Next
 
-You can call models with types. Now wrap it in a stateful
-[agent with memory](/tutorials/first-agent) — the thing KAOS is for.
+You can call models with types. Now give them memory and tools.
+
+<LinkCard
+  title="Your first agent →"
+  href="/learn-kaos/tutorials/first-agent"
+  description="Wrap typed calls in a stateful agent with memory — the thing KAOS is for."
+/>

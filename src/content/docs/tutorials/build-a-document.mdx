@@ -5,7 +5,7 @@ sidebar:
   order: 2
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/build-a-document.py?raw';
 
 `kaos-content` is KAOS's **document model**: one Block/Inline AST with provenance.
@@ -52,5 +52,10 @@ Tenant shall pay rent [monthly](https://example.com/terms).
 
 ## Next
 
-You can make tools and documents. Now bring in an LLM — without needing an API key —
-via the [FunctionClient offline seam](/tutorials/offline-llm-with-functionclient).
+You can make tools and documents. Now bring in an LLM — without needing an API key.
+
+<LinkCard
+  title="Offline LLM with FunctionClient →"
+  href="/learn-kaos/tutorials/offline-llm-with-functionclient"
+  description="Bring an LLM into the picture with no API key — the deterministic seam this whole site runs on."
+/>

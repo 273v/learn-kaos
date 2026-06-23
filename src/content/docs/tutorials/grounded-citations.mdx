@@ -5,7 +5,7 @@ sidebar:
   order: 7
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/grounded-citations.py?raw';
 
 An agent that answers questions over your documents is only useful if you can **trust**
@@ -58,9 +58,10 @@ here, is real either way.
 
 ## Next
 
-You've seen the trust mechanism. The [capstone](/tutorials/build-an-app) assembles the
-whole stack into a running application.
+You've seen the trust mechanism. Now see it inside a full research agent.
 
-Next, see this verification contract inside a full
-[research agent](/tutorials/research-agent-citations) that retrieves, answers, and refuses
-over a corpus.
+<LinkCard
+  title="A research agent with citations →"
+  href="/learn-kaos/tutorials/research-agent-citations"
+  description="Retrieve over a corpus, answer with verified citations, or refuse when the evidence isn't there."
+/>

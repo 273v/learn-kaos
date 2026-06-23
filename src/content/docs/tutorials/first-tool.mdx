@@ -5,7 +5,7 @@ sidebar:
   order: 1
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/first-tool.py?raw';
 
 Everything in KAOS is built on `kaos-core` — a dependency-light runtime and an
@@ -44,5 +44,10 @@ word count: 5
 
 ## Next
 
-You have a runtime and a tool. Next, build the data structure KAOS tools mostly
-operate on: a [document](/tutorials/build-a-document).
+You have a runtime and a tool. Next, build the data structure KAOS tools mostly operate on.
+
+<LinkCard
+  title="Build a document →"
+  href="/learn-kaos/tutorials/build-a-document"
+  description="The Block/Inline AST that every KAOS extractor produces and every tool operates on."
+/>

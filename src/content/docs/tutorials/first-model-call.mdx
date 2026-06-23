@@ -5,7 +5,7 @@ sidebar:
   order: 4
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/functionclient-chat.py?raw';
 
 `kaos-llm-client` is the thin, provider-native client layer. You talk to every
@@ -49,5 +49,10 @@ The only thing that changes is which client `make_client()` returns. The
 
 ## Next
 
-Strings in, strings out is just the start. Program the model with **types** in
-[from a one-liner to a typed program](/tutorials/oneliner-to-call-to-program).
+Strings in, strings out is just the start. Program the model with **types**.
+
+<LinkCard
+  title="From a one-liner to a typed program →"
+  href="/learn-kaos/tutorials/oneliner-to-call-to-program"
+  description="Stop parsing strings — program the model with typed inputs and outputs."
+/>

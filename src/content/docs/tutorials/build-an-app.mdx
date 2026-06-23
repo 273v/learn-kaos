@@ -5,7 +5,7 @@ sidebar:
   order: 9
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/scaffold-app.py?raw';
 
 The capstone. You've built tools, documents, typed programs, and an agent. Now
@@ -74,7 +74,25 @@ PyPI. The generated `README.md` and `Makefile` spell out the exact steps.
 
 You've walked the spine end to end. From here:
 
-- The **research agent with verified citations** (the grounded-findings payoff) lands
-  next on the golden path.
-- Dive into the [how-to cookbook](/how-to/search-text-with-bm25) for task recipes.
-- Read the [concepts](/concepts/the-offline-seam) for the *why* behind the design.
+<CardGrid>
+  <LinkCard
+    title="Legal & financial use cases"
+    href="/learn-kaos/use-cases"
+    description="One runnable example for every real-world workflow — review, extract, classify, analyze."
+  />
+  <LinkCard
+    title="How-to cookbook"
+    href="/learn-kaos/how-to/search-text-with-bm25"
+    description="Task recipes: search, SQL, citations, redlines, entities, billing analytics, and more."
+  />
+  <LinkCard
+    title="Concepts"
+    href="/learn-kaos/concepts/the-offline-seam"
+    description="The why behind the design — the turn loop, grounding, cost as a contract."
+  />
+  <LinkCard
+    title="Reference"
+    href="/learn-kaos/reference/packages"
+    description="The package map, CLI, glossary, and every generated detail."
+  />
+</CardGrid>

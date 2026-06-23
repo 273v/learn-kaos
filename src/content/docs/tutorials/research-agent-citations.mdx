@@ -5,7 +5,7 @@ sidebar:
   order: 8
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/research-agent.py?raw';
 
 This is the marquee KAOS workflow — and the payoff of the whole spine. A `ResearchAgent`
@@ -65,3 +65,9 @@ This is what KAOS is *for*: grounded, cited, refuse-when-unsure answers over you
 From here, the [capstone](/tutorials/build-an-app) wraps the stack in a running app, the
 [how-to cookbook](/how-to/run-sql-analytics) has task recipes, and the
 [concepts](/concepts/grounding-and-verification) explain the *why*.
+
+<LinkCard
+  title="Build an app (capstone) →"
+  href="/learn-kaos/tutorials/build-an-app"
+  description="Assemble the whole stack — agent, memory, citations — into a running FastAPI + React application."
+/>

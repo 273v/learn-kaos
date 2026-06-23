@@ -5,7 +5,7 @@ sidebar:
   order: 3
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/functionclient-chat.py?raw';
 
 Before you call a real model, learn the seam that makes every LLM example here
@@ -52,5 +52,10 @@ calls recorded: 1
 
 ## Next
 
-Now make a "real" model call — same code, with the live path explained —
-in [your first model call](/tutorials/first-model-call).
+You have the offline seam. Now make a model call with it.
+
+<LinkCard
+  title="Your first model call →"
+  href="/learn-kaos/tutorials/first-model-call"
+  description="Make a “real” model call — the same code, with the live provider path explained."
+/>

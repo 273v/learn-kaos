@@ -5,7 +5,7 @@ sidebar:
   order: 6
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, LinkCard } from '@astrojs/starlight/components';
 import src from '#examples/first-agent.py?raw';
 
 This is what KAOS is *for*. `kaos-agents` gives you a stateful agent with memory,
@@ -63,6 +63,10 @@ the rest of the spine — tracked in the project plan.
 
 ## Next
 
-You have an agent that remembers. Next on the path: a **research agent** that answers
-over a corpus with **verified citations**, and the **app capstone** — both landing in
-the next milestone.
+You have an agent that remembers. Next, make its answers **trustworthy**.
+
+<LinkCard
+  title="Grounded citations →"
+  href="/learn-kaos/tutorials/grounded-citations"
+  description="The trust mechanism: every claim carries a span that is checked against its source."
+/>
