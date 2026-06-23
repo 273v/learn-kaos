@@ -10,6 +10,23 @@ Codex, or your own.
 
 ## A bridge, not a toolbox
 
+```mermaid
+flowchart LR
+    subgraph RT["Your KaosRuntime"]
+        direction TB
+        p1["kaos-pdf tools"]
+        p2["kaos-source tools"]
+        p3["kaos-agents tools"]
+    end
+    RT --> bridge{{"kaos-mcp<br/><small>bridge — no tools of its own</small>"}}
+    bridge -->|stdio| c1["Claude Code"]
+    bridge -->|stdio| c2["Codex"]
+    bridge -->|HTTP + token| c3["Your client"]
+
+    classDef br fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    class bridge br;
+```
+
 `kaos-mcp` registers **no tools of its own**. It mounts whatever runtime you give it and
 exposes that runtime's tools. So the surface an MCP client sees is entirely determined by
 which packages you loaded — `kaos-pdf` + `kaos-source`, say, or the full agent stack. One
