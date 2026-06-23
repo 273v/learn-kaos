@@ -1,0 +1,37 @@
+---
+title: Check parties against a client list
+description: Fuzzy-match incoming party names for conflicts of interest — typos and punctuation included.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/conflict-check.py?raw';
+
+**Goal:** when a new matter comes in, check its parties against your existing clients — and
+catch the *near* matches a string equality test would miss ("Acme Corporaton", "Initech,
+LLC"). `kaos-nlp-core`'s `FstSet` indexes the known names and does edit-distance and
+type-ahead lookups: deterministic, fast, offline, no model.
+
+```bash
+uv run examples/conflict-check.py
+```
+
+```text
+  CONFLICT  'Acme Corporaton'      ~ 'Acme Corporation' (distance 1)
+  CONFLICT  'globex industries'    ~ 'Globex Industries' (distance 0)
+  CONFLICT  'Initech, LLC'         ~ 'Initech LLC' (distance 1)
+  clear     'Stark Industries'     (no known client within distance 2)
+```
+
+<Code code={src} lang="python" title="examples/conflict-check.py" />
+
+**What to notice**
+
+- `FstSet(keys)` builds a finite-state index; `fuzzy_search(query, max_distance)` returns
+  matches within an edit distance, each with its `.distance`. Tune `max_distance` to trade
+  recall for precision.
+- **Normalize first.** Lowercasing (as here) keeps a casing difference from eating your edit
+  budget; map back to the canonical name for display. Add your own normalization (drop
+  "Inc."/"LLC", collapse whitespace) for stricter entity resolution.
+- `prefix_search` on the same index powers **type-ahead** for a search box.
+- This is the deterministic counterpart to [near-duplicate detection](/how-to/find-near-duplicates)
+  (which works on whole documents); use `FstSet` for short strings like names and titles.

@@ -1,0 +1,43 @@
+---
+title: Find money, dates & figures (no model)
+description: Locate the sentences containing money, dates, percentages, and durations — pure patterns, offline.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/find-financial-terms.py?raw';
+
+**Goal:** sometimes you don't need an LLM or even a [NER model](/how-to/extract-entities) —
+you need to *find the sentences that contain a figure* and put them in front of a reviewer.
+`kaos-content`'s entity filters locate money, dates, durations, percentages, and numbers
+over a document using built-in patterns: deterministic, instant, offline, zero dependencies
+beyond the parser.
+
+```bash
+uv run examples/find-financial-terms.py
+```
+
+```text
+money (1):
+  - The total contract value is $4,500,000 payable in quarterly installments.
+dates (1):
+  - This Master Services Agreement is effective as of March 1, 2026.
+percents (1):
+  - Late payments accrue interest at 1.5% per month.
+durations (1):
+  - Either party may terminate on 90 days written notice.
+```
+
+<Code code={src} lang="python" title="examples/find-financial-terms.py" />
+
+**What to notice**
+
+- `sentences_with_money`, `sentences_with_dates`, `sentences_with_percents`,
+  `sentences_with_durations`, `sentences_with_numbers` (and `paragraphs_with_*` variants)
+  each return hits carrying the `sentence` and the matched spans — so you keep provenance.
+- **Pattern-based, not model-based.** No download, no inference — instant over a whole
+  corpus. Use it as a cheap first pass, then send the flagged sentences to a
+  [NER model](/how-to/extract-entities) or a [typed `Call`](/tutorials/oneliner-to-call-to-program)
+  for exact values.
+- Runs on a [`DocumentView`](/concepts/one-document-model), so it composes with any parsed
+  document — [PDF](/how-to/ingest-a-pdf), [DOCX](/how-to/ingest-office-docs), or
+  [web](/how-to/web-page-to-ast).

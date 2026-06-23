@@ -76,6 +76,8 @@ EXPECTED: dict[str, str] = {
     "redline-contract": "tracked change(s)",
     "extract-entities": "Acme Corporation",
     "detect-pii": "PII span(s) detected",
+    "conflict-check": "CONFLICT",
+    "find-financial-terms": "money (1):",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

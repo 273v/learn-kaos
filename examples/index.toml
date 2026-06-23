@@ -623,3 +623,27 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/detect-and-redact-pii"
+
+[[example]]
+id = "conflict-check"
+title = "Conflict checking"
+summary = "Fuzzy-match incoming party names against a client list (typos, punctuation) with FstSet — offline."
+packages = ["kaos-nlp-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/check-for-conflicts"
+
+[[example]]
+id = "find-financial-terms"
+title = "Find money/dates (no model)"
+summary = "Locate sentences with money/dates/percents/durations via built-in patterns — deterministic, offline."
+packages = ["kaos-content", "kaos-nlp-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/find-financial-terms"
