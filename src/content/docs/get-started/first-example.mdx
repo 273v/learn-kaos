@@ -29,19 +29,29 @@ uv run examples/redline-contract.py
 You'll see:
 
 ```text
-4 tracked change(s):
+Wrote 3 Word files to ./redline-demo/  — open them in Word to review:
+  • original.docx  — the original contract
+  • revised.docx   — counsel's revised version
+  • redline.docx   — the tracked-changes redline   ← open this one
 
-   deleted: 'five'  (by Reviewer)
-  inserted: 'seven'  (by Reviewer)
-   deleted: 'three'  (by Reviewer)
-  inserted: 'five'  (by Reviewer)
+  before:  The interest rate is five percent and the term is three years.
+  after:   The interest rate is seven percent and the term is five years.
 
+4 tracked change(s) in redline.docx:
+   deleted: 'five'
+  inserted: 'seven'
+   deleted: 'three'
+  inserted: 'five'
+
+Resolve the markup in code:
   accept all -> The interest rate is seven percent and the term is five years.
   reject all -> The interest rate is five percent and the term is three years.
 ```
 
-Counsel changed the rate (five → seven percent) and the term (three → five years); KAOS
-surfaces each edit as a **typed tracked change**, and resolves them two ways.
+It writes **real Word files you can open** (`redline.docx` shows the tracked changes just
+like a hand-marked redline), then reads them back: counsel changed the rate (five → seven
+percent) and the term (three → five years), and KAOS surfaces each edit as a **typed tracked
+change** it can accept or reject in code.
 
 ## The code
 

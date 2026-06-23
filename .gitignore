@@ -26,3 +26,5 @@ __pycache__/
 .pytest_cache/
 .venv/
 .uv-cache/
+redline-demo/
+template-demo/

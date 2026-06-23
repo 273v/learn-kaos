@@ -31,7 +31,6 @@ Run it:
 from __future__ import annotations
 
 import re
-import tempfile
 from pathlib import Path
 
 import kaos_content as kc
@@ -111,11 +110,13 @@ def write_docx(paragraphs: list[str], path: Path) -> Path:
 
 
 def main():
-    work = Path(tempfile.mkdtemp())
+    out = Path.cwd() / "template-demo"
+    out.mkdir(exist_ok=True)
 
     # 1. Read the "signed" PDF and clean the extracted text.
-    pdf = make_pdf(work / "agreement.pdf")
+    pdf = make_pdf(out / "agreement.pdf")
     text = read_pdf_text(pdf)
+    print(f"Wrote files to {out}/  — open them to review.\n")
     print("Signed contract (agreement.pdf), text extracted & cleaned:")
     print(f"  {sentences(text)[0]}\n")
 
@@ -127,13 +128,17 @@ def main():
     print("\nReusable template (template.docx):")
     print(f"  {sentences(template_text)[0]}\n")
 
-    # 3. Author the original + template as DOCX and redline them — every swap is
-    #    a tracked change a human can review, so the parameterization is auditable.
-    original_docx = write_docx(sentences(text), work / "agreement.docx")
-    template_docx = write_docx(sentences(template_text), work / "template.docx")
-    changes = list(Revisions.from_document(ko.compare_docx(str(original_docx), str(template_docx))))
+    # 3. Author the original + template as DOCX and write a redline between them —
+    #    every swap is a tracked change a human can review, so the
+    #    parameterization is auditable. Open redline.docx in Word.
+    original_docx = write_docx(sentences(text), out / "agreement.docx")
+    template_docx = write_docx(sentences(template_text), out / "template.docx")
+    ko.write_redline(original_docx, template_docx, out / "redline.docx")
+    changes = list(Revisions.from_document(
+        ko.parse_docx(str(out / "redline.docx"), track_changes=True)
+    ))
     print(f"Redline (contract → template): {len(fields)} fields parameterized, "
-          f"{len(changes)} tracked change(s).\n")
+          f"{len(changes)} tracked change(s) → redline.docx\n")
 
     # 4. Fill the template for a new deal — the reuse payoff.
     new_values = {
