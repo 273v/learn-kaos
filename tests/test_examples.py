@@ -72,6 +72,7 @@ EXPECTED: dict[str, str] = {
     "parse-citations": "found 4 citation(s)",
     "chunk-a-document": "SentenceChunker ->",
     "triage-before-ingest": "extract text directly",
+    "selective-ocr": "send to OCR / VLM",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

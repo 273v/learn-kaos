@@ -575,3 +575,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/triage-before-ingest"
+
+[[example]]
+id = "selective-ocr"
+title = "Selective OCR for hybrid PDFs"
+summary = "Classify each PDF page (text vs scanned) and route only the scanned pages to OCR/VLM — offline."
+packages = ["kaos-pdf"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/detect-pages-needing-ocr"

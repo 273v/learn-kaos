@@ -24,6 +24,8 @@ uv run examples/triage-before-ingest.py
   [`kaos-web`](/how-to/web-page-to-ast) accordingly.
 - `kaos_pdf.classify_document(path)` returns `text` for a PDF with an extractable text layer,
   or a scanned/image kind that should go through OCR (`kaos-pdf`'s optional `[ocr]` extra).
-  This saves you from running expensive OCR on PDFs that don't need it.
+  This saves you from running expensive OCR on PDFs that don't need it. For **hybrid** PDFs
+  (some pages text, some scanned), classify [page by page](/how-to/detect-pages-needing-ocr)
+  and OCR only the pages that need it.
 - Both are pure and offline, so they're cheap to run as a first pass over a large drop
   folder before committing to the heavier extraction.

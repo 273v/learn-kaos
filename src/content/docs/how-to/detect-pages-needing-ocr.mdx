@@ -1,0 +1,40 @@
+---
+title: Find which PDF pages need OCR
+description: Detect hybrid PDFs and route only the scanned pages to OCR or a vision model.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/selective-ocr.py?raw';
+
+**Goal:** handle *hybrid* PDFs — a born-digital body with a scanned exhibit or signature
+page stapled on. Running OCR on the whole file is slow and lossy; skipping it misses the
+scanned pages. `kaos-pdf` classifies **each page**, so you OCR (or send to a VLM) *only* the
+pages that need it and extract the text layer directly everywhere else.
+
+```bash
+uv run examples/selective-ocr.py
+```
+
+```text
+document: mixed
+
+  page 0: text   (85 chars) -> extract text directly
+  page 1: image  (0 chars) -> send to OCR / VLM
+```
+
+<Code code={src} lang="python" title="examples/selective-ocr.py" />
+
+**What to notice**
+
+- `classify_document(path)` returns **`mixed`** for a hybrid file — your signal to drop to
+  page-level handling instead of treating the whole PDF one way.
+- `classify_page(path, n)` returns `text` or an image/scanned kind per page; pairing it with
+  `extract_page_text(path, n)` confirms whether a usable text layer is actually there (the
+  scanned page yields 0 characters).
+- **Selective routing is the win.** OCR and vision-model calls are the expensive,
+  error-prone part of ingestion — running them only on the pages that need it keeps a big
+  corpus [fast and cheap](/concepts/cost-as-a-contract) while staying complete.
+- Wire the text pages straight into the [document AST](/concepts/one-document-model) and the
+  OCR/VLM output back into the same AST, so downstream
+  [search](/how-to/search-text-with-bm25) and [extraction](/tutorials/grounded-citations)
+  don't care which path a page took.
