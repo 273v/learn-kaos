@@ -11,12 +11,19 @@ deviations, risks — *without missing anything*. The `FindingsAgent` is **recal
 enumerates every candidate sentence, filters them for relevance, and synthesizes the
 survivors into an answer, all under a cost cap.
 
-This is the NDA-review workflow KAOS was built for. It runs offline via the
-[FunctionClient substitution](/tutorials/first-agent) — the fake model scores the real
-candidates out of its own prompt, so the pipeline genuinely flows end to end.
+This is the NDA-review workflow KAOS was built for. It runs over a **real mutual NDA that
+ships with `kaos-agents`**, offline via the [FunctionClient substitution](/tutorials/first-agent)
+— the fake model reads the real candidate sentences out of its own prompt and flags the
+confidentiality clauses, so the pipeline genuinely flows end to end over a real document.
 
 ```bash
 uv run examples/findings-review.py
+```
+
+```text
+reviewing: EMNA Mutual NDA.docx
+
+enumerated 80 candidate sentence(s), 30 flagged for review
 ```
 
 <Code code={src} lang="python" title="examples/findings-review.py" />
@@ -34,3 +41,6 @@ uv run examples/findings-review.py
 - **Provenance survives.** Each finding keeps its source candidate, so you can trace every
   flagged clause back to the document — the basis for the
   [grounded-citation](/tutorials/grounded-citations) contract on extracted findings.
+- **Real document.** It loads an actual NDA via `importlib.resources` (parsed with
+  [`kaos-office`](/how-to/ingest-office-docs)) — swap in your own corpus, or real contracts
+  from [kl3m](/how-to/use-kl3m-data), and nothing else changes.

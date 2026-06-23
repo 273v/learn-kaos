@@ -58,7 +58,7 @@ EXPECTED: dict[str, str] = {
     "export-otel": "agent.turn",
     "cap-cost": "budget_cost",
     "add-template-kind": "report:latex",
-    "findings-review": "survived filtering",
+    "findings-review": "flagged for review",
     "uc-litigation-triage": "complaint",
     "uc-billing-utbms": "L120",
     "uc-matter-tagging": "M&A",
@@ -71,6 +71,7 @@ EXPECTED: dict[str, str] = {
     "uc-matter-pricing": "complexity:",
     "parse-citations": "found 4 citation(s)",
     "chunk-a-document": "SentenceChunker ->",
+    "triage-before-ingest": "extract text directly",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

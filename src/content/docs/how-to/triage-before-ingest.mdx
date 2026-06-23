@@ -1,0 +1,29 @@
+---
+title: Triage a file before ingesting
+description: Detect a file's format and whether a PDF needs OCR — before you parse it.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/triage-before-ingest.py?raw';
+
+**Goal:** at the front of an ingestion pipeline, decide two things fast — what *format* a
+file is (so you pick the right parser) and, for a PDF, whether it has a *text layer* (so you
+know whether to run OCR). Both checks are deterministic and offline.
+
+```bash
+uv run examples/triage-before-ingest.py
+```
+
+<Code code={src} lang="python" title="examples/triage-before-ingest.py" />
+
+**Notes**
+
+- `content_type.detect(bytes)` sniffs the format from the *content*, not the file extension —
+  returning `mime_type`, `group` (`pdf`/`office`/`html`/…), and `extension`. Route to
+  [`kaos-pdf`](/how-to/ingest-a-pdf), [`kaos-office`](/how-to/ingest-office-docs), or
+  [`kaos-web`](/how-to/web-page-to-ast) accordingly.
+- `kaos_pdf.classify_document(path)` returns `text` for a PDF with an extractable text layer,
+  or a scanned/image kind that should go through OCR (`kaos-pdf`'s optional `[ocr]` extra).
+  This saves you from running expensive OCR on PDFs that don't need it.
+- Both are pure and offline, so they're cheap to run as a first pass over a large drop
+  folder before committing to the heavier extraction.

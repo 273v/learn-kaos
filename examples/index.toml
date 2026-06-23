@@ -563,3 +563,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/chunk-a-document"
+
+[[example]]
+id = "triage-before-ingest"
+title = "Triage a file before ingest"
+summary = "Detect format from bytes and whether a PDF needs OCR — deterministic ingestion routing, offline."
+packages = ["kaos-nlp-core", "kaos-pdf"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/triage-before-ingest"
