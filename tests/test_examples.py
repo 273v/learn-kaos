@@ -73,6 +73,7 @@ EXPECTED: dict[str, str] = {
     "chunk-a-document": "SentenceChunker ->",
     "triage-before-ingest": "extract text directly",
     "selective-ocr": "send to OCR / VLM",
+    "redline-contract": "tracked change(s)",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

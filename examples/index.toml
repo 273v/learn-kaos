@@ -587,3 +587,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/detect-pages-needing-ocr"
+
+[[example]]
+id = "redline-contract"
+title = "Redline a contract"
+summary = "Compare two DOCX versions into tracked changes, list revisions, and accept/reject them — offline."
+packages = ["kaos-office", "kaos-content"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/redline-a-contract"

@@ -1,0 +1,43 @@
+---
+title: Redline a contract
+description: Compare two DOCX versions into tracked changes, then inspect and resolve them in code.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/redline-contract.py?raw';
+
+**Goal:** compare two versions of a contract, produce a Word **redline** (tracked changes),
+and then *work with* those changes programmatically — list every insertion and deletion,
+and accept or reject them. `kaos-office` (0.1.4+) does all of this offline, no model.
+
+```bash
+uv run examples/redline-contract.py
+```
+
+```text
+4 tracked change(s):
+
+   deleted: 'five'  (by Reviewer)
+  inserted: 'seven'  (by Reviewer)
+   deleted: 'three'  (by Reviewer)
+  inserted: 'five'  (by Reviewer)
+
+  accept all -> The interest rate is seven percent and the term is five years.
+  reject all -> The interest rate is five percent and the term is three years.
+```
+
+<Code code={src} lang="python" title="examples/redline-contract.py" />
+
+**What to notice**
+
+- `write_redline(v1, v2, out)` writes a Word file with real tracked changes — open it in Word
+  and it looks like a hand-marked redline. (`compare_docx` returns the same as a
+  [document AST](/concepts/one-document-model) instead of writing a file.)
+- The reader surfaces the markup as **typed revisions**: `parse_docx(path, track_changes=True)`
+  then `Revisions.from_document(doc)` gives each change's `change_type`
+  (`INSERTION` / `DELETION` / `MOVE_FROM` / `MOVE_TO`), `text`, `author`, and `date`.
+- `accept_all(doc)` and `reject_all(doc)` (from `kaos_content.revision`) resolve the markup —
+  accepting yields the revised version, rejecting restores the original, both with zero
+  revisions left. Resolve selectively for a review-and-approve flow.
+- This complements [contract review](/how-to/review-a-contract): the FindingsAgent *flags*
+  what to change; the redline engine *applies and tracks* the changes.
