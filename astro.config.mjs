@@ -193,7 +193,65 @@ export default defineConfig({
         },
         {
           label: 'Concepts',
-          items: [{ autogenerate: { directory: 'concepts' } }],
+          // Grouped in learning order rather than alphabetical.
+          items: [
+            {
+              label: 'Foundations & runtime',
+              items: [
+                'concepts/why-di-over-globals',
+                'concepts/settings-resolution',
+                'concepts/artifact-size-ladder',
+                'concepts/determinism-contract',
+              ].map((slug) => ({ slug })),
+            },
+            {
+              label: 'The document model',
+              items: [
+                'concepts/one-document-model',
+                'concepts/block-vs-inline',
+                'concepts/provenance-and-the-producer-contract',
+              ].map((slug) => ({ slug })),
+            },
+            {
+              label: 'LLM programming',
+              items: [
+                'concepts/the-offline-seam',
+                'concepts/transport-vs-programming',
+                'concepts/typed-llm-programming',
+                'concepts/structured-output-modes',
+                'concepts/optimizers-and-budget',
+              ].map((slug) => ({ slug })),
+            },
+            {
+              label: 'Agents & memory',
+              items: [
+                'concepts/agent-vs-runner',
+                'concepts/the-8-step-turn-loop',
+                'concepts/memory-as-context-assembly',
+                'concepts/events-and-spans',
+                'concepts/anatomy-of-single-user-chat',
+              ].map((slug) => ({ slug })),
+            },
+            {
+              label: 'Trust, grounding & cost',
+              items: [
+                'concepts/grounding-and-verification',
+                'concepts/the-refusal-contract',
+                'concepts/why-plain-bm25',
+                'concepts/cost-as-a-contract',
+                'concepts/is-kaos-trustworthy',
+              ].map((slug) => ({ slug })),
+            },
+            {
+              label: 'Safety & serving',
+              items: [
+                'concepts/session-enforcement',
+                'concepts/untrusted-input-defenses',
+                'concepts/the-audit-trail',
+                'concepts/the-mcp-bridge',
+              ].map((slug) => ({ slug })),
+            },
+          ],
         },
         {
           label: 'Reference',
