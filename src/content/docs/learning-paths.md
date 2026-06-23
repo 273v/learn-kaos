@@ -87,11 +87,14 @@ You want the *why*. Start with [how KAOS fits together](/architecture); the
 ## "I want to extend KAOS"
 
 You're a contributor or module author. Start with [your first tool](/tutorials/first-tool)
-and [how KAOS fits together](/architecture); the module-authoring track and the
-[offline-testing pattern](/get-started/first-example) for contributors land next.
+and [how KAOS fits together](/architecture), then
+[add your own app template](/how-to/add-a-template-kind),
+[add typed settings](/how-to/add-typed-settings), and adopt the
+[offline-testing seam](/concepts/the-offline-seam) so your examples stay deterministic.
 
 ## "I want to use KAOS from an AI agent"
 
-You want KAOS tools inside Claude Code, Codex, or another MCP client. The
-MCP-consumer track — connect an AI tool, serve a runtime over MCP, and the tool
-reference — lands in an upcoming milestone.
+You want KAOS tools inside Claude Code, Codex, or another MCP client:
+[connect an AI tool](/how-to/connect-an-ai-tool), [serve a runtime over MCP](/tutorials/serve-over-mcp),
+[serve over HTTP with auth](/how-to/serve-over-http), and the
+[MCP tools reference](/reference/mcp-tools) for what each package exposes.

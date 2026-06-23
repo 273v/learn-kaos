@@ -3,7 +3,7 @@ title: Your first example
 description: Run a deterministic KAOS sample in one command — extract typed legal citations from text, no API key required.
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, CardGrid, LinkCard } from '@astrojs/starlight/components';
 import citationsSrc from '#examples/citations-extract.py?raw';
 
 Let's run KAOS. This example pulls **typed, normalized legal citations** out of
@@ -54,10 +54,25 @@ imports the file byte-for-byte:
 
 ## Next
 
-- Browse more one-command samples in the [gallery](/gallery).
-- See the [bigger picture](/what-is-kaos) of how the packages fit together.
-
-:::note
-The guided tutorial spine — author a tool, build a document, call a model, build an
-agent — lands in the next milestone. This page is the on-ramp.
-:::
+<CardGrid>
+  <LinkCard
+    title="Start the golden path →"
+    href="/learn-kaos/tutorials/first-tool"
+    description="Author a tool, build a document, call a model, build an agent — each step runnable offline."
+  />
+  <LinkCard
+    title="Browse the gallery"
+    href="/learn-kaos/gallery"
+    description="Every one-command example, most fully offline, no API key."
+  />
+  <LinkCard
+    title="The bigger picture"
+    href="/learn-kaos/what-is-kaos"
+    description="How the kaos-* packages fit together into one composable stack."
+  />
+  <LinkCard
+    title="Legal & financial use cases"
+    href="/learn-kaos/use-cases"
+    description="Contract review, billing analytics, entity extraction, conflict checks, and more."
+  />
+</CardGrid>
