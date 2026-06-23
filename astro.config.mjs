@@ -57,6 +57,14 @@ export default defineConfig({
       description:
         'Tested, multi-learner docs and one-command runnable examples for the open-source KAOS (Kelvin Agentic OS) ecosystem.',
       customCss: ['./src/styles/global.css'],
+      // Quality-of-life features standard on well-built docs (e.g. the Astro
+      // docs themselves): a per-page "edit on GitHub" link, last-updated dates
+      // from git history, and prev/next pagination.
+      editLink: {
+        baseUrl: 'https://github.com/273v/learn-kaos/edit/main/',
+      },
+      lastUpdated: true,
+      pagination: true,
       // Polished, copy-friendly code blocks (Expressive Code ships the copy
       // button + frames; this adds a matched theme pair, soft frames, and a
       // word-wrap toggle so long one-liners never need horizontal scrolling).
