@@ -1,0 +1,38 @@
+---
+title: Generate synthetic data
+description: Build realistic, reproducible test data when you can't use real records.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/generate-billing-data.py?raw';
+
+**Goal:** demo and test a workflow when you can't touch real client data. Generate it
+instead — realistic, labeled, and **reproducible**. This follows the pattern KAOS uses to
+build training corpora (`kaos-embeddings`): seed a per-row RNG from a stable hash so every
+row is *independently* reproducible — same seed in, identical dataset out, regardless of
+order or parallelism.
+
+Here we generate ~180 law-firm billing line items across synthetic matters; the
+[billing-analytics how-to](/how-to/analyze-billing) consumes them.
+
+```bash
+uv run examples/generate-billing-data.py
+```
+
+<Code code={src} lang="python" title="examples/generate-billing-data.py" />
+
+**What to notice**
+
+- **Per-row hashed seed.** `random.Random(blake2b(f"{seed}:{i}"))` makes row *i* reproducible
+  on its own — you can regenerate any subset, in any order, on any machine, and get the same
+  rows. That's why the asserts at the bottom hold. It's the same trick `kaos-embeddings` uses
+  to make training-corpus generation deterministic.
+- **Pools + structure.** Realistic data comes from realistic pools — UTBMS task codes,
+  role-based rates, [`kaos-names`](/how-to/generate-session-names) for matter codenames (its
+  noun pool is legal terms). Swap the pools to retarget the generator.
+- **Labeled by construction.** Because *you* generated it, every row's true matter,
+  timekeeper, and task code are known — ideal for testing extraction/classification, or for
+  benchmarking a workflow before you have real data.
+- For *text* generation (paraphrases, Q&A pairs) rather than structured rows, the same
+  seed-then-fill idea applies, with a [`FunctionClient`](/concepts/the-offline-seam) offline
+  or a real model live.

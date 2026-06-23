@@ -1,0 +1,43 @@
+---
+title: Analyze billing data
+description: Roll up fees by matter, role, and UTBMS task code with kaos-tabular.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/analyze-billing.py?raw';
+
+**Goal:** answer the questions a billing partner asks — where is the money, who is realizing
+their rate, what work is driving spend. This generates ~180
+[synthetic billing entries](/how-to/generate-synthetic-data), loads them into
+`kaos-tabular`'s DuckDB engine, and runs the rollups. Deterministic, offline, no model.
+
+```bash
+uv run examples/analyze-billing.py
+```
+
+```text
+180 entries  |  $370,892 fees  |  727 hours  |  blended $510/hr
+
+top matters by fees:
+  snappy-tenancy-2026      $    81,062  (  152 hrs)
+  ...
+realized rate by role:
+  Partner      $   165,944  @ $  903/hr
+  Associate    $   156,158  @ $  479/hr
+  Paralegal    $    48,789  @ $  224/hr
+```
+
+<Code code={src} lang="python" title="examples/analyze-billing.py" />
+
+**What to notice**
+
+- `engine.register_file(csv, table_name=...)` loads the data into DuckDB; `engine.aggregate(...)`
+  runs `GROUP BY` rollups with `aggregates=[("sum", "amount", "fees"), ...]`,
+  `group_by`, `order_by`, and `limit` — no SQL to hand-write (though `engine.execute(sql)` is
+  there when you want it).
+- The same engine does `filter`, `pivot`, `join`, `top_k`, and `find_duplicates` — everything
+  you'd reach to DuckDB for, over CSV/XLSX/JSON. See [run SQL analytics](/how-to/run-sql-analytics).
+- **Generated data, real analytics.** The numbers are synthetic but the pipeline is exactly
+  what you'd run on a LEDES export — swap the CSV for a real one and the rollups are unchanged.
+- This is the post-bill analytics half of billing; the pre-bill half is
+  [UTBMS coding](/use-cases) (classifying narratives to task codes).

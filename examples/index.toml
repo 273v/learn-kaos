@@ -647,3 +647,27 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/find-financial-terms"
+
+[[example]]
+id = "generate-billing-data"
+title = "Generate synthetic data"
+summary = "Generate ~180 reproducible synthetic billing entries via per-row hashed seeds (the kaos-embeddings pattern)."
+packages = ["kaos-names"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/generate-synthetic-data"
+
+[[example]]
+id = "analyze-billing"
+title = "Analyze billing data"
+summary = "Roll up synthetic billing by matter/role/UTBMS code with kaos-tabular's DuckDB engine — offline."
+packages = ["kaos-tabular", "kaos-names"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/analyze-billing"

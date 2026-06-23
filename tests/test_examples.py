@@ -78,6 +78,8 @@ EXPECTED: dict[str, str] = {
     "detect-pii": "PII span(s) detected",
     "conflict-check": "CONFLICT",
     "find-financial-terms": "money (1):",
+    "generate-billing-data": "generated 180 billing entries",
+    "analyze-billing": "realized rate by role",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])
