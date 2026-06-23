@@ -13,6 +13,19 @@ Most reduce to three KAOS patterns: **classify** (typed `Call` → a label), **e
 (typed `Call` → a structured record), and **review/answer** (an agent over a corpus). That's
 the point — a handful of composable primitives cover the whole domain.
 
+```mermaid
+flowchart LR
+    doc["📄 Document"] --> classify["<b>Classify</b><br/><small>typed Call → label</small>"]
+    doc --> extract["<b>Extract</b><br/><small>typed Call → record</small>"]
+    doc --> review["<b>Review / Answer</b><br/><small>agent over a corpus</small>"]
+    classify --> c["triage · UTBMS coding · matter tagging"]
+    extract --> e["complaints · covenants · deal terms · abstraction"]
+    review --> r["contract review · due diligence · research"]
+
+    classDef p fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    class classify,extract,review p;
+```
+
 ## Contracts
 
 | Use case | What it does | Run |
