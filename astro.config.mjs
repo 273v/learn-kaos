@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
 import mermaid from 'astro-mermaid';
+import starlightLlmsTxt from 'starlight-llms-txt';
 import tailwindcss from '@tailwindcss/vite';
 import { visit } from 'unist-util-visit';
 
@@ -65,6 +66,16 @@ export default defineConfig({
       },
       lastUpdated: true,
       pagination: true,
+      // KAOS's audience includes AI agents, so make the docs first-class LLM
+      // context: /llms.txt (index) + /llms-full.txt (the whole site concatenated)
+      // for one-shot ingestion. Generated from the content collection.
+      plugins: [
+        starlightLlmsTxt({
+          projectName: 'Learn KAOS',
+          description:
+            'Tested, multi-learner docs and one-command runnable examples for the open-source KAOS (Kelvin Agentic OS) ecosystem.',
+        }),
+      ],
       // Polished, copy-friendly code blocks (Expressive Code ships the copy
       // button + frames; this adds a matched theme pair, soft frames, and a
       // word-wrap toggle so long one-liners never need horizontal scrolling).
