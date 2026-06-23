@@ -107,6 +107,7 @@ export default defineConfig({
             { label: 'Pick your path', slug: 'learning-paths' },
             { label: 'Install', slug: 'get-started/install' },
             { label: 'Your first example', slug: 'get-started/first-example' },
+            { label: 'FAQ', slug: 'faq' },
           ],
         },
         {
