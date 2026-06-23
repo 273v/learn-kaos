@@ -17,8 +17,15 @@ Cards marked <Badge text="offline" variant="success" /> need no API key and run
 deterministically in this site's CI. <Badge text="needs key" variant="caution" />
 marks examples that call a live LLM provider.
 
-<CardGrid>
-{examples.map((e) => (
+export const groups = [
+  { label: 'Golden path & getting started', match: (e) => /^(tutorials|get-started)\//.test(e.tutorial ?? '') },
+  { label: 'How-to recipes', match: (e) => (e.tutorial ?? '').startsWith('how-to/') },
+  { label: 'Legal & financial use cases', match: (e) => (e.tutorial ?? '') === 'use-cases' },
+  // Catch-all so no example is ever dropped from the gallery.
+  { label: 'More examples', match: (e) => !/^(tutorials|get-started|how-to)\//.test(e.tutorial ?? '') && (e.tutorial ?? '') !== 'use-cases' },
+];
+
+export const renderCard = (e) => (
   <Card key={e.id} title={e.title} icon="rocket">
     {e.summary}
 
@@ -29,8 +36,18 @@ marks examples that call a live LLM provider.
 
     <p>Packages: {e.packages.join(', ')}</p>
   </Card>
-))}
-</CardGrid>
+);
+
+{groups.map((g) => {
+  const items = examples.filter(g.match);
+  if (!items.length) return null;
+  return (
+    <section key={g.label}>
+      <h2>{g.label} <span style="font-weight:400;opacity:.6">({items.length})</span></h2>
+      <CardGrid>{items.map(renderCard)}</CardGrid>
+    </section>
+  );
+})}
 
 :::note
 The gallery grows each milestone — cards are generated from
