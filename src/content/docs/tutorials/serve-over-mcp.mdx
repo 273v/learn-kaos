@@ -5,7 +5,7 @@ sidebar:
   order: 10
 ---
 
-import { Code } from '@astrojs/starlight/components';
+import { Code, Tabs, TabItem } from '@astrojs/starlight/components';
 import src from '#examples/serve-over-mcp.py?raw';
 
 KAOS is MCP-native, so any runtime you build can be **served to an AI client** — Claude
@@ -42,6 +42,38 @@ would expose over MCP: ['kaos-demo-echo', 'kaos-demo-wordcount']
   [requires an auth token](/concepts/session-enforcement).
 - **Tool annotations carry over.** A `readOnlyHint` tool an agent would auto-allow is
   exposed with that metadata intact, so the consuming client can reason about safety.
+
+## Two ways to serve
+
+<Tabs>
+  <TabItem label="stdio (desktop clients)">
+
+    The default for AI clients that spawn a subprocess (Claude Code, Codex).
+
+    ```bash
+    kaos-agents-serve
+    # or, in code: KaosMCPServer(runtime).run_stdio()
+    ```
+
+    No network exposure — the client launches and talks to it over stdin/stdout.
+    See [connect an AI tool](/how-to/connect-an-ai-tool).
+
+  </TabItem>
+  <TabItem label="streamable HTTP (network)">
+
+    For serving over the network — **auth-required by default**.
+
+    ```bash
+    export KAOS_MCP_HTTP_TOKEN="$(openssl rand -hex 32)"
+    kaos-agents-serve --http --port 8000
+    ```
+
+    The bridge refuses to expose tools unauthenticated. See
+    [serve over HTTP](/how-to/serve-over-http) and
+    [session enforcement](/concepts/session-enforcement).
+
+  </TabItem>
+</Tabs>
 
 ## In practice
 

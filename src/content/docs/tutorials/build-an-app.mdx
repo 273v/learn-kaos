@@ -5,7 +5,7 @@ sidebar:
   order: 9
 ---
 
-import { Code, CardGrid, LinkCard } from '@astrojs/starlight/components';
+import { Code, CardGrid, LinkCard, FileTree } from '@astrojs/starlight/components';
 import src from '#examples/scaffold-app.py?raw';
 
 The capstone. You've built tools, documents, typed programs, and an agent. Now
@@ -36,6 +36,32 @@ Available templates: dashboard:streamlit, module, tui:textual, web:api, web:spa,
 ## The code
 
 <Code code={src} lang="python" title="examples/scaffold-app.py" />
+
+## What gets generated
+
+A complete, deployable monorepo — backend, frontend, and ops, wired together:
+
+<FileTree>
+- my-legal-app/
+  - backend/ **FastAPI on kaos-agents**
+    - app/
+      - main.py the app + SSE streaming endpoint
+      - auth.py bearer-token auth
+      - runtime.py KaosRuntime + agent wiring
+      - settings.py typed settings
+    - tests/ auth · health · settings · uploads
+    - Dockerfile
+    - pyproject.toml
+  - apps/spa/ **Vite + React frontend**
+    - vite.config.ts
+    - package.json
+  - packages/ui/ shared UI components
+  - Caddyfile TLS + reverse proxy
+  - docker-compose.yml
+  - Makefile `make install` · `make dev`
+  - .env.example provider key + auth token
+  - README.md
+</FileTree>
 
 ## Actually create and run it
 
