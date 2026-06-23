@@ -17,6 +17,24 @@ Every package configures itself through a typed `ModuleSettings` subclass — no
 
 The first level that provides a value wins; everything below is a fallback.
 
+```mermaid
+flowchart TD
+    start([resolve a setting]) --> o{"1 · explicit<br/>override?"}
+    o -->|yes| win([✅ use this value])
+    o -->|no| c{"2 · KaosContext?"}
+    c -->|yes| win
+    c -->|no| e{"3 · KAOS_*_ env?"}
+    e -->|yes| win
+    e -->|no| a{"4 · legacy alias?"}
+    a -->|yes| win
+    a -->|no| f{"5 · .env file?"}
+    f -->|yes| win
+    f -->|no| d([6 · field default])
+
+    classDef good fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class win good;
+```
+
 ## Why it matters
 
 - **Predictable.** You always know *why* a setting has its value and how to override it.
@@ -27,4 +45,4 @@ The first level that provides a value wins; everything below is a fallback.
   with different config without mutating globals.
 
 See the [environment variables reference](/reference/env-vars) for the per-package
-prefixes, and [add typed settings](/tutorials/first-tool) patterns in the foundation docs.
+prefixes, and [add typed settings](/how-to/add-typed-settings) for the hands-on pattern.
