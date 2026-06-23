@@ -8,6 +8,30 @@ loop. Understanding its shape makes agent behavior predictable and debuggable.
 
 ## The anatomy of a turn
 
+```mermaid
+flowchart TD
+    msg["1 · Add message<br/>to memory"] --> ctx["2 · Assemble context<br/><small>budgeted sections + BM25</small>"]
+    ctx --> intent["3 · Classify intent"]
+    intent --> dispatch{"4 · Dispatch"}
+    dispatch -->|respond| chat["Direct response"]
+    dispatch -->|tool use| react["ReAct loop"]
+    dispatch -->|research| rag["RAG pass"]
+    dispatch -->|plan| plan["Plan-execute"]
+    chat --> run
+    react --> run
+    rag --> run
+    plan --> run
+    run["5 · Run program<br/><small>tools under permissions + budget</small>"] --> mem["6 · Update memory<br/><small>actions · findings · usage</small>"]
+    mem --> persist["7 · Persist to VFS"] --> summary["8 · Emit TurnSummary<br/><small>+ Span(TURN, COMPLETE)</small>"]
+
+    classDef step fill:#f0f9ff,stroke:#0ea5e9,color:#0c4a6e;
+    classDef branch fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef done fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class msg,ctx,intent,run,mem,persist step;
+    class dispatch,chat,react,rag,plan branch;
+    class summary done;
+```
+
 1. **Add the message** to session memory.
 2. **Assemble context** — [budgeted section assembly](/concepts/memory-as-context-assembly),
    with BM25 retrieval over large sections.

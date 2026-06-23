@@ -14,7 +14,27 @@ KAOS makes a different bet: **every extractor produces the same document model.*
 
 `kaos-content` defines a single AST. **Block** nodes are structural (headings,
 paragraphs, lists, tables, figures); **Inline** nodes are content within a block (text,
-bold, links, citations). Every node carries:
+bold, links, citations):
+
+```mermaid
+flowchart TD
+    doc["ContentDocument"] --> body["body"]
+    body --> h["Heading<br/><small>#/body/0</small>"]
+    body --> p["Paragraph<br/><small>#/body/1</small>"]
+    body --> tbl["Table<br/><small>#/body/2</small>"]
+    p --> t1["Text<br/><small>“The rate is ”</small>"]
+    p --> b1["Bold<br/><small>“5%”</small>"]
+    p --> c1["Citation<br/><small>→ source span</small>"]
+
+    classDef block fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef inline fill:#fef9c3,stroke:#ca8a04,color:#713f12;
+    class doc,body,h,p,tbl block;
+    class t1,b1,c1 inline;
+```
+
+<small><b>Block</b> nodes (indigo) nest structure; <b>Inline</b> nodes (amber) carry content. Every node has a stable `ref`.</small>
+
+Every node carries:
 
 - **Provenance** — where it came from (page, bounding box, confidence) when extracted.
 - **A stable block reference** (like `#/body/2`) — a precise, addressable location.
