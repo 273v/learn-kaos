@@ -23,6 +23,23 @@ a knowledge graph, and more). Each section declares:
 `DOCUMENTS` section is intentionally unbounded so it can hold a full corpus; the retrieval
 layer (below) decides which documents actually make it into context.
 
+```mermaid
+flowchart LR
+    subgraph S["Typed sections (each budgeted)"]
+        direction TB
+        m["messages"]
+        a["actions"]
+        d["documents<br/><small>unbounded → retrieval</small>"]
+        f["findings"]
+        g["graph"]
+    end
+    S --> asm["assemble_context()<br/><small>pack highest-value within budget</small>"]
+    asm --> ctx["🪟 Model context window<br/><small>(limited)</small>"]
+
+    classDef win fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class ctx win;
+```
+
 ## Retrieval kicks in at scale
 
 Below a threshold, a section just returns everything (FIFO). Once a section grows past

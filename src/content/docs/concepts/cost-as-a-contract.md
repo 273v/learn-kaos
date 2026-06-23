@@ -17,6 +17,17 @@ protocols, so a consumer reads one number regardless of how it called the agent.
 
 ## Budgets enforce, they don't just report
 
+```mermaid
+flowchart LR
+    call["model call"] --> acc["accumulate<br/>cost_usd · tokens"]
+    acc --> check{"under Budget<br/>ceiling?"}
+    check -->|yes| call
+    check -->|no| stop["🛑 refuse further work<br/><small>StopReason: budget_cost</small>"]
+
+    classDef stop fill:#fef2f2,stroke:#ef4444,color:#7f1d1d;
+    class stop stop;
+```
+
 A `Budget` caps spend *before* it happens. Plans carry a max cost; the agent refuses
 further work once the ceiling is reached rather than blowing past it. Cascade and Pareto
 strategies spend the cheap model first and escalate only when needed. This is the same

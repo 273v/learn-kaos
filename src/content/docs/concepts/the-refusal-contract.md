@@ -9,6 +9,19 @@ gets relied upon.
 
 KAOS makes refusal a **first-class, typed outcome**, not an afterthought.
 
+```mermaid
+flowchart TD
+    q["Question + retrieved corpus"] --> claims["Candidate claims<br/><small>each with a span</small>"]
+    claims --> v{"Enough claims<br/>verify against source?"}
+    v -->|yes| ans["✅ Answer<br/><small>with cited claims</small>"]
+    v -->|no| ref["🛑 Refusal<br/><small>EvidenceInsufficient (typed)</small>"]
+
+    classDef good fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    classDef stop fill:#fef2f2,stroke:#ef4444,color:#7f1d1d;
+    class ans good;
+    class ref stop;
+```
+
 ## Refuse rather than hallucinate
 
 When a research agent can't find adequate support for an answer in the retrieved corpus,
