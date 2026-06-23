@@ -74,6 +74,8 @@ EXPECTED: dict[str, str] = {
     "triage-before-ingest": "extract text directly",
     "selective-ocr": "send to OCR / VLM",
     "redline-contract": "tracked change(s)",
+    "extract-entities": "Acme Corporation",
+    "detect-pii": "PII span(s) detected",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

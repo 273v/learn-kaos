@@ -1,0 +1,38 @@
+---
+title: Detect and redact PII
+description: Find names, emails, and phone numbers with a local model — for privilege and e-discovery.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/detect-pii.py?raw';
+
+**Goal:** before producing documents, find and redact personal information. A local PII
+detector in `kaos-nlp-transformers` flags names, emails, phone numbers, and account numbers
+— no LLM, no API key, so the sensitive text never leaves the machine.
+
+```bash
+uv run examples/detect-pii.py
+```
+
+```text
+3 PII span(s) detected:
+          PERSON: 'Jane Doe'
+   EMAIL_ADDRESS: 'jane.doe@example.com'
+    PHONE_NUMBER: '555'
+
+redacted: Please contact [PERSON] at [EMAIL_ADDRESS] or ([PHONE_NUMBER]) 123-4567 ...
+```
+
+<Code code={src} lang="python" title="examples/detect-pii.py" />
+
+**What to notice**
+
+- **Local and private.** PII detection on documents is exactly the kind of task you *don't*
+  want to send to a cloud API. This runs on a small local ONNX model (downloaded once, then
+  cached — [prefetch it](/how-to/prefetch-models) for CI/air-gapped use).
+- **Redaction is yours to tune.** The detector returns labeled spans with offsets; redact by
+  replacing the span (as shown), masking, or hashing — whatever your production rules require.
+- **Pairs with e-discovery.** Combine with [email parsing](/how-to/parse-email) and
+  [privilege review](/how-to/review-a-contract) to triage a production set.
+- For broader, schema-shaped entity pulls, see [extract entities](/how-to/extract-entities);
+  for bespoke fields, a [typed `Call`](/tutorials/oneliner-to-call-to-program).

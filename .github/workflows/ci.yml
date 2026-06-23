@@ -23,6 +23,12 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+      - name: Cache Hugging Face models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-models-${{ hashFiles('examples/*.py') }}
+          restore-keys: hf-models-
       - name: Run all examples (offline)
         run: |
           set -euo pipefail
@@ -40,6 +46,12 @@ jobs:
       - uses: astral-sh/setup-uv@v6
         with:
           enable-cache: true
+      - name: Cache Hugging Face models
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/huggingface
+          key: hf-models-${{ hashFiles('examples/*.py') }}
+          restore-keys: hf-models-
       - run: uv run --with pytest pytest tests/ -q
 
   embed-check:

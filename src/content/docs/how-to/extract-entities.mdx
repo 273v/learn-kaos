@@ -1,0 +1,39 @@
+---
+title: Extract entities with a local NER model
+description: Pull people, organizations, money, and dates from text — zero-shot, no LLM, no API key.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/extract-entities.py?raw';
+
+**Goal:** turn unstructured text into structured records — the people, organizations,
+amounts, and dates in a document — *without* an LLM or API key. `kaos-nlp-transformers`
+ships a **zero-shot NER** extractor (GLiNER) that runs locally on a small ONNX model: you
+just name the labels you want.
+
+```bash
+uv run examples/extract-entities.py
+```
+
+```text
+           date: 'January 5, 2026'  (0.97)
+   organization: 'Acme Corporation'  (0.99)
+          money: '$2,500,000'  (0.95)
+         person: 'Jane Doe'  (0.99)
+```
+
+<Code code={src} lang="python" title="examples/extract-entities.py" />
+
+**What to notice**
+
+- **Zero-shot.** You pass `labels=[...]` — any labels, no fine-tuning. Need `court`,
+  `statute`, `product`? Add them to the list.
+- **Local and private.** It runs on a local ONNX model; the text never leaves the machine.
+  The first run downloads the model (~tens of MB) and caches it — pre-warm it for CI or
+  air-gapped use with [prefetch-models](/how-to/prefetch-models).
+- **Deterministic enough to build on.** High-confidence spans with offsets — feed them
+  straight into a [complaint database](/use-cases), a [knowledge graph](/how-to/query-the-session-graph),
+  or [structured extraction](/tutorials/oneliner-to-call-to-program).
+- This is the **offline** complement to LLM extraction: use NER for the entities a model
+  recognizes out of the box, and a [typed `Call`](/tutorials/oneliner-to-call-to-program)
+  for bespoke, schema-shaped fields.
