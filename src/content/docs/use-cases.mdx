@@ -30,6 +30,7 @@ flowchart LR
 
 | Use case | What it does | Run |
 |---|---|---|
+| **Contract → reusable template** | NER-find parties/amounts/dates → swap for `{{fields}}` → redline ([how-to](/how-to/contract-to-template)) | `uv run examples/contract-to-template.py` |
 | **Contract knowledge management** | Extract sections & definitions for a clause library | `uv run examples/contract-definitions.py` |
 | **Pre-execution review** | Flag unusual clauses & risks before signing ([FindingsAgent](/how-to/review-a-contract)) | `uv run examples/findings-review.py` |
 | **Post-execution abstraction** | Extract dates, term, renewal, governing law to track obligations | `uv run examples/uc-contract-abstract.py` |

@@ -73,6 +73,7 @@ EXPECTED: dict[str, str] = {
     "chunk-a-document": "SentenceChunker ->",
     "triage-before-ingest": "extract text directly",
     "selective-ocr": "send to OCR / VLM",
+    "contract-to-template": "fields parameterized",
     "redline-contract": "tracked change(s)",
     "extract-entities": "Acme Corporation",
     "detect-pii": "PII span(s) detected",

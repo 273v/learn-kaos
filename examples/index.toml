@@ -671,3 +671,15 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "how-to/analyze-billing"
+
+[[example]]
+id = "contract-to-template"
+title = "Contract → reusable template"
+summary = "Find a contract's parties/amounts/dates with on-device NER, swap them for {{template}} fields, and redline the changes — no LLM, no key."
+packages = ["kaos-office", "kaos-content", "kaos-nlp-transformers"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/contract-to-template"
