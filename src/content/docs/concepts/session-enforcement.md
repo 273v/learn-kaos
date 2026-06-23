@@ -6,6 +6,19 @@ description: How KAOS keeps sessions and tenants isolated, and why HTTP serving 
 When a runtime is served to multiple callers — over MCP HTTP, or inside a multi-tenant app
 — isolation isn't optional. KAOS enforces it at the boundary.
 
+```mermaid
+flowchart TB
+    a["Caller A<br/><small>client_id = A</small>"] --> rt{{"KaosRuntime<br/>scopes by identity"}}
+    b["Caller B<br/><small>client_id = B</small>"] --> rt
+    rt --> sa["Session A<br/><small>memory · VFS · artifacts</small>"]
+    rt --> sb["Session B<br/><small>memory · VFS · artifacts</small>"]
+
+    classDef iso fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    class sa,sb iso;
+```
+
+<small>B asking for A's resource gets the **same** "not found" as a truly-missing one — never "exists, but not yours."</small>
+
 ## Identity on every request
 
 Calls carry an identity (`client_id` / `request_id`). The runtime scopes session memory,
