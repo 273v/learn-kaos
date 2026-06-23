@@ -12,34 +12,50 @@ and one document model, so they compose. Understanding the **layers** and the
 Dependencies point **downward** — higher layers build on lower ones, never the
 reverse. You can adopt as little as one layer.
 
+```mermaid
+flowchart TB
+    apps["<b>Apps &amp; serving</b><br/>kaos-ui · kaos-mcp"]
+    agents["<b>Agents</b><br/>kaos-agents<br/><small>memory · patterns · permissions · cost · cites</small>"]
+    llm["<b>LLM programming</b><br/>kaos-llm-core · kaos-llm-client<br/><small>signatures · programs · optimizers · FunctionClient</small>"]
+    data["<b>Ingestion &amp; data</b><br/>kaos-pdf · kaos-office · kaos-tabular<br/>kaos-source · kaos-web"]
+    sub["<b>Deterministic substrate</b><br/>kaos-nlp-core · kaos-graph · kaos-citations<br/>kaos-names · kaos-ml-core · kaos-nlp-transformers"]
+    found["<b>Foundation</b><br/>kaos-core <small>(runtime · tools · VFS · settings)</small><br/>kaos-content <small>(the document AST)</small>"]
+
+    apps --> agents --> llm
+    llm --> data
+    llm --> sub
+    data --> found
+    sub --> found
+
+    classDef l1 fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef l2 fill:#f0f9ff,stroke:#0ea5e9,color:#0c4a6e;
+    classDef l3 fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class apps,agents l1;
+    class llm,data,sub l2;
+    class found l3;
 ```
-┌─────────────────────────────────────────────────────────────┐
-│  Apps & serving                                              │
-│  kaos-ui (scaffold apps)   ·   kaos-mcp (serve over MCP)     │
-├─────────────────────────────────────────────────────────────┤
-│  Agents                                                      │
-│  kaos-agents (memory · patterns · permissions · cost · cites)│
-├─────────────────────────────────────────────────────────────┤
-│  LLM programming                                             │
-│  kaos-llm-core (signatures · programs · optimizers)          │
-│  kaos-llm-client (provider-native clients · FunctionClient)  │
-├─────────────────────────────────────────────────────────────┤
-│  Ingestion & data            │  Deterministic substrate      │
-│  kaos-pdf · kaos-office      │  kaos-nlp-core · kaos-graph   │
-│  kaos-tabular · kaos-source  │  kaos-citations · kaos-names  │
-│  kaos-web                    │  kaos-ml-core · kaos-nlp-      │
-│                              │  transformers                 │
-├─────────────────────────────────────────────────────────────┤
-│  Foundation                                                  │
-│  kaos-core (runtime · tools · VFS · artifacts · settings)    │
-│  kaos-content (the Block/Inline document AST)                │
-└─────────────────────────────────────────────────────────────┘
-```
+
+<p style="text-align:center"><small>Dependencies point downward — adopt as little as one layer.</small></p>
 
 ## How a request flows
 
 A typical "answer a question over my documents" task touches the stack
 top-to-bottom and back:
+
+```mermaid
+flowchart LR
+    files["📄 files &amp; sources"] --> ingest["<b>Ingestion</b><br/>kaos-pdf · office · web · source"]
+    ingest --> doc["<b>ContentDocument</b><br/>kaos-content AST"]
+    doc --> index["<b>Substrate</b><br/>BM25 · citations · graph"]
+    index --> agent["<b>Agent turn</b><br/>kaos-agents"]
+    agent --> prog["<b>LLM program</b><br/>kaos-llm-core + client"]
+    prog --> findings["<b>Grounded findings</b><br/>answers + block_ref cites"]
+    findings -.cites.-> doc
+    findings --> serve["<b>Serve</b><br/>kaos-mcp · kaos-ui"]
+
+    classDef hi fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class findings hi;
+```
 
 1. **Ingestion** (`kaos-pdf`/`kaos-office`/`kaos-web`/`kaos-source`) turns real files
    and sources into a **`ContentDocument`** (`kaos-content`).
@@ -69,7 +85,7 @@ top-to-bottom and back:
 - Just evaluate: [run an example](/get-started/first-example) in 10 seconds.
 - Find the package for a task: [pick your path](/learning-paths).
 
-:::note
-A rendered dependency graph and per-package reference (auto-generated from each
-package's tool registry, CLI, and settings) land in an upcoming milestone.
+:::tip
+See the [package reference](/reference/packages) for the per-package tool, CLI, and
+settings details — generated from each package and drift-checked in CI.
 :::

@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import starlight from '@astrojs/starlight';
 import sitemap from '@astrojs/sitemap';
+import mermaid from 'astro-mermaid';
 import tailwindcss from '@tailwindcss/vite';
 import { visit } from 'unist-util-visit';
 
@@ -45,6 +46,12 @@ export default defineConfig({
   },
 
   integrations: [
+    // Mermaid must come before Starlight so it transforms ```mermaid blocks
+    // before Expressive Code claims them. Renders client-side (no build browser).
+    mermaid({
+      theme: 'neutral',
+      autoTheme: true,
+    }),
     starlight({
       title: 'Learn KAOS',
       description:
