@@ -69,6 +69,8 @@ EXPECTED: dict[str, str] = {
     "uc-expertise-extract": "Private Equity",
     "uc-regulatory-monitoring": "RELEVANT",
     "uc-matter-pricing": "complexity:",
+    "parse-citations": "found 4 citation(s)",
+    "chunk-a-document": "SentenceChunker ->",
 }
 
 _examples = tomllib.loads(MANIFEST.read_text(encoding="utf-8")).get("example", [])

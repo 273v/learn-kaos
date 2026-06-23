@@ -1,0 +1,31 @@
+---
+title: Parse legal citations
+description: Recognize cases, regulations, and statutes as typed records — no model required.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/parse-citations.py?raw';
+
+**Goal:** turn citation strings in legal text into structured records — case name, reporter,
+volume, page, year, court — so you can build a case database, link authorities, or check
+references. `kaos-citations` does this by *parsing*: deterministic, offline, no API key.
+
+```bash
+uv run examples/parse-citations.py
+```
+
+<Code code={src} lang="python" title="examples/parse-citations.py" />
+
+**Notes**
+
+- `kc.extract_citations(text)` returns a list of typed `Citation`s — `CaseCitation`,
+  `CFRCitation`, `StatuteCitation`, and [many more kinds](/reference/citation-kinds). Filter
+  on `.kind` or pass `kinds=[...]` to restrict.
+- Each citation round-trips to a `.normalized` Bluebook form, so duplicates collapse and
+  references compare cleanly.
+- This is *parsing* (recognizing reference strings); it's the complement to
+  [grounded citations](/tutorials/grounded-citations), which *verify* that a quote actually
+  appears in a source. Legal workflows use both — recognize the authority, then ground the
+  claim.
+- Because it's pure and offline, run it over a whole corpus (e.g. real filings from
+  [kl3m](/how-to/use-kl3m-data)) at no cost.

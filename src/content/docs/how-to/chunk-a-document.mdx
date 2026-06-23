@@ -1,0 +1,31 @@
+---
+title: Chunk a document for retrieval
+description: Split text into sentence or section chunks that preserve meaning and provenance.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/chunk-a-document.py?raw';
+
+**Goal:** split a document into chunks before you [embed](/how-to/semantic-embeddings) or
+[search](/how-to/search-text-with-bm25) it — without cutting sentences in half or losing the
+link back to the source. `kaos-nlp-core` offers several strategies; pick the one that
+preserves the structure that matters.
+
+```bash
+uv run examples/chunk-a-document.py
+```
+
+<Code code={src} lang="python" title="examples/chunk-a-document.py" />
+
+**Notes**
+
+- `SentenceChunker(max_tokens=...)` packs whole sentences up to a token budget (never
+  splitting mid-sentence); `SectionChunker` splits on heading structure. There are also
+  fixed-token, paragraph, and hierarchical chunkers.
+- Every `Chunk` carries a `char_span` into the source text — so a retrieved chunk traces
+  back to exactly where it came from, the basis for [grounded](/concepts/grounding-and-verification)
+  results.
+- `overlap_sentences=N` adds sentence overlap between chunks when you want context to bleed
+  across boundaries.
+- Chunking is the step *before* embeddings and retrieval — see how they compose in the
+  [research agent](/tutorials/research-agent-citations).

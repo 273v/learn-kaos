@@ -539,3 +539,27 @@ offline_ok = true
 needs_key = false
 est_cost_usd = 0.0
 tutorial = "use-cases"
+
+[[example]]
+id = "parse-citations"
+title = "Parse legal citations"
+summary = "Recognize cases/regulations/statutes as typed Bluebook records — deterministic, offline, no key."
+packages = ["kaos-citations"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/parse-legal-citations"
+
+[[example]]
+id = "chunk-a-document"
+title = "Chunk a document"
+summary = "Split text into sentence or section chunks with char-span provenance — offline."
+packages = ["kaos-nlp-core"]
+persona = "builder"
+level = "core"
+offline_ok = true
+needs_key = false
+est_cost_usd = 0.0
+tutorial = "how-to/chunk-a-document"
