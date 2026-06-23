@@ -8,6 +8,18 @@ quote and its location in a source — that is **checked against that source**. 
 mechanism behind trustworthy answers. But it's important to be precise about what it does
 and doesn't guarantee.
 
+```mermaid
+flowchart LR
+    claim["Claim<br/><small>+ Span (quote + ref)</small>"] --> verify{"Span.verify(source)<br/>quote present?"}
+    verify -->|yes| ok["✅ Grounded<br/><small>answer keeps the cite</small>"]
+    verify -->|no| reject["❌ Rejected<br/><small>fabricated quote dropped</small>"]
+
+    classDef good fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    classDef bad fill:#fef2f2,stroke:#ef4444,color:#7f1d1d;
+    class ok good;
+    class reject bad;
+```
+
 ## What verification proves
 
 - **The quote exists in the source.** `Span.verify(source)` confirms the cited text really

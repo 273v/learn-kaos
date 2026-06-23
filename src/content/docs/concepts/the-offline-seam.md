@@ -17,6 +17,20 @@ interface (`client.chat(...)`, structured output, streaming, cost accounting). I
 ships a **`FunctionClient`**: a client that runs a Python callable instead of making an
 HTTP request, while satisfying that *same* interface.
 
+```mermaid
+flowchart LR
+    code["Your code<br/><small>client.chat(...)</small>"] --> iface{{"kaos-llm-client<br/>interface"}}
+    iface -->|real| prov["Provider client<br/><small>Anthropic · OpenAI · Google</small>"]
+    iface -->|fake| fc["FunctionClient<br/><small>a Python callable</small>"]
+    prov --> http["🌐 HTTP · key · $ · nondeterministic"]
+    fc --> det["✅ offline · free · deterministic"]
+
+    classDef seam fill:#eef2ff,stroke:#6366f1,color:#1e1b4b;
+    classDef good fill:#f0fdf4,stroke:#22c55e,color:#14532d;
+    class iface seam;
+    class fc,det good;
+```
+
 So your code calls `client.chat(...)` identically whether the client is a real provider
 or a deterministic fake. Only the model changes:
 
