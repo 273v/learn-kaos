@@ -16,6 +16,8 @@
     "@astrojs/sitemap": "^3.7.0",
     "@astrojs/starlight": "^0.40.0",
     "@astrojs/starlight-tailwind": "^4.0.1",
+    "@fontsource-variable/source-sans-3": "^5.2.9",
+    "@fontsource-variable/source-serif-4": "^5.2.9",
     "@tailwindcss/vite": "^4",
     "astro": "^6.4.5",
     "astro-mermaid": "^2.0.4",

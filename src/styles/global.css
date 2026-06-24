@@ -9,6 +9,80 @@
 @import '@astrojs/starlight-tailwind';
 @import 'tailwindcss';
 
+/* Brand fonts — the same families kelvin.legal and 273ventures.com ship:
+ * Source Serif 4 (headings) + Source Sans 3 (body). Self-hosted via
+ * fontsource, zero external requests. */
+@import '@fontsource-variable/source-sans-3';
+@import '@fontsource-variable/source-serif-4';
+
+/* ============================================================
+ * KAOS brand theme — aligns Learn KAOS with kelvin.legal and
+ * 273ventures.com. The source of truth for both is their
+ * CustomStyles.astro:
+ *   primary #005073 · secondary #107dac · accent #189ad3
+ *   deep navy #001a2e · dark surfaces #0c1a2a / #132238 / #1e3450
+ *   copper #b08050 · text #002043 · muted #4a5568
+ *   Source Serif 4 (heading) + Source Sans 3 (body)
+ * Here those map onto Starlight's --sl-color-* design tokens.
+ * ============================================================ */
+
+:root {
+  /* Body in Source Sans 3; headings switch to serif below. */
+  --sl-font: 'Source Sans 3 Variable', ui-sans-serif, system-ui, sans-serif;
+  --kaos-font-heading: 'Source Serif 4 Variable', Georgia, 'Times New Roman', serif;
+  --kaos-copper: #b08050;
+
+  /* Dark theme (Starlight's default). Accent is the brand blue; a light
+   * tint (#a9d6ee) carries link / heading-accent text legibly on navy. */
+  --sl-color-accent-low: #00273c;
+  --sl-color-accent: #107dac;
+  --sl-color-accent-high: #a9d6ee;
+
+  /* Navy-tinted neutral ramp matching kelvin's dark-bg / surface / border. */
+  --sl-color-white: #ffffff;
+  --sl-color-gray-1: #e8eef4;
+  --sl-color-gray-2: #b6c4d4;
+  --sl-color-gray-3: #8295aa;
+  --sl-color-gray-4: #4a6076;
+  --sl-color-gray-5: #1e3450;
+  --sl-color-gray-6: #132238;
+  --sl-color-gray-7: #0f1d2c;
+  --sl-color-black: #0c1a2a;
+}
+
+:root[data-theme='light'] {
+  --sl-color-accent-low: #d7e9f3;
+  --sl-color-accent: #107dac;
+  --sl-color-accent-high: #005073;
+
+  /* Brand navy text (#002043) down through cool light surfaces (#f1f5f9). */
+  --sl-color-white: #002043;
+  --sl-color-gray-1: #15273a;
+  --sl-color-gray-2: #2c3e52;
+  --sl-color-gray-3: #4a5568;
+  --sl-color-gray-4: #6b7787;
+  --sl-color-gray-5: #a8b4c0;
+  --sl-color-gray-6: #e2e8f0;
+  --sl-color-gray-7: #f1f5f9;
+  --sl-color-black: #ffffff;
+}
+
+/* Headings, site title, and the splash hero in the brand serif, with the
+ * tight tracking kelvin uses. Starlight reserves h1–h6 for content, the
+ * page title, and the hero (nav chrome uses spans/links), so a global
+ * heading rule is safe and matches the marketing sites. */
+:is(h1, h2, h3, h4, h5, h6),
+.site-title,
+.hero h1 {
+  font-family: var(--kaos-font-heading);
+  letter-spacing: -0.018em;
+}
+
+/* The site title (wordmark) reads as a serif logotype, like kelvin's nav. */
+.site-title {
+  font-weight: 600;
+}
+
 /* Mermaid diagrams (astro-mermaid renders into .mermaid): center them, keep
  * them responsive, and give them a soft framed card so they read as figures. */
 .mermaid {
