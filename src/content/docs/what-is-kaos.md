@@ -1,9 +1,9 @@
 ---
 title: What is KAOS?
-description: KAOS (Kelvin Agentic OS) is an open-source ecosystem of composable packages for agentic legal and financial data work.
+description: KAOS (Kelvin Agentic Operating System) is an open-source ecosystem of composable packages for agentic legal and financial data work.
 ---
 
-**KAOS — the Kelvin Agentic OS — is open agentic infrastructure for legal and
+**KAOS — the Kelvin Agentic Operating System — is open agentic infrastructure for legal and
 financial work**, built by [273 Ventures](https://273ventures.com) and published
 as a family of small, composable `kaos-*` packages under
 [github.com/273v](https://github.com/273v).
