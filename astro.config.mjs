@@ -56,7 +56,13 @@ export default defineConfig({
     starlight({
       title: 'Learn KAOS',
       description:
-        'Tested, multi-learner docs and one-command runnable examples for the open-source KAOS (Kelvin Agentic OS) ecosystem.',
+        'Tested, multi-learner docs and one-command runnable examples for the open-source Kelvin Agentic Operating System (KAOS).',
+      // Brand mark: the Kelvin-sign monogram shared with kelvin.legal and
+      // 273ventures.com. Sits beside the "Learn KAOS" wordmark in the header.
+      logo: {
+        src: './src/assets/kaos-mark.svg',
+        alt: 'KAOS',
+      },
       customCss: ['./src/styles/global.css'],
       // Quality-of-life features standard on well-built docs (e.g. the Astro
       // docs themselves): a per-page "edit on GitHub" link, last-updated dates
@@ -74,7 +80,7 @@ export default defineConfig({
         starlightLlmsTxt({
           projectName: 'Learn KAOS',
           description:
-            'Tested, multi-learner docs and one-command runnable examples for the open-source KAOS (Kelvin Agentic OS) ecosystem.',
+            'Tested, multi-learner docs and one-command runnable examples for the open-source Kelvin Agentic Operating System (KAOS).',
         }),
       ],
       // Polished, copy-friendly code blocks (Expressive Code ships the copy
