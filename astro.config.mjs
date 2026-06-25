@@ -63,6 +63,11 @@ export default defineConfig({
         src: './src/assets/kaos-mark.svg',
         alt: 'KAOS',
       },
+      // Brand footer band (navy, matching kelvin.legal / 273ventures.com) added
+      // below Starlight's default per-page footer.
+      components: {
+        Footer: './src/components/Footer.astro',
+      },
       customCss: ['./src/styles/global.css'],
       // Quality-of-life features standard on well-built docs (e.g. the Astro
       // docs themselves): a per-page "edit on GitHub" link, last-updated dates

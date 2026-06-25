@@ -1,0 +1,33 @@
+---
+/**
+ * Footer override — keeps Starlight's per-page footer (prev/next, edit link,
+ * last-updated) and adds a navy brand footer band below it, matching the
+ * footers on kelvin.legal and 273ventures.com (background --aw-color-deep
+ * #001a2e, a teal gradient hairline on top, link columns, and a bottom bar).
+ */
+import Default from '@astrojs/starlight/components/Footer.astro';
+---
+
+<Default><slot /></Default>
+
+<footer class="kaos-site-footer not-content">
+  <div class="kaos-footer-hairline" aria-hidden="true"></div>
+  <div class="kaos-footer-inner">
+    <div class="kaos-footer-brand">
+      <span class="kaos-footer-wordmark">Learn KAOS</span>
+      <p>
+        Tested, runnable docs for the open-source Kelvin Agentic Operating
+        System, built by 273 Ventures.
+      </p>
+    </div>
+    <nav class="kaos-footer-links" aria-label="More from KAOS">
+      <a href="https://kelvin.legal">kelvin.legal</a>
+      <a href="https://273ventures.com">273 Ventures</a>
+      <a href="https://github.com/273v">GitHub</a>
+    </nav>
+  </div>
+  <div class="kaos-footer-bar">
+    <span>&copy; 2022&ndash;2026 273 Ventures, LLC.</span>
+    <span>Apache-2.0 &middot; github.com/273v</span>
+  </div>
+</footer>

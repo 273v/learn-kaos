@@ -134,6 +134,69 @@
   border-inline-start: 3px solid var(--sl-color-accent);
 }
 
+/* ---- Navy brand footer ------------------------------------------------
+ * Matches kelvin.legal / 273ventures.com: deep navy (#001a2e), a teal
+ * gradient hairline on top, link row, and a bottom bar. Full-bleeds to the
+ * content width; the gradient + brand serif wordmark echo kelvin's footer. */
+.kaos-site-footer {
+  margin-top: 4rem;
+  background-color: #001a2e;
+  color: #cdd9e5;
+}
+.kaos-footer-hairline {
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(16, 125, 172, 0.5) 50%, transparent);
+}
+.kaos-footer-inner {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.5rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+.kaos-footer-wordmark {
+  font-family: var(--kaos-font-heading);
+  font-weight: 600;
+  font-size: 1.25rem;
+  letter-spacing: -0.018em;
+  color: #ffffff;
+}
+.kaos-footer-brand p {
+  margin: 0.5rem 0 0;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #9fb2c4;
+  max-width: 30rem;
+}
+.kaos-footer-links {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.kaos-footer-links a {
+  color: #cdd9e5;
+  font-size: 0.9375rem;
+  text-decoration: none;
+}
+.kaos-footer-links a:hover {
+  color: #ffffff;
+}
+.kaos-footer-bar {
+  max-width: 60rem;
+  margin: 0 auto;
+  padding: 1rem 1.5rem 2rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  flex-wrap: wrap;
+  font-size: 0.8125rem;
+  color: #7e93ab;
+}
+
 /* Mermaid diagrams (astro-mermaid renders into .mermaid): center them, keep
  * them responsive, and give them a soft framed card so they read as figures. */
 .mermaid {
