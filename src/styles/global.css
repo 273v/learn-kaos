@@ -134,6 +134,62 @@
   border-inline-start: 3px solid var(--sl-color-accent);
 }
 
+/* Hero code card — kelvin's hero pairs the headline with a code/terminal card.
+ * Rendered via the splash hero's image.html slot, so it sits to the right of
+ * the copy on wide viewports. Navy terminal styling matching the brand. */
+.hero-code-card {
+  width: 100%;
+  max-width: 30rem;
+  margin-inline: auto;
+  background-color: #0c1a2a;
+  border: 1px solid #1e3450;
+  border-radius: 0.7rem;
+  box-shadow: 0 14px 40px rgba(0, 32, 67, 0.16);
+  overflow: hidden;
+  text-align: left;
+}
+.hero-code-head {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.6rem 0.9rem;
+  border-bottom: 1px solid #1e3450;
+}
+.hero-code-head > span {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background-color: #2f4d6b;
+}
+.hero-code-file {
+  width: auto !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  margin-inline-start: 0.5rem;
+  background: none !important;
+  font-family: var(--sl-font-mono, ui-monospace, monospace);
+  font-size: 0.72rem;
+  color: #8295aa;
+}
+.hero-code-body {
+  margin: 0;
+  padding: 1rem 1.1rem;
+  overflow-x: auto;
+  background: none;
+}
+.hero-code-body code {
+  font-family: var(--sl-font-mono, ui-monospace, monospace);
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: #c4d2e0;
+  white-space: pre;
+  background: none;
+}
+.hero-code-body .hcl-prompt,
+.hero-code-body .hcl-f {
+  color: #6cc4ec;
+}
+
 /* ---- Navy brand footer ------------------------------------------------
  * Matches kelvin.legal / 273ventures.com: deep navy (#001a2e), a teal
  * gradient hairline on top, link row, and a bottom bar. Full-bleeds to the

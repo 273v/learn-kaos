@@ -4,6 +4,20 @@ description: Tested, multi-learner docs and one-command runnable examples for th
 template: splash
 hero:
   tagline: Open agentic infrastructure for legal and financial work — learn it by running it. Every example on this site is a single command, and every snippet is tested.
+  image:
+    html: |
+      <div class="hero-code-card">
+        <div class="hero-code-head"><span></span><span></span><span></span><span class="hero-code-file">contract-to-template.py</span></div>
+        <pre class="hero-code-body"><code><span class="hcl-prompt">$</span> uv run contract-to-template.py
+
+      Found 4 fields with on-device NER (no key):
+        <span class="hcl-f">{{date_1}}</span>   &lt;- 'March 1, 2026'
+        <span class="hcl-f">{{party_1}}</span>  &lt;- 'Acme Corporation'
+        <span class="hcl-f">{{party_2}}</span>  &lt;- 'Globex Industries'
+        <span class="hcl-f">{{amount_1}}</span> &lt;- '$50,000'
+
+      Redline: 4 fields, 8 tracked changes &rarr; .docx</code></pre>
+      </div>
   actions:
     # Hero actions are frontmatter (not page content), so the base path is not
     # auto-prepended — include it explicitly here.
