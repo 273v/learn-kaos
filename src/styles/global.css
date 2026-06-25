@@ -83,39 +83,17 @@
   font-weight: 600;
 }
 
-/* Dark navy header bar in light mode — kelvin.legal and 273ventures.com both
- * run an always-dark top nav. (Dark mode already has a dark header.) Make the
- * bar the brand deep navy and flip its contents to light so the wordmark,
- * social icons, and theme toggle stay legible. */
-:root[data-theme='light'] {
-  --sl-color-bg-nav: #001a2e;
-}
+/* White/light sticky header with a hairline bottom border — kelvin.legal and
+ * 273ventures.com both run a light top nav (teal logo, dark links) over the
+ * page, NOT a dark bar. Keep Starlight's default light header; just give it the
+ * subtle brand hairline and a teal underline-on-hover on the wordmark. */
 :root[data-theme='light'] .header {
-  border-bottom: 1px solid #0a2c45;
+  border-bottom: 1px solid var(--sl-color-gray-6);
 }
-:root[data-theme='light'] .header .site-title {
-  color: #ffffff;
-}
-:root[data-theme='light'] .header a,
-:root[data-theme='light'] .header button {
-  color: #d4e2ee;
-}
-:root[data-theme='light'] .header a:hover,
-:root[data-theme='light'] .header button:hover {
-  color: #ffffff;
-}
-/* Search field: a translucent light surface that reads on the navy bar. */
-:root[data-theme='light'] .header site-search button {
-  background-color: rgba(255, 255, 255, 0.10);
-  border-color: rgba(255, 255, 255, 0.18);
-  color: #d4e2ee;
-}
-:root[data-theme='light'] .header site-search button:hover {
-  background-color: rgba(255, 255, 255, 0.16);
-}
-:root[data-theme='light'] .header site-search kbd {
-  background-color: rgba(255, 255, 255, 0.12);
-  color: #d4e2ee;
+/* Wordmark in the brand primary navy-teal (#005073), matching kelvin's "KAOS"
+ * logotype, rather than the brighter link accent. */
+:root[data-theme='light'] .site-title {
+  color: #005073;
 }
 
 /* Mermaid diagrams (astro-mermaid renders into .mermaid): center them, keep
