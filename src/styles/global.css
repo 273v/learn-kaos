@@ -96,6 +96,44 @@
   color: #005073;
 }
 
+/* ---- Marketing design language (splash / landing) ---------------------
+ * Mirror kelvin.legal + 273ventures.com: small teal uppercase "eyebrow"
+ * kickers above section headings, and cards with a left teal accent rule. */
+.eyebrow {
+  font-family: var(--sl-font);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #107dac;
+  margin-bottom: 0.35rem;
+}
+:root[data-theme='dark'] .eyebrow {
+  color: #6cc4ec;
+}
+
+/* Hero kicker — the eyebrow kelvin runs above its display headline. The splash
+ * hero only renders on landing pages, so scoping to .hero is safe. */
+.hero .copy > h1::before {
+  content: 'The Kelvin Agentic Operating System';
+  display: block;
+  font-family: var(--sl-font);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #107dac;
+  margin-bottom: 0.85rem;
+}
+:root[data-theme='dark'] .hero .copy > h1::before {
+  color: #6cc4ec;
+}
+
+/* Cards: a left teal accent rule, like kelvin's proof-point cards. */
+.sl-markdown-content .card {
+  border-inline-start: 3px solid var(--sl-color-accent);
+}
+
 /* Mermaid diagrams (astro-mermaid renders into .mermaid): center them, keep
  * them responsive, and give them a soft framed card so they read as figures. */
 .mermaid {
