@@ -189,6 +189,13 @@
 .hero-code-body .hcl-f {
   color: #6cc4ec;
 }
+/* In dark mode the page is already navy, so lift the card's border + shadow so
+ * it still reads as a distinct card rather than blending into the background. */
+:root[data-theme='dark'] .hero-code-card {
+  background-color: #0a1826;
+  border-color: #2a486a;
+  box-shadow: 0 14px 40px rgba(0, 0, 0, 0.4);
+}
 
 /* ---- Navy brand footer ------------------------------------------------
  * Matches kelvin.legal / 273ventures.com: deep navy (#001a2e), a teal
