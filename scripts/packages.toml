@@ -40,13 +40,13 @@ summary = "Thin provider-native LLM client — one interface over providers, plu
 name = "kaos-pdf"
 layer = "ingestion"
 cli = "kaos-pdf"
-summary = "PDF extraction to the content AST, with page/box provenance."
+summary = "PDF extraction to the content AST, with page/box provenance — plus auto re-OCR of garbled scans via Tesseract or local ONNX OCR."
 
 [[package]]
 name = "kaos-office"
 layer = "ingestion"
 cli = "kaos-office"
-summary = "DOCX / PPTX / XLSX extraction to the content AST."
+summary = "DOCX / PPTX / XLSX extraction to the content AST, with embedded images inlined as data URIs."
 
 [[package]]
 name = "kaos-tabular"
