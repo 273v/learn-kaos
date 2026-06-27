@@ -24,7 +24,9 @@ uv run examples/pdf-extract.py
 - `parse_pdf` returns a `ContentDocument` — the same shape `kaos-office`, `kaos-web`, and
   `kaos-tabular` produce.
 - It has rich options: `detect_headings`, `extract_tables`, `pages=[...]` for a subset,
-  and `ocr=` modes for scanned documents (with `[nlp]`/OCR engines).
+  and `ocr=` modes for scanned documents. `ocr="auto"` re-OCRs pages whose native text
+  layer is empty **or garbled** — see [recover a garbled scan](/how-to/recover-garbled-scans).
+  Engines are pluggable: Tesseract (`[ocr]`) or local ONNX RapidOCR (`[onnx]`).
 - Other `kaos-pdf` surfaces: `search`, `outline`, `render` (page → PNG), `info`/metadata,
   and page classification (text vs. scanned).
 - PDFium runs under a global lock for thread-safety; extraction is offloaded to a thread

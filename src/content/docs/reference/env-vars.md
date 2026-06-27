@@ -27,7 +27,7 @@ CLI/JSON output, and serialized settings.
 | kaos-core | `KAOS_` | storage/VFS, credential-store tier |
 | kaos-llm-client | `KAOS_LLM_` | provider keys (below); `KAOS_LLM_ALLOW_INSECURE_BASE_URL` (local models) |
 | kaos-llm-core | `KAOS_LLM_CORE_` | default model, optimizer/budget defaults |
-| kaos-agents | `KAOS_AGENT_` | `KAOS_AGENT_DEFAULT_LLM_MODEL`, `KAOS_AGENT_MAX_COST_USD`, context budget, retrieval threshold, max iterations |
+| kaos-agents | `KAOS_AGENT_` | `KAOS_AGENT_DEFAULT_LLM_MODEL`, `KAOS_AGENT_MAX_COST_USD`, context budget, retrieval threshold, max iterations, `KAOS_AGENT_OCR_VLM_ESCALATION` (send garbled scanned pages to a vision model — off by default) |
 | kaos-mcp | `KAOS_MCP_` | transport/host/port; HTTP auth token |
 | kaos-source | `KAOS_SOURCE_` | connector timeouts, `*_USER_AGENT` (EDGAR needs an email), GovInfo API key |
 | kaos-web | `KAOS_WEB_` | `KAOS_WEB_SERPAPI_API_KEY` / `EXA` / `BRAVE` (optional search); `KAOS_WEB_HTTP_TOKEN` |

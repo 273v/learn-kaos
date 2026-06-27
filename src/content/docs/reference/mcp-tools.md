@@ -17,7 +17,7 @@ Approximate counts (the authoritative list is generated per package — see belo
 | kaos-core | ~10 | — (use kaos-mcp) |
 | kaos-content | ~17 | — |
 | kaos-llm-client | ~7 | `kaos-llm-serve` |
-| kaos-llm-core | ~32 | `kaos-llm-core-serve` |
+| kaos-llm-core | ~35 | `kaos-llm-core-serve` |
 | kaos-agents | ~14 (+7 retrieval) | `kaos-agents-serve` |
 | kaos-pdf | ~8 | `kaos-pdf-serve` |
 | kaos-office | ~18 | `kaos-office-serve` |
@@ -39,6 +39,16 @@ package's tool registry (the monorepo's `scripts/inventory.py` enumerates every 
 resource, and schema). Prose on this site never hard-codes exact counts elsewhere, so the
 docs can't drift from the packages.
 :::
+
+## Vision tools
+
+`kaos-llm-core` exposes its vision-language-model page programs as three MCP tools, so any
+MCP client can run a model over a page image: `kaos-llm-core-vision-ocr` (transcribe every
+word), `kaos-llm-core-vision-describe` (page structure — headings, tables, stamps,
+signatures, redactions), and `kaos-llm-core-vision-classify` (one of ten page types with a
+confidence). Each takes a file `path` or base64 `image_base64` and an optional `model`.
+These are the escalation path behind [garbled-scan recovery](/how-to/recover-garbled-scans)
+when a deterministic OCR engine isn't enough.
 
 ## How tools are exposed
 

@@ -1,0 +1,84 @@
+---
+title: Recover a garbled scan layer
+description: Detect a present-but-garbled OCR text layer and re-OCR it automatically, then escalate the hardest pages to a vision model.
+---
+
+import { Code } from '@astrojs/starlight/components';
+import src from '#examples/recover-garbled-ocr.py?raw';
+
+**Goal:** rescue scanned PDFs that ship a *present but garbled* native text layer —
+the kind a scanner or an old "Paper Capture" pass leaves behind, where a title block
+reads `0RlGlt IAt lJn tbe @nitp! btutts` instead of "In the United States Court of
+Federal Claims". An empty-layer check misses these (there *is* text), so the garbage
+flows straight into search and extraction.
+
+`kaos-pdf` carries a cheap, dependency-free **legibility signal** — an English
+dictionary hit-rate scored on the *worst* line of a page — and
+`parse_pdf(path, ocr="auto")` uses it to re-OCR a scanned page whose native layer is
+garbled, not just the empty ones.
+
+```bash
+uv run examples/recover-garbled-ocr.py
+```
+
+```text
+garbled line legibility: 0.10
+clean line legibility:   1.00
+
+page worst-line score: 0.10
+worst line: '0RlGlt IAt lJn tbe @nitp! btutts ourt of trs lsims'
+
+garbled layer -> needs re-OCR
+clean layer   -> kept as-is
+```
+
+<Code code={src} lang="python" title="examples/recover-garbled-ocr.py" />
+
+**What to notice**
+
+- `ocr="auto"` now re-OCRs a structurally-scanned page when its native text is **empty
+  OR garbled** — the old behavior only caught empty layers. Born-digital text pages are
+  never touched. Tune the cut-off with `ocr_quality_threshold` (default `0.35`; set
+  `0.0` to restore the empty-layer-only behavior).
+- The signal is public, so you can measure layer quality yourself:
+  `line_legibility(text)`, `assess_text_quality(text)` (worst substantial line), and
+  `is_low_quality_layer(text)`. It needs no OCR engine and no network.
+
+**Pick a local OCR engine**
+
+`ocr="auto"`/`"always"` need an OCR engine. Two local options, both Apache-2.0:
+
+- **Tesseract** (default) — `pip install 'kaos-pdf[ocr]'` plus the system `tesseract`
+  binary. Zero-config and fast.
+- **RapidOCR / PP-OCRv5 on ONNX Runtime** — `pip install 'kaos-pdf[onnx]'`. Higher
+  accuracy on degraded and multi-column scans, no system binary, **no PyTorch and no
+  Hugging Face `transformers` runtime**. Pass it explicitly:
+
+```python
+from kaos_pdf import parse_pdf
+from kaos_pdf.ocr import RapidOcrEngine
+
+doc = parse_pdf("scan.pdf", ocr="auto", ocr_engine=RapidOcrEngine())
+```
+
+From the CLI, reach OCR with `kaos-pdf extract scan.pdf --ocr auto` (or `--ocr always`,
+`--ocr-dpi 400`).
+
+**Escalate the hardest pages to a vision model**
+
+When a deterministic engine still struggles — handwriting, stamps, mixed scripts — a
+[KAOS agent](/tutorials/first-agent) can escalate just those pages to a vision-language
+model. `kaos-agents` runs Tesseract first and sends only the low-confidence or garbled
+pages (the same legibility signal) to `kaos_llm_core.vision.ocr_page`, bounded by a
+per-document budget. Turn it on with `KAOS_AGENT_OCR_VLM_ESCALATION=1` (off by default —
+it makes live, billed calls). The vision programs are also
+[MCP tools](/reference/mcp-tools): `kaos-llm-core-vision-ocr`, `-describe`, and
+`-classify`.
+
+- The whole chain produces the **same [document AST](/concepts/one-document-model)** with
+  provenance — page, bounding box, and confidence — whether a page came from the native
+  text layer, Tesseract, RapidOCR, or a vision model. Downstream
+  [search](/how-to/search-text-with-bm25) and
+  [grounded extraction](/tutorials/grounded-citations) don't care which path it took.
+- Pair this with [page-level routing](/how-to/detect-pages-needing-ocr) to OCR only the
+  pages that need it, then re-OCR only the ones whose layer is garbled.

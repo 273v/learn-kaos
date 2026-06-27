@@ -28,5 +28,9 @@ uv run examples/office-roundtrip.py
   the source was Word.
 - Also available: `parse_pptx`, `parse_xlsx` (typed columns), `write_pptx`, `write_xlsx`,
   `compare_docx`/`write_redline` for redlining, plus search and metadata.
+- Embedded images come through as bytes: `parse_docx` and `parse_pptx` inline each picture
+  as a `data:image/...;base64,...` URI by default (or pass `image_src_builder` to route
+  bytes to a VFS / artifact store), so an embedded chart or signature can flow on to
+  [OCR or a vision model](/how-to/recover-garbled-scans).
 - For a real client file, swap the generated path for the document's path — everything
   downstream is identical.

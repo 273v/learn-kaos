@@ -138,6 +138,7 @@ export default defineConfig({
                 'how-to/parse-email',
                 'how-to/triage-before-ingest',
                 'how-to/detect-pages-needing-ocr',
+                'how-to/recover-garbled-scans',
                 'how-to/pull-a-sec-filing',
                 'how-to/redline-a-contract',
               ].map((slug) => ({ slug })),
